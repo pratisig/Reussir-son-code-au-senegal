@@ -68,7 +68,6 @@
         .header-text h1 { font-size: 1.1rem; font-weight: 700; color: #fff; }
         .header-text p { font-size: 0.75rem; color: rgba(255,255,255,0.8); }
 
-        /* USER BADGE dans header */
         .header-user {
             margin-left: auto;
             display: flex;
@@ -181,21 +180,23 @@
         .question-img-placeholder { background: rgba(251,191,36,0.08); border-left: 3px solid var(--warning); padding: 0.75rem 1rem; font-size: 0.8rem; color: var(--text-muted); }
         .question-body { padding: 1rem; }
 
-        /* OPTIONS — boutons A/B/C/D uniquement, grand et lisible */
+        /* OPTIONS */
         .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
-        @media(max-width: 400px) { .options-grid { grid-template-columns: 1fr 1fr; } }
         .option {
             background: var(--bg-deep); border: 2px solid transparent;
             padding: 1rem 0.5rem; border-radius: 8px;
             cursor: pointer; transition: all 0.18s;
             display: flex; align-items: center; justify-content: center;
-            gap: 0; font-size: 0.875rem;
+            font-size: 0.875rem;
         }
         .option:hover:not(.locked) { border-color: var(--green); background: rgba(0,133,63,0.1); }
         .option.selected { border-color: var(--primary); background: rgba(56,189,248,0.1); }
         .option.correct { border-color: var(--success); background: rgba(16,185,129,0.15); }
         .option.incorrect { border-color: var(--error); background: rgba(239,68,68,0.1); }
         .option.locked { cursor: default; }
+        /* Option désactivée quand max atteint */
+        .option.disabled-max { opacity: 0.35; cursor: not-allowed; }
+        .option.disabled-max:hover { border-color: transparent; background: var(--bg-deep); }
         .opt-letter {
             width: 36px; height: 36px; border-radius: 50%;
             background: var(--bg-card);
@@ -208,10 +209,11 @@
 
         /* HINT multi-choix */
         .hint-multi {
-            font-size: 0.75rem; color: var(--text-muted);
-            text-align: center; margin-bottom: 0.5rem;
-            background: rgba(56,189,248,0.06);
-            border-radius: 6px; padding: 0.3rem 0.5rem;
+            font-size: 0.8rem; color: var(--primary);
+            text-align: center; margin-bottom: 0.6rem;
+            background: rgba(56,189,248,0.07);
+            border-radius: 6px; padding: 0.4rem 0.75rem;
+            border: 1px solid rgba(56,189,248,0.2);
         }
 
         /* QUIZ ACTIONS */
@@ -349,13 +351,11 @@
             </div>
             <div class="question-body">
                 <div class="alert-answer" id="alertAnswer">⚠️ Veuillez sélectionner une réponse avant de continuer</div>
-                <!-- FIX: hint multi-choix affiché dynamiquement -->
-                <div class="hint-multi" id="hintMulti" style="display:none;">ℹ️ Sélectionnez 2 réponses (voir image)</div>
+                <div class="hint-multi" id="hintMulti" style="display:none;"></div>
                 <div class="options-grid" id="optionsContainer"></div>
             </div>
         </div>
         <div class="quiz-actions">
-            <!-- FIX: bouton quitter le quiz ajouté -->
             <button class="btn btn-quit btn-sm" onclick="quitQuiz()">✕ Quitter</button>
             <button class="btn btn-outline btn-sm btn-prev" onclick="prevQuestion()">← Préc.</button>
             <button class="btn" id="nextBtn" onclick="nextQuestion()">Suivant</button>
@@ -402,9 +402,7 @@
                 <h3 id="modalTitle">Correction Q1</h3>
                 <button class="modal-close" onclick="closeModalDirect()">×</button>
             </div>
-            <!-- Image de la question -->
             <img class="modal-img" id="modalImg" src="" alt="">
-            <!-- FIX: image des réponses de la série -->
             <div class="modal-rep-label">✅ Feuille de réponses — Série</div>
             <img class="modal-img-rep" id="modalImgRep" src="" alt="Réponses série">
             <div class="modal-options" id="modalOptions"></div>
@@ -417,9 +415,6 @@
 
     <script>
         // ============== DONNÉES ==============
-        // Les textes des options sont dans les images (B1_Q1.jpg etc.)
-        // On n'affiche que les lettres A/B/C/D comme boutons de sélection
-        // "a" = indices des bonnes réponses (0=A, 1=B, 2=C, 3=D)
         const quizData = {
             "B1": [
                 {"n":4,"a":[1,3]},
@@ -758,7 +753,7 @@
             progress: JSON.parse(localStorage.getItem('quizProgress') || '{}')
         };
 
-        // ============== FIREBASE AUTH LISTENER ==============
+        // ============== FIREBASE AUTH ==============
         window.addEventListener('load', function() {
             if (typeof firebase !== 'undefined' && typeof auth !== 'undefined') {
                 auth.onAuthStateChanged(function(user) {
@@ -789,36 +784,26 @@
                         localStorage.setItem('quizProgress', JSON.stringify(state.progress));
                     }
                 })
-                .catch(function(err) {
-                    console.warn('Erreur Firestore:', err);
-                })
-                .finally(function() {
-                    initApp();
-                });
+                .catch(function(err) { console.warn('Erreur Firestore:', err); })
+                .finally(function() { initApp(); });
         }
 
         function saveProgress() {
             localStorage.setItem('quizProgress', JSON.stringify(state.progress));
             if (typeof auth !== 'undefined' && auth.currentUser) {
-                var uid = auth.currentUser.uid;
-                db.collection('users').doc(uid).set(
-                    { progress: state.progress },
-                    { merge: true }
-                ).catch(function(err) {
-                    console.warn('Erreur sauvegarde Firestore:', err);
-                });
+                db.collection('users').doc(auth.currentUser.uid).set(
+                    { progress: state.progress }, { merge: true }
+                ).catch(function(err) { console.warn('Erreur sauvegarde:', err); });
             }
         }
 
         function handleLogout() {
             if (typeof auth !== 'undefined') {
-                auth.signOut().then(function() {
-                    window.location.href = 'login.html';
-                });
+                auth.signOut().then(function() { window.location.href = 'login.html'; });
             }
         }
 
-        // ============== INIT APP ==============
+        // ============== INIT ==============
         function initApp() {
             renderSeriesGrid();
             showScreen('screen-welcome');
@@ -858,7 +843,6 @@
             renderQuestion();
         }
 
-        // FIX: quitter le quiz et retourner aux séries
         function quitQuiz() {
             if (confirm('Quitter cette série ? La progression sera perdue.')) {
                 clearInterval(state.timerInterval);
@@ -866,7 +850,6 @@
             }
         }
 
-        // ============== TIMER ==============
         function updateTimer() {
             var s = Math.floor((Date.now() - state.startTime) / 1000);
             var m = Math.floor(s / 60), sec = s % 60;
@@ -879,20 +862,27 @@
             var i = state.qIndex;
             var q = quizData[state.series][i];
             var locked = state.locked[i];
-            var nbOptions = q.n;  // nombre d'options: 2 ou 4
-            var isMulti = q.a.length > 1;  // question à choix multiple
+            var isMulti = q.a.length > 1;
+            var maxSel = isMulti ? 2 : 1;
+            var currentSel = state.answers[i].length;
 
             document.getElementById('progressBar').style.width = ((i + 1) / 25 * 100) + '%';
             document.getElementById('qNum').textContent = i + 1;
 
-            // Afficher/cacher le hint multi-choix
+            // Hint
             var hintEl = document.getElementById('hintMulti');
-            hintEl.style.display = (isMulti && !locked) ? 'block' : 'none';
+            if (isMulti && !locked) {
+                hintEl.style.display = 'block';
+                hintEl.textContent = currentSel < 2
+                    ? 'ℹ️ Sélectionnez 2 réponses — ' + currentSel + '/2 choisie(s)'
+                    : '✅ 2 réponses sélectionnées — cliquez Valider';
+            } else {
+                hintEl.style.display = 'none';
+            }
 
             var imgEl = document.getElementById('questionImg');
             var placeholder = document.getElementById('imgPlaceholder');
             imgEl.src = 'images/' + state.series + '_Q' + (i + 1) + '.jpg';
-            imgEl.alt = state.series + ' Question ' + (i + 1);
             imgEl.style.display = 'block';
             placeholder.style.display = 'none';
 
@@ -900,12 +890,11 @@
 
             var container = document.getElementById('optionsContainer');
             container.innerHTML = '';
-
-            // Adapter la grille selon le nombre d'options
-            container.style.gridTemplateColumns = nbOptions === 2 ? '1fr 1fr' : '1fr 1fr';
+            container.style.gridTemplateColumns = '1fr 1fr';
 
             var labels = ['A', 'B', 'C', 'D'];
-            for (var idx = 0; idx < nbOptions; idx++) {
+
+            for (var idx = 0; idx < q.n; idx++) {
                 var div = document.createElement('div');
                 div.className = 'option';
                 var selected = state.answers[i].indexOf(idx) > -1;
@@ -914,12 +903,14 @@
                 if (locked) {
                     div.classList.add('locked');
                     if (isCorrect) div.classList.add('correct');
-                    else if (selected && !isCorrect) div.classList.add('incorrect');
+                    else if (selected) div.classList.add('incorrect');
                 } else if (selected) {
                     div.classList.add('selected');
+                } else if (currentSel >= maxSel) {
+                    // Max atteint et cette option n'est pas sélectionnée → grisée
+                    div.classList.add('disabled-max');
                 }
 
-                // FIX: on affiche uniquement la lettre (le texte est dans l'image)
                 div.innerHTML = '<div class="opt-letter">' + labels[idx] + '</div>';
 
                 if (!locked) {
@@ -930,6 +921,7 @@
                 container.appendChild(div);
             }
 
+            // Bouton suivant
             var nextBtn = document.getElementById('nextBtn');
             if (i === 24) {
                 nextBtn.textContent = locked ? 'Voir les résultats' : 'Valider & Terminer';
@@ -940,25 +932,29 @@
             }
         }
 
-        // ============== FIX: TOGGLE OPTION ==============
-        // Correction: suppression de la logique d'exclusion mutuelle erronée
-        // Pour les questions à 2 options (Vrai/Faux), on ne garde qu'une seule sélection
-        // Pour les questions à 4 options, on permet la sélection libre (multi ou mono)
+        // ============== TOGGLE OPTION (CORRIGÉ) ==============
+        // RÈGLE :
+        // • Question à 2 options  → sélection exclusive (1 seule)
+        // • Question à 4 options, 1 réponse attendue → sélection exclusive
+        // • Question à 4 options, 2 réponses attendues → libre parmi A/B/C/D, max 2
+        //   Aucune exclusion par ligne (A/B ne s'excluent PAS mutuellement,
+        //   C/D ne s'excluent PAS mutuellement).
         function toggleOption(idx) {
             var i = state.qIndex;
             var q = quizData[state.series][i];
             var arr = state.answers[i];
             var pos = arr.indexOf(idx);
+            var isMulti = q.a.length > 1;   // 2 bonnes réponses attendues
+            var maxSel = isMulti ? 2 : 1;
 
             if (pos > -1) {
-                // Décocher
+                // Décocher l'option déjà sélectionnée
                 arr.splice(pos, 1);
             } else {
-                if (q.n === 2) {
-                    // Questions à 2 options (Vrai/Faux): sélection exclusive
-                    arr.length = 0;
+                if (arr.length >= maxSel) {
+                    // Déjà au max → remplacer la première sélection (rotation)
+                    arr.shift();
                 }
-                // Pour 4 options: sélection libre (l'utilisateur voit les options dans l'image)
                 arr.push(idx);
             }
             renderQuestion();
@@ -967,10 +963,15 @@
         // ============== VALIDER ==============
         function validateAndNext() {
             var i = state.qIndex;
+            var q = quizData[state.series][i];
+            var isMulti = q.a.length > 1;
+
             if (state.answers[i].length === 0) {
                 document.getElementById('alertAnswer').classList.add('show');
                 return;
             }
+            // Pour les questions multi-choix, valider même avec 1 seule réponse
+            // (l'utilisateur peut vouloir tenter avec une seule)
             state.locked[i] = true;
             renderQuestion();
         }
@@ -1024,10 +1025,8 @@
                 var cell = document.createElement('div');
                 cell.className = 'q-cell ' + (ok ? 'ok' : 'ko');
                 cell.textContent = j + 1;
-                cell.title = 'Question ' + (j + 1) + ' : ' + (ok ? 'Correct' : 'Incorrect');
-                (function(qi) {
-                    cell.onclick = function() { openModal(qi); };
-                })(j);
+                cell.title = 'Q' + (j+1) + ' : ' + (ok ? 'Correct ✓' : 'Incorrect ✗');
+                (function(qi) { cell.onclick = function() { openModal(qi); }; })(j);
                 grid.appendChild(cell);
             }
 
@@ -1035,7 +1034,7 @@
             showScreen('screen-results');
         }
 
-        // ============== FIX: MODAL avec image réponses ==============
+        // ============== MODAL ==============
         function openModal(qIndex) {
             var q = quizData[state.series][qIndex];
             var ua = state.answers[qIndex];
@@ -1045,13 +1044,11 @@
             document.getElementById('modalTitle').textContent =
                 'Correction ' + state.series + ' • Q' + (qIndex + 1);
 
-            // Image de la question
             var modalImg = document.getElementById('modalImg');
             modalImg.src = 'images/' + state.series + '_Q' + (qIndex + 1) + '.jpg';
             modalImg.onerror = function() { this.style.display = 'none'; };
             modalImg.style.display = 'block';
 
-            // FIX: Image de la feuille de réponses de la série
             var modalImgRep = document.getElementById('modalImgRep');
             modalImgRep.src = 'images/' + state.series + '_reponses.jpg';
             modalImgRep.onerror = function() {
@@ -1063,18 +1060,16 @@
             var repLabel = modalImgRep.previousElementSibling;
             if (repLabel) repLabel.style.display = 'block';
 
-            // Options avec lettres seulement
             var opts = document.getElementById('modalOptions');
             opts.innerHTML = '';
             for (var idx = 0; idx < q.n; idx++) {
                 var isCorrect = ca.indexOf(idx) > -1;
                 var wasSelected = ua.indexOf(idx) > -1;
-                var cls = 'neutral';
-                if (isCorrect) cls = 'correct';
-                else if (wasSelected && !isCorrect) cls = 'incorrect';
+                var cls = isCorrect ? 'correct' : (wasSelected ? 'incorrect' : 'neutral');
                 var div = document.createElement('div');
                 div.className = 'modal-option ' + cls;
-                div.innerHTML = '<div class="modal-opt-letter">' + labels[idx] + '</div>' +
+                div.innerHTML =
+                    '<div class="modal-opt-letter">' + labels[idx] + '</div>' +
                     '<div style="flex:1">Option ' + labels[idx] + ' (voir image)</div>' +
                     (isCorrect ? '<span>✓</span>' : '') +
                     (wasSelected && !isCorrect ? '<span>✗</span>' : '');
@@ -1087,11 +1082,9 @@
         function closeModal(e) {
             if (e.target === document.getElementById('modalOverlay')) closeModalDirect();
         }
-
         function closeModalDirect() {
             document.getElementById('modalOverlay').classList.remove('open');
         }
-
         function retryQuiz() { startQuiz(state.series); }
     </script>
 </body>
