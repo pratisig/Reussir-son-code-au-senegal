@@ -702,23 +702,22 @@
 <div class="screen active" id="screen-login">
     <div class="card" style="margin-top: 2rem;">
         <div class="welcome-icon">🔐</div>
-        <div class="welcome-title">Connexion obligatoire</div>
+        <div class="welcome-title">Connexion / Inscription</div>
         <div class="welcome-sub">
-            Entrez votre numéro pour accéder à l'entraînement
+            Créez un compte ou connectez-vous
         </div>
 
-        <input type="text" id="phoneInput" placeholder="Ex: 771234567"
+        <input type="email" id="emailInput" placeholder="Votre email"
             style="width:100%;padding:12px;border-radius:8px;border:none;margin-bottom:12px;font-size:1rem;">
 
-        <div id="recaptcha-container"></div>
+        <input type="password" id="passwordInput" placeholder="Mot de passe"
+            style="width:100%;padding:12px;border-radius:8px;border:none;margin-bottom:12px;font-size:1rem;">
 
-        <button class="btn" onclick="sendOTP()">Recevoir code SMS</button>
+        <button class="btn" onclick="loginUser()">Se connecter</button>
 
-        <input type="text" id="otpInput" placeholder="Code reçu par SMS"
-            style="width:100%;padding:12px;border-radius:8px;border:none;margin-top:12px;font-size:1rem;">
-
-        <button class="btn" style="margin-top:10px;" onclick="verifyOTP()">Valider</button>
+        <button class="btn btn-outline" style="margin-top:10px;" onclick="registerUser()">Créer un compte</button>
     </div>
+</div>
 </div>
     <!-- WELCOME -->
     <div class="screen" id="screen-welcome">
@@ -834,9 +833,10 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { 
     getAuth, 
-    RecaptchaVerifier, 
-    signInWithPhoneNumber, 
-    onAuthStateChanged 
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    signOut,
+    onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
 const firebaseConfig = {
@@ -851,73 +851,49 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-// IMPORTANT
-auth.useDeviceLanguage();
+// ===== INSCRIPTION =====
+window.registerUser = async function() {
+    const email = document.getElementById("emailInput").value;
+    const password = document.getElementById("passwordInput").value;
 
-// ===== SEND OTP =====
-window.sendOTP = async function() {
     try {
-
-        const phoneRaw = document.getElementById("phoneInput").value.trim();
-        if (!phoneRaw) {
-            alert("Entrez votre numéro");
-            return;
-        }
-
-        const phone = "+221" + phoneRaw;
-
-        // Détruire ancien recaptcha si existe
-        if (window.recaptchaVerifier) {
-            window.recaptchaVerifier.clear();
-        }
-
-        window.recaptchaVerifier = new RecaptchaVerifier(
-            auth,
-            'recaptcha-container',
-            {
-                size: 'normal'
-            }
-        );
-
-        const appVerifier = window.recaptchaVerifier;
-
-        const confirmationResult = await signInWithPhoneNumber(auth, phone, appVerifier);
-
-        window.confirmationResult = confirmationResult;
-
-        alert("SMS envoyé !");
-
+        await createUserWithEmailAndPassword(auth, email, password);
+        alert("Compte créé !");
+        showScreen('screen-welcome');
     } catch (error) {
-        console.error(error);
-        alert("Erreur : " + error.message);
+        alert(error.message);
     }
-};
+}
 
-// ===== VERIFY OTP =====
-window.verifyOTP = async function() {
+// ===== CONNEXION =====
+window.loginUser = async function() {
+    const email = document.getElementById("emailInput").value;
+    const password = document.getElementById("passwordInput").value;
+
     try {
-        const code = document.getElementById("otpInput").value;
-        if (!code) {
-            alert("Entrez le code reçu");
-            return;
-        }
-
-        await window.confirmationResult.confirm(code);
-
+        await signInWithEmailAndPassword(auth, email, password);
         alert("Connexion réussie !");
         showScreen('screen-welcome');
-
     } catch (error) {
-        alert("Code incorrect");
+        alert("Email ou mot de passe incorrect");
     }
-};
+}
+
+// ===== DÉCONNEXION =====
+window.logoutUser = async function() {
+    await signOut(auth);
+    showScreen('screen-login');
+}
 
 // ===== AUTO LOGIN =====
 onAuthStateChanged(auth, (user) => {
     if (user) {
         showScreen('screen-welcome');
+    } else {
+        showScreen('screen-login');
     }
 });
+
 </script>
     <script>
         // ============== DONNÉES CORRIGÉES ==============
@@ -1284,10 +1260,10 @@ onAuthStateChanged(auth, (user) => {
         function startQuiz(series) {
 
     if (!auth.currentUser) {
-        alert("Connexion requise");
-        showScreen('screen-login');
-        return;
-    }
+    alert("Connexion requise");
+    showScreen('screen-login');
+    return;
+}
 
     state.series = series;
     state.qIndex = 0;
