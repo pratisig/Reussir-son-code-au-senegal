@@ -22,7 +22,13 @@
             --warning: #f59e0b;
             --radius: 12px;
         }
-        * { margin:0; padding:0; box-sizing:border-box; }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background: var(--bg);
@@ -30,7 +36,7 @@
             min-height: 100vh;
         }
 
-        /* ── HEADER ── */
+        /* HEADER */
         header {
             background: linear-gradient(135deg, var(--green), var(--green-dark));
             padding: 1rem 1.25rem;
@@ -38,1437 +44,1383 @@
             align-items: center;
             gap: 0.875rem;
             box-shadow: 0 2px 12px rgba(0,133,63,0.4);
-            position: sticky; top: 0; z-index: 100;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
-        .flag { width:48px; height:32px; border-radius:3px; overflow:hidden; display:flex; flex-shrink:0; border:1px solid rgba(255,255,255,0.3); }
-        .flag-g { flex:1; background:var(--green); }
-        .flag-y { flex:1; background:var(--yellow); display:flex; align-items:center; justify-content:center; }
-        .flag-r { flex:1; background:var(--red); }
-        .flag-star { color:var(--green); font-size:14px; }
-        .header-text h1 { font-size:1.1rem; font-weight:700; color:#fff; }
-        .header-text p { font-size:0.75rem; color:rgba(255,255,255,0.8); }
 
-        /* ── SCREENS ── */
-        .screen { display:none; padding:1rem; max-width:680px; margin:0 auto; }
-        .screen.active { display:block; }
+        .flag {
+            width: 48px;
+            height: 32px;
+            border-radius: 3px;
+            overflow: hidden;
+            display: flex;
+            flex-shrink: 0;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
 
-        /* ── CARDS ── */
+        .flag-g { flex: 1; background: var(--green); }
+        .flag-y { 
+            flex: 1; 
+            background: var(--yellow); 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .flag-r { flex: 1; background: var(--red); }
+        .flag-star { color: var(--green); font-size: 14px; }
+
+        .header-text h1 { 
+            font-size: 1.1rem; 
+            font-weight: 700; 
+            color: #fff; 
+        }
+        .header-text p { 
+            font-size: 0.75rem; 
+            color: rgba(255,255,255,0.8); 
+        }
+
+        /* SCREENS */
+        .screen {
+            display: none;
+            padding: 1rem;
+            max-width: 680px;
+            margin: 0 auto;
+        }
+        .screen.active { display: block; }
+
+        /* CARDS */
         .card {
-            background:var(--bg-card);
-            border-radius:var(--radius);
-            padding:1.5rem;
-            margin-bottom:1rem;
-            box-shadow:0 4px 12px rgba(0,0,0,0.3);
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
 
-        /* ── BUTTONS ── */
+        /* BUTTONS */
         .btn {
-            background:var(--green);
-            color:#fff; border:none;
-            padding:0.875rem 1.5rem;
-            border-radius:8px;
-            font-size:0.95rem; font-weight:600;
-            cursor:pointer; transition:all 0.2s;
-            display:inline-flex; align-items:center; justify-content:center;
-            gap:0.5rem; width:100%;
+            background: var(--green);
+            color: #fff;
+            border: none;
+            padding: 0.875rem 1.5rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
         }
-        .btn:hover { background:var(--green-dark); transform:translateY(-1px); }
-        .btn:active { transform:translateY(0); }
+
+        .btn:hover {
+            background: var(--green-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
         .btn-outline {
-            background:transparent;
-            border:2px solid var(--primary);
-            color:var(--primary);
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
         }
-        .btn-outline:hover { background:var(--primary); color:var(--bg); }
-        .btn-sm { padding:0.5rem 1rem; font-size:0.85rem; width:auto; }
-        .btn-row { display:flex; gap:0.75rem; margin-top:1rem; }
-        .btn-row .btn { flex:1; }
 
-        /* ── WELCOME ── */
-        .welcome-icon { font-size:3rem; text-align:center; margin-bottom:1rem; }
-        .welcome-title { font-size:1.5rem; font-weight:700; text-align:center; margin-bottom:0.5rem; }
-        .welcome-sub { color:var(--text-muted); text-align:center; margin-bottom:1.5rem; font-size:0.9rem; }
+        .btn-outline:hover {
+            background: var(--primary);
+            color: var(--bg);
+        }
+
+        .btn-sm {
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+            width: auto;
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .btn-row .btn { flex: 1; }
+
+        /* WELCOME */
+        .welcome-icon {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .welcome-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .welcome-sub {
+            color: var(--text-muted);
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+
         .info-box {
-            background:rgba(56,189,248,0.08);
-            border-left:3px solid var(--primary);
-            padding:1rem; border-radius:6px;
-            margin-bottom:1.5rem; font-size:0.875rem;
+            background: rgba(56,189,248,0.08);
+            border-left: 3px solid var(--primary);
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 1.5rem;
+            font-size: 0.875rem;
         }
-        .info-box ul { margin-left:1.25rem; margin-top:0.5rem; line-height:2; }
 
-        /* ── SERIES GRID ── */
-        .series-title { font-size:1.2rem; font-weight:700; margin-bottom:0.25rem; }
-        .series-sub { color:var(--text-muted); font-size:0.875rem; margin-bottom:1.25rem; }
+        .info-box ul {
+            margin-left: 1.25rem;
+            margin-top: 0.5rem;
+            line-height: 2;
+        }
+
+        /* SERIES GRID */
+        .series-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .series-sub {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            margin-bottom: 1.25rem;
+        }
+
         .series-grid {
-            display:grid;
-            grid-template-columns:repeat(auto-fill, minmax(90px,1fr));
-            gap:0.75rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+            gap: 0.75rem;
         }
+
         .series-btn {
-            background:var(--bg-deep);
-            border:2px solid var(--green);
-            color:var(--text);
-            padding:1.1rem 0.5rem;
-            border-radius:10px;
-            font-size:1rem; font-weight:700;
-            cursor:pointer; transition:all 0.2s;
-            text-align:center; position:relative;
+            background: var(--bg-deep);
+            border: 2px solid var(--green);
+            color: var(--text);
+            padding: 1.1rem 0.5rem;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+            position: relative;
         }
-        .series-btn:hover { background:var(--green); transform:scale(1.04); }
-        .series-btn.done { border-color:var(--success); background:rgba(16,185,129,0.1); }
+
+        .series-btn:hover {
+            background: var(--green);
+            transform: scale(1.04);
+        }
+
+        .series-btn.done {
+            border-color: var(--success);
+            background: rgba(16,185,129,0.1);
+        }
+
         .series-btn.done::after {
-            content:'✓'; position:absolute; top:4px; right:6px;
-            color:var(--success); font-size:0.85rem;
-        }
-        .series-btn .serie-score {
-            display:block; font-size:0.7rem;
-            color:var(--text-muted); font-weight:400; margin-top:3px;
+            content: '✓';
+            position: absolute;
+            top: 4px;
+            right: 6px;
+            color: var(--success);
+            font-size: 0.85rem;
         }
 
-        /* ── QUIZ HEADER ── */
+        .serie-score {
+            display: block;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            font-weight: 400;
+            margin-top: 3px;
+        }
+
+        /* QUIZ HEADER */
         .quiz-topbar {
-            display:flex; justify-content:space-between; align-items:center;
-            margin-bottom:0.875rem; gap:0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.875rem;
+            gap: 0.5rem;
         }
-        .quiz-info { font-size:0.9rem; font-weight:600; color:var(--text-muted); }
-        .quiz-serie { font-size:1rem; font-weight:700; color:var(--primary); }
+
+        .quiz-info {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .quiz-serie {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
         .timer {
-            font-size:1rem; font-weight:700; color:var(--yellow);
-            background:rgba(253,239,66,0.1); padding:0.3rem 0.75rem;
-            border-radius:20px; border:1px solid rgba(253,239,66,0.3);
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--yellow);
+            background: rgba(253,239,66,0.1);
+            padding: 0.3rem 0.75rem;
+            border-radius: 20px;
+            border: 1px solid rgba(253,239,66,0.3);
         }
+
         .progress-bar {
-            background:var(--bg-deep); height:6px;
-            border-radius:3px; overflow:hidden; margin-bottom:1rem;
+            background: var(--bg-deep);
+            height: 6px;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 1rem;
         }
+
         .progress-fill {
-            background:linear-gradient(90deg, var(--green), var(--yellow));
-            height:100%; transition:width 0.4s ease;
+            background: linear-gradient(90deg, var(--green), var(--yellow));
+            height: 100%;
+            transition: width 0.4s ease;
         }
 
-        /* ── QUESTION CARD ── */
-        .question-card { background:var(--bg-card); border-radius:var(--radius); overflow:hidden; margin-bottom:1rem; }
+        /* QUESTION CARD */
+        .question-card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
         .question-img {
-            width:100%; display:block;
-            max-height:260px; object-fit:contain;
-            background:#000; padding:0.5rem;
+            width: 100%;
+            display: block;
+            max-height: 260px;
+            object-fit: contain;
+            background: #000;
+            padding: 0.5rem;
         }
+
         .question-img-placeholder {
-            background:rgba(251,191,36,0.08);
-            border-left:3px solid var(--warning);
-            padding:0.75rem 1rem; font-size:0.8rem;
-            color:var(--text-muted);
+            background: rgba(251,191,36,0.08);
+            border-left: 3px solid var(--warning);
+            padding: 0.75rem 1rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
         }
-        .question-body { padding:1rem; }
 
-        /* ── OPTIONS 2 COLONNES ── */
+        .question-body {
+            padding: 1rem;
+        }
+
+        /* OPTIONS (2 COLONNES) */
         .options-grid {
-            display:grid;
-            grid-template-columns:1fr 1fr;
-            gap:0.6rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.6rem;
         }
-        @media(max-width:400px) {
-            .options-grid { grid-template-columns:1fr; }
+
+        @media(max-width: 400px) {
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
         }
+
         .option {
-            background:var(--bg-deep);
-            border:2px solid transparent;
-            padding:0.75rem 0.875rem;
-            border-radius:8px; cursor:pointer;
-            transition:all 0.18s;
-            display:flex; align-items:center; gap:0.6rem;
-            font-size:0.875rem;
+            background: var(--bg-deep);
+            border: 2px solid transparent;
+            padding: 0.75rem 0.875rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.18s;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.875rem;
         }
-        .option:hover:not(.locked) { border-color:var(--green); background:rgba(0,133,63,0.1); }
-        .option.selected { border-color:var(--primary); background:rgba(56,189,248,0.1); }
-        .option.correct { border-color:var(--success); background:rgba(16,185,129,0.15); }
-        .option.incorrect { border-color:var(--error); background:rgba(239,68,68,0.1); }
-        .option.locked { cursor:default; }
+
+        .option:hover:not(.locked) {
+            border-color: var(--green);
+            background: rgba(0,133,63,0.1);
+        }
+
+        .option.selected {
+            border-color: var(--primary);
+            background: rgba(56,189,248,0.1);
+        }
+
+        .option.correct {
+            border-color: var(--success);
+            background: rgba(16,185,129,0.15);
+        }
+
+        .option.incorrect {
+            border-color: var(--error);
+            background: rgba(239,68,68,0.1);
+        }
+
+        .option.locked {
+            cursor: default;
+        }
+
         .opt-letter {
-            width:28px; height:28px; border-radius:50%;
-            background:var(--bg-card);
-            display:flex; align-items:center; justify-content:center;
-            font-weight:700; font-size:0.8rem; flex-shrink:0;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--bg-card);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.8rem;
+            flex-shrink: 0;
         }
-        .option.correct .opt-letter { background:var(--success); color:#fff; }
-        .option.incorrect .opt-letter { background:var(--error); color:#fff; }
-        .opt-text { flex:1; line-height:1.3; }
 
-        /* ── QUIZ ACTIONS ── */
+        .option.correct .opt-letter {
+            background: var(--success);
+            color: #fff;
+        }
+
+        .option.incorrect .opt-letter {
+            background: var(--error);
+            color: #fff;
+        }
+
+        .opt-text {
+            flex: 1;
+            line-height: 1.3;
+        }
+
+        /* QUIZ ACTIONS */
         .quiz-actions {
-            display:flex; gap:0.75rem; align-items:center;
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
         }
-        .quiz-actions .btn { flex:1; }
-        .btn-prev { max-width:120px; }
 
-        /* ── ALERT REPONDRE ── */
+        .quiz-actions .btn {
+            flex: 1;
+        }
+
+        .btn-prev {
+            max-width: 120px;
+        }
+
+        /* ALERT RÉPONDRE */
         .alert-answer {
-            background:rgba(245,158,11,0.1);
-            border:1px solid var(--warning);
-            color:var(--warning);
-            padding:0.6rem 1rem; border-radius:8px;
-            font-size:0.85rem; text-align:center;
-            margin-bottom:0.75rem; display:none;
+            background: rgba(245,158,11,0.1);
+            border: 1px solid var(--warning);
+            color: var(--warning);
+            padding: 0.6rem 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            text-align: center;
+            margin-bottom: 0.75rem;
+            display: none;
         }
-        .alert-answer.show { display:block; }
 
-        /* ── RESULTS ── */
-        .result-header { text-align:center; padding:1.5rem 1rem 1rem; }
+        .alert-answer.show {
+            display: block;
+        }
+
+        /* RESULTS */
+        .result-header {
+            text-align: center;
+            padding: 1.5rem 1rem 1rem;
+        }
+
         .result-badge {
-            font-size:3.5rem; margin-bottom:0.75rem; display:block;
+            font-size: 3.5rem;
+            margin-bottom: 0.75rem;
+            display: block;
         }
+
         .result-verdict {
-            font-size:1.6rem; font-weight:800; margin-bottom:0.25rem;
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 0.25rem;
         }
-        .result-verdict.admis { color:var(--success); }
-        .result-verdict.ajourn { color:var(--error); }
-        .result-serie { color:var(--text-muted); font-size:0.9rem; margin-bottom:1rem; }
+
+        .result-verdict.admis {
+            color: var(--success);
+        }
+
+        .result-verdict.ajourn {
+            color: var(--error);
+        }
+
+        .result-serie {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
         .result-stats {
-            display:grid; grid-template-columns:repeat(3,1fr);
-            gap:0.75rem; margin-bottom:1rem;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.75rem;
+            margin-bottom: 1rem;
         }
+
         .stat-box {
-            background:var(--bg-deep); border-radius:10px;
-            padding:1rem 0.5rem; text-align:center;
+            background: var(--bg-deep);
+            border-radius: 10px;
+            padding: 1rem 0.5rem;
+            text-align: center;
         }
-        .stat-val { font-size:1.6rem; font-weight:800; }
-        .stat-lbl { font-size:0.72rem; color:var(--text-muted); margin-top:2px; }
 
-        /* ── TABLEAU CORRECTIONS ── */
-        .correction-title { font-size:1rem; font-weight:700; margin-bottom:0.875rem; }
+        .stat-val {
+            font-size: 1.6rem;
+            font-weight: 800;
+        }
+
+        .stat-lbl {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        /* TABLEAU CORRECTIONS */
+        .correction-title {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.875rem;
+        }
+
         .questions-grid {
-            display:grid;
-            grid-template-columns:repeat(5,1fr);
-            gap:0.5rem;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0.5rem;
         }
-        @media(min-width:500px) {
-            .questions-grid { grid-template-columns:repeat(7,1fr); }
+
+        @media(min-width: 500px) {
+            .questions-grid {
+                grid-template-columns: repeat(7, 1fr);
+            }
         }
+
         .q-cell {
-            aspect-ratio:1;
-            border-radius:8px; border:2px solid transparent;
-            display:flex; align-items:center; justify-content:center;
-            font-weight:700; font-size:0.85rem;
-            cursor:pointer; transition:all 0.2s;
+            aspect-ratio: 1;
+            border-radius: 8px;
+            border: 2px solid transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
         }
-        .q-cell.ok { background:rgba(16,185,129,0.15); border-color:var(--success); color:var(--success); }
-        .q-cell.ko { background:rgba(239,68,68,0.15); border-color:var(--error); color:var(--error); }
-        .q-cell:hover { transform:scale(1.1); box-shadow:0 2px 8px rgba(0,0,0,0.3); }
 
-        /* ── MODAL CORRECTION ── */
+        .q-cell.ok {
+            background: rgba(16,185,129,0.15);
+            border-color: var(--success);
+            color: var(--success);
+        }
+
+        .q-cell.ko {
+            background: rgba(239,68,68,0.15);
+            border-color: var(--error);
+            color: var(--error);
+        }
+
+        .q-cell:hover {
+            transform: scale(1.1);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        /* MODAL CORRECTION */
         .modal-overlay {
-            display:none; position:fixed; inset:0;
-            background:rgba(0,0,0,0.85); z-index:200;
-            padding:1rem; overflow-y:auto;
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.85);
+            z-index: 200;
+            padding: 1rem;
+            overflow-y: auto;
         }
-        .modal-overlay.open { display:flex; align-items:flex-start; justify-content:center; }
+
+        .modal-overlay.open {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+        }
+
         .modal {
-            background:var(--bg-card); border-radius:var(--radius);
-            width:100%; max-width:600px; overflow:hidden;
-            margin:auto;
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            width: 100%;
+            max-width: 600px;
+            overflow: hidden;
+            margin: auto;
         }
+
         .modal-header {
-            background:var(--bg-deep); padding:0.875rem 1rem;
-            display:flex; justify-content:space-between; align-items:center;
+            background: var(--bg-deep);
+            padding: 0.875rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        .modal-header h3 { font-size:1rem; font-weight:700; }
+
+        .modal-header h3 {
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
         .modal-close {
-            background:none; border:none; color:var(--text-muted);
-            font-size:1.4rem; cursor:pointer; line-height:1; padding:0.25rem;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.4rem;
+            cursor: pointer;
+            line-height: 1;
+            padding: 0.25rem;
         }
+
         .modal-img {
-            width:100%; display:block;
-            max-height:300px; object-fit:contain;
-            background:#000; padding:0.5rem;
+            width: 100%;
+            display: block;
+            max-height: 300px;
+            object-fit: contain;
+            background: #000;
+            padding: 0.5rem;
         }
-        .modal-options { padding:1rem; }
+
+        .modal-options {
+            padding: 1rem;
+        }
+
         .modal-option {
-            display:flex; align-items:center; gap:0.75rem;
-            padding:0.75rem 1rem; border-radius:8px;
-            margin-bottom:0.5rem; font-size:0.9rem;
-            border:2px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            border: 2px solid transparent;
         }
-        .modal-option.correct { border-color:var(--success); background:rgba(16,185,129,0.12); color:var(--success); }
-        .modal-option.incorrect { border-color:var(--error); background:rgba(239,68,68,0.08); color:var(--error); }
-        .modal-option.neutral { border-color:rgba(255,255,255,0.1); color:var(--text-muted); }
+
+        .modal-option.correct {
+            border-color: var(--success);
+            background: rgba(16,185,129,0.12);
+            color: var(--success);
+        }
+
+        .modal-option.incorrect {
+            border-color: var(--error);
+            background: rgba(239,68,68,0.08);
+            color: var(--error);
+        }
+
+        .modal-option.neutral {
+            border-color: rgba(255,255,255,0.1);
+            color: var(--text-muted);
+        }
+
         .modal-opt-letter {
-            width:30px; height:30px; border-radius:50%;
-            display:flex; align-items:center; justify-content:center;
-            font-weight:700; font-size:0.8rem; flex-shrink:0;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.8rem;
+            flex-shrink: 0;
         }
-        .modal-option.correct .modal-opt-letter { background:var(--success); color:#fff; }
-        .modal-option.incorrect .modal-opt-letter { background:var(--error); color:#fff; }
-        .modal-option.neutral .modal-opt-letter { background:var(--bg-deep); color:var(--text-muted); }
+
+        .modal-option.correct .modal-opt-letter {
+            background: var(--success);
+            color: #fff;
+        }
+
+        .modal-option.incorrect .modal-opt-letter {
+            background: var(--error);
+            color: #fff;
+        }
+
+        .modal-option.neutral .modal-opt-letter {
+            background: var(--bg-deep);
+            color: var(--text-muted);
+        }
+
         .modal-legend {
-            padding:0 1rem 1rem;
-            display:flex; gap:1rem; font-size:0.78rem; color:var(--text-muted);
+            padding: 0 1rem 1rem;
+            display: flex;
+            gap: 1rem;
+            font-size: 0.78rem;
+            color: var(--text-muted);
         }
-        .modal-legend span { display:flex; align-items:center; gap:0.3rem; }
 
-        /* ── BACK BUTTON ── */
+        .modal-legend span {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        /* BACK BUTTON */
         .back-btn {
-            background:none; border:none; color:var(--text-muted);
-            cursor:pointer; font-size:0.875rem; margin-bottom:1rem;
-            display:flex; align-items:center; gap:0.4rem; padding:0;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0;
         }
-        .back-btn:hover { color:var(--text); }
-    
-        /* ── COURS ── */
-        
-        
-        
-        
-        
-        
-        
 
-        /* Contenu chapitre */
-        
-        
-        
-        
-
-        
-        .section-header {
-            background:var(--bg-deep); padding:0.875rem 1rem;
-            font-weight:700; font-size:0.95rem;
-            display:flex; align-items:center; gap:0.5rem;
-            cursor:pointer; user-select:none;
+        .back-btn:hover {
+            color: var(--text);
         }
-        .section-header .sec-arrow { margin-left:auto; transition:transform 0.2s; }
-        .section-header.open .sec-arrow { transform:rotate(180deg); }
-        .section-body { padding:1rem; display:none; }
-        .section-body.open { display:block; }
-
-        .rule-item {
-            display:flex; gap:0.75rem; align-items:flex-start;
-            padding:0.6rem 0; border-bottom:1px solid rgba(255,255,255,0.05);
-        }
-        .rule-item:last-child { border-bottom:none; }
-        .rule-icon { font-size:1.1rem; flex-shrink:0; margin-top:2px; }
-        .rule-text { flex:1; font-size:0.875rem; line-height:1.5; }
-        .rule-text strong { color:var(--primary); }
-        .rule-text em { color:var(--warning); font-style:normal; }
-
-        .panneau-grid {
-            display:grid; grid-template-columns:repeat(2,1fr);
-            gap:0.75rem;
-        }
-        @media(min-width:450px){ .panneau-grid { grid-template-columns:repeat(3,1fr); } }
-        .panneau-card {
-            background:var(--bg-deep); border-radius:8px;
-            padding:0.875rem 0.5rem; text-align:center;
-        }
-        .panneau-symbol {
-            font-size:2rem; display:block; margin-bottom:0.4rem;
-        }
-        .panneau-name { font-size:0.72rem; color:var(--text-muted); line-height:1.3; }
-        .panneau-desc { font-size:0.78rem; font-weight:600; margin-top:0.3rem; }
-
-        .alert-rule {
-            background:rgba(239,68,68,0.1); border-left:3px solid var(--error);
-            padding:0.75rem 1rem; border-radius:6px;
-            font-size:0.85rem; margin-bottom:0.75rem; line-height:1.5;
-        }
-        .info-rule {
-            background:rgba(56,189,248,0.08); border-left:3px solid var(--primary);
-            padding:0.75rem 1rem; border-radius:6px;
-            font-size:0.85rem; margin-bottom:0.75rem; line-height:1.5;
-        }
-        .success-rule {
-            background:rgba(16,185,129,0.1); border-left:3px solid var(--success);
-            padding:0.75rem 1rem; border-radius:6px;
-            font-size:0.85rem; margin-bottom:0.75rem; line-height:1.5;
-        }
-        .vitesse-table { width:100%; border-collapse:collapse; font-size:0.82rem; }
-        .vitesse-table th { background:var(--green); color:#fff; padding:0.5rem 0.75rem; text-align:left; }
-        .vitesse-table td { padding:0.5rem 0.75rem; border-bottom:1px solid rgba(255,255,255,0.07); }
-        .vitesse-table tr:nth-child(even) td { background:rgba(255,255,255,0.03); }
-        .badge-v { background:var(--green); color:#fff; border-radius:20px; padding:2px 10px; font-weight:700; }
-
-    
-        /* ── PANNEAUX MODULE ── */
-        .panneau-list-item {
-            display:flex; align-items:flex-start; gap:0.75rem;
-            padding:0.65rem 0; border-bottom:1px solid rgba(255,255,255,0.06);
-            font-size:0.82rem;
-        }
-        .panneau-list-item:last-child { border-bottom:none; }
-        .panneau-code {
-            font-weight:800; color:var(--primary); min-width:50px;
-            font-size:0.8rem; padding-top:2px; flex-shrink:0;
-        }
-        .panneau-def { flex:1; line-height:1.45; color:var(--text); }
-        .panneau-cat-badge {
-            display:inline-block; font-size:0.68rem; font-weight:700;
-            padding:2px 8px; border-radius:20px; margin-bottom:0.75rem;
-        }
-        .badge-danger { background:rgba(239,68,68,0.2); color:#ef4444; border:1px solid #ef4444; }
-        .badge-interdiction { background:rgba(239,68,68,0.15); color:#f87171; border:1px solid #f87171; }
-        .badge-obligation { background:rgba(56,189,248,0.15); color:var(--primary); border:1px solid var(--primary); }
-        .badge-indication { background:rgba(16,185,129,0.15); color:var(--success); border:1px solid var(--success); }
-        .badge-priorite { background:rgba(245,158,11,0.15); color:var(--warning); border:1px solid var(--warning); }
-        .badge-direction { background:rgba(168,85,247,0.15); color:#a855f7; border:1px solid #a855f7; }
-        .badge-service { background:rgba(251,191,36,0.15); color:#fbbf24; border:1px solid #fbbf24; }
-        .badge-panonceaux { background:rgba(148,163,184,0.2); color:var(--text-muted); border:1px solid var(--text-muted); }
-
-        /* Quiz panneaux */
-        .quiz-pann-card {
-            background:var(--bg-deep); border-radius:10px;
-            padding:1.25rem; margin-bottom:1rem; border:2px solid transparent;
-        }
-        .quiz-pann-card.correct { border-color:var(--success); }
-        .quiz-pann-card.incorrect { border-color:var(--error); }
-        .quiz-pann-q { font-size:0.95rem; font-weight:600; margin-bottom:1rem; }
-        .quiz-pann-code { font-size:1.4rem; font-weight:800; color:var(--primary); margin-bottom:0.5rem; }
-        .quiz-pann-opts { display:grid; grid-template-columns:1fr 1fr; gap:0.5rem; }
-        @media(max-width:380px){ .quiz-pann-opts { grid-template-columns:1fr; } }
-        .pann-opt {
-            background:var(--bg-card); border:2px solid transparent;
-            border-radius:8px; padding:0.6rem 0.75rem;
-            font-size:0.8rem; cursor:pointer; transition:all 0.15s;
-            text-align:left; color:var(--text);
-        }
-        .pann-opt:hover:not(.locked) { border-color:var(--green); }
-        .pann-opt.selected { border-color:var(--primary); background:rgba(56,189,248,0.1); }
-        .pann-opt.correct { border-color:var(--success); background:rgba(16,185,129,0.15); color:var(--success); }
-        .pann-opt.incorrect { border-color:var(--error); background:rgba(239,68,68,0.1); color:var(--error); }
-        .pann-opt.locked { cursor:default; }
-        .quiz-pann-score {
-            text-align:center; padding:1.5rem;
-            font-size:1.2rem; font-weight:700;
-        }
-        .quiz-pann-feedback {
-            font-size:0.8rem; margin-top:0.6rem; padding:0.5rem 0.75rem;
-            border-radius:6px; display:none;
-        }
-        .quiz-pann-feedback.show { display:block; }
-        .quiz-pann-feedback.ok { background:rgba(16,185,129,0.1); color:var(--success); }
-        .quiz-pann-feedback.ko { background:rgba(239,68,68,0.1); color:var(--error); }
-        .cat-tabs {
-            display:flex; gap:0.4rem; flex-wrap:wrap; margin-bottom:1rem;
-        }
-        .cat-tab {
-            padding:0.4rem 0.875rem; border-radius:20px; font-size:0.78rem;
-            font-weight:600; cursor:pointer; border:2px solid transparent;
-            background:var(--bg-deep); color:var(--text-muted); transition:all 0.2s;
-        }
-        .cat-tab.active { border-color:var(--green); color:var(--text); background:rgba(0,133,63,0.1); }
-        .search-box {
-            background:var(--bg-deep); border:2px solid rgba(255,255,255,0.1);
-            border-radius:8px; padding:0.75rem 1rem; width:100%;
-            color:var(--text); font-size:0.875rem; margin-bottom:0.875rem;
-        }
-        .search-box:focus { outline:none; border-color:var(--green); }
-        .search-box::placeholder { color:var(--text-muted); }
-        .panneaux-count { font-size:0.78rem; color:var(--text-muted); margin-bottom:0.75rem; }
-
     </style>
 </head>
 <body>
-
-<header>
-    <div class="flag">
-        <div class="flag-g"></div>
-        <div class="flag-y"><span class="flag-star">★</span></div>
-        <div class="flag-r"></div>
-    </div>
-    <div class="header-text">
-        <h1>Code de la Route – Sénégal</h1>
-        <p>Permis blanc · Entraînement B1 à B12</p>
-    </div>
-</header>
-
-<!-- ══ WELCOME ══ -->
-<div class="screen active" id="screen-welcome">
-    <div class="card" style="margin-top:1rem;">
-        <div class="welcome-icon">🚗</div>
-        <div class="welcome-title">Bienvenue candidat(e) !</div>
-        <div class="welcome-sub">Préparez-vous pour l'examen du permis de conduire au Sénégal</div>
-        <div class="info-box">
-            <strong>📋 Critères de réussite :</strong>
-            <ul>
-                <li>25 questions par série</li>
-                <li>Maximum <strong>6 erreurs</strong> autorisées</li>
-                <li>Vous devez répondre avant de passer à la suivante</li>
-                <li>Correction détaillée après chaque série</li>
-            </ul>
+    <header>
+        <div class="flag">
+            <div class="flag-g"></div>
+            <div class="flag-y"><span class="flag-star">★</span></div>
+            <div class="flag-r"></div>
         </div>
-        <button class="btn" onclick="showScreen('screen-series')">Choisir une série →</button>
-        
-    </div>
-</div>
-
-<!-- ══ SERIES ══ -->
-<div class="screen" id="screen-series">
-    <button class="back-btn" onclick="showScreen('screen-welcome')">← Accueil</button>
-    
-    <div class="card">
-        <div class="series-title">Choisissez une série</div>
-        <div class="series-sub">Sélectionnez une des 12 séries de 25 questions</div>
-        <div class="series-grid" id="seriesGrid"></div>
-    </div>
-</div>
-
-<!-- ══ QUIZ ══ -->
-<div class="screen" id="screen-quiz">
-    <div class="progress-bar"><div class="progress-fill" id="progressBar"></div></div>
-    <div class="quiz-topbar">
-        <div>
-            <div class="quiz-serie" id="quizSerieName"></div>
-            <div class="quiz-info">Question <span id="qNum">1</span> / 25</div>
+        <div class="header-text">
+            <h1>Code de la Route - Sénégal</h1>
+            <p>Permis blanc • Entraînement B1 → B12</p>
         </div>
-        <div class="timer" id="timer">00:00</div>
-    </div>
+    </header>
 
-    <div class="question-card">
-        <img class="question-img" id="questionImg" src="" alt="" onerror="this.style.display='none'; document.getElementById('imgPlaceholder').style.display='block'">
-        <div class="question-img-placeholder" id="imgPlaceholder" style="display:none">
-            📄 Image non disponible — placez les images dans le dossier <code>images/</code>
-        </div>
-        <div class="question-body">
-            <div class="alert-answer" id="alertAnswer">⚠️ Veuillez sélectionner une réponse avant de continuer</div>
-            <div class="options-grid" id="optionsContainer"></div>
-        </div>
-    </div>
-
-    <div class="quiz-actions">
-        <button class="btn btn-outline btn-sm btn-prev" onclick="prevQuestion()">← Préc.</button>
-        <button class="btn" id="nextBtn" onclick="nextQuestion()">Suivant →</button>
-    </div>
-</div>
-
-<!-- ══ RESULTS ══ -->
-<div class="screen" id="screen-results">
-    <div class="card">
-        <div class="result-header">
-            <span class="result-badge" id="resultBadge"></span>
-            <div class="result-verdict" id="resultVerdict"></div>
-            <div class="result-serie" id="resultSerie"></div>
-        </div>
-        <div class="result-stats">
-            <div class="stat-box">
-                <div class="stat-val" style="color:var(--success)" id="statCorrect">0</div>
-                <div class="stat-lbl">Correctes</div>
+    <!-- WELCOME -->
+    <div class="screen active" id="screen-welcome">
+        <div class="card" style="margin-top: 1rem;">
+            <div class="welcome-icon">🚗</div>
+            <div class="welcome-title">Bienvenue candidat·e !</div>
+            <div class="welcome-sub">Préparez-vous pour l'examen du permis de conduire au Sénégal</div>
+            <div class="info-box">
+                <strong>📋 Critères de réussite :</strong>
+                <ul>
+                    <li>25 questions par série</li>
+                    <li>Maximum <strong>6 erreurs</strong> autorisées</li>
+                    <li>Vous devez répondre avant de passer à la suivante</li>
+                    <li>Correction détaillée après chaque série</li>
+                </ul>
             </div>
-            <div class="stat-box">
-                <div class="stat-val" style="color:var(--error)" id="statWrong">0</div>
-                <div class="stat-lbl">Erreurs</div>
+            <button class="btn" onclick="showScreen('screen-series')">Choisir une série</button>
+        </div>
+    </div>
+
+    <!-- SERIES -->
+    <div class="screen" id="screen-series">
+        <button class="back-btn" onclick="showScreen('screen-welcome')">← Accueil</button>
+        <div class="card">
+            <div class="series-title">Choisissez une série</div>
+            <div class="series-sub">Sélectionnez une des 12 séries de 25 questions</div>
+            <div class="series-grid" id="seriesGrid"></div>
+        </div>
+    </div>
+
+    <!-- QUIZ -->
+    <div class="screen" id="screen-quiz">
+        <div class="progress-bar"><div class="progress-fill" id="progressBar"></div></div>
+        <div class="quiz-topbar">
+            <div>
+                <div class="quiz-serie" id="quizSerieName"></div>
+                <div class="quiz-info">Question <span id="qNum">1</span> / 25</div>
             </div>
-            <div class="stat-box">
-                <div class="stat-val" style="color:var(--warning)" id="statTime">--</div>
-                <div class="stat-lbl">Temps</div>
+            <div class="timer" id="timer">00:00</div>
+        </div>
+
+        <div class="question-card">
+            <img class="question-img" id="questionImg" src="" alt="" 
+                onerror="this.style.display='none'; document.getElementById('imgPlaceholder').style.display='block';">
+            <div class="question-img-placeholder" id="imgPlaceholder" style="display:none;">
+                ⚠️ Image non disponible (placez les images dans le dossier : code/images/code/)
+            </div>
+            <div class="question-body">
+                <div class="alert-answer" id="alertAnswer">⚠️ Veuillez sélectionner une réponse avant de continuer</div>
+                <div class="options-grid" id="optionsContainer"></div>
             </div>
         </div>
-        <div class="btn-row">
-            <button class="btn btn-outline" onclick="retryQuiz()">↺ Recommencer</button>
-            <button class="btn btn-outline" onclick="showScreen('screen-series')">☰ Séries</button>
+
+        <div class="quiz-actions">
+            <button class="btn btn-outline btn-sm btn-prev" onclick="prevQuestion()">← Préc.</button>
+            <button class="btn" id="nextBtn" onclick="nextQuestion()">Suivant</button>
         </div>
     </div>
 
-    <!-- Tableau corrections -->
-    <div class="card">
-        <div class="correction-title">📊 Cliquez sur une question pour voir la correction</div>
-        <div class="questions-grid" id="questionsGrid"></div>
-    </div>
-</div>
+    <!-- RESULTS -->
+    <div class="screen" id="screen-results">
+        <div class="card">
+            <div class="result-header">
+                <span class="result-badge" id="resultBadge"></span>
+                <div class="result-verdict" id="resultVerdict"></div>
+                <div class="result-serie" id="resultSerie"></div>
+            </div>
 
-<!-- ══ MODAL CORRECTION ══ -->
-<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
-    <div class="modal" id="modalContent">
-        <div class="modal-header">
-            <h3 id="modalTitle">Correction Q1</h3>
-            <button class="modal-close" onclick="closeModalDirect()">✕</button>
+            <div class="result-stats">
+                <div class="stat-box">
+                    <div class="stat-val" style="color: var(--success);" id="statCorrect">0</div>
+                    <div class="stat-lbl">Correctes</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-val" style="color: var(--error);" id="statWrong">0</div>
+                    <div class="stat-lbl">Erreurs</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-val" style="color: var(--warning);" id="statTime">--</div>
+                    <div class="stat-lbl">Temps</div>
+                </div>
+            </div>
+
+            <div class="btn-row">
+                <button class="btn btn-outline" onclick="retryQuiz()">↻ Recommencer</button>
+                <button class="btn btn-outline" onclick="showScreen('screen-series')">📚 Séries</button>
+            </div>
         </div>
-        <img class="modal-img" id="modalImg" src="" alt="">
-        <div class="modal-options" id="modalOptions"></div>
-        <div class="modal-legend">
-            <span><span style="color:var(--success)">●</span> Bonne réponse</span>
-            <span><span style="color:var(--error)">●</span> Votre réponse (incorrecte)</span>
+
+        <!-- Tableau corrections -->
+        <div class="card">
+            <div class="correction-title">💡 Cliquez sur une question pour voir la correction</div>
+            <div class="questions-grid" id="questionsGrid"></div>
         </div>
     </div>
-</div>
 
-<script>
-// ── DATA ──────────────────────────────────────────────────────
-const quizData = {
-    B1: [{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0, 2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]}],
-    B2: [{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0, 2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 2]}],
-    B3: [{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0, 2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0, 2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]}],
-    B4: [{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0, 2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0, 2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 2]}],
-    B5: [{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0, 3]}],
-    B6: [{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[2, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0, 2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 2]}],
-    B7: [{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[2, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0, 2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[2, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]}],
-    B8: [{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]}],
-    B9: [{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0, 2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0, 2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]}],
-    B10: [{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0, 2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]}],
-    B11: [{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0, 2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[2, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0, 2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]}],
-    B12: [{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0, 2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0, 3]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[0]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1, 2]},{o:["Réponse A","Réponse B","Réponse C","Réponse D"],a:[1]}]
-};
+    <!-- MODAL CORRECTION -->
+    <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+        <div class="modal" id="modalContent">
+            <div class="modal-header">
+                <h3 id="modalTitle">Correction Q1</h3>
+                <button class="modal-close" onclick="closeModalDirect()">×</button>
+            </div>
+            <img class="modal-img" id="modalImg" src="" alt="">
+            <div class="modal-options" id="modalOptions"></div>
+            <div class="modal-legend">
+                <span><span style="color: var(--success);">✓</span> Bonne réponse</span>
+                <span><span style="color: var(--error);">✗</span> Votre réponse incorrecte</span>
+            </div>
+        </div>
+    </div>
 
-// ── STATE ─────────────────────────────────────────────────────
-let state = {
-    series: null, qIndex: 0,
-    answers: [],   // tableau de [] par question
-    locked: [],    // true quand réponse validée
-    startTime: null, timerInterval: null,
-    progress: JSON.parse(localStorage.getItem('quiz_progress') || '{}')
-};
+    <script>
+        // ============== DONNÉES CORRIGÉES ==============
+        const quizData = {
+            "B1": [
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[2]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,2]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[1]}
+            ],
+            "B2": [
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,2]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]}
+            ],
+            "B3": [
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,2]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,2]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
+                {"o":["Réponse A","Réponse B"],"a":[1]}
+            ],
+            "B4": [
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,2]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,2]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[2]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]}
+            ],
+            "B5": [
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[2]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]}
+            ],
+            "B6": [
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,2]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,2]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]}
+            ],
+            "B7": [
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,2]}
+            ],
+            "B8": [
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[1]}
+            ],
+            "B9": [
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,2]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,2]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
+                {"o":["Réponse A","Réponse B"],"a":[0]}
+            ],
+            "B10": [
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]}
+            ],
+            "B11": [
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,2]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[0]}
+            ],
+            "B12": [
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,2]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B"],"a":[0]},
+                {"o":["Réponse A","Réponse B"],"a":[1]},
+                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
+                {"o":["Réponse A","Réponse B"],"a":[1]}
+            ]
+        };
 
-// ── SCREENS ──────────────────────────────────────────────────
-function showScreen(id) {
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-    window.scrollTo(0,0);
-}
+        // ============== STATE ==============
+        let state = {
+            series: null,
+            qIndex: 0,
+            answers: [],
+            locked: [],
+            startTime: null,
+            timerInterval: null,
+            progress: JSON.parse(localStorage.getItem('quizProgress') || '{}')
+        };
 
-// ── SERIES GRID ───────────────────────────────────────────────
-function renderSeriesGrid() {
-    const grid = document.getElementById('seriesGrid');
-    grid.innerHTML = '';
-    Object.keys(quizData).forEach(s => {
-        const btn = document.createElement('button');
-        btn.className = 'series-btn' + (state.progress[s] ? ' done' : '');
-        const p = state.progress[s];
-        btn.innerHTML = s + (p ? `<span class="serie-score">${p.score}/25</span>` : '');
-        btn.onclick = () => startQuiz(s);
-        grid.appendChild(btn);
-    });
-}
-
-// ── START QUIZ ────────────────────────────────────────────────
-function startQuiz(series) {
-    state.series = series;
-    state.qIndex = 0;
-    state.answers = Array.from({length:25}, () => []);
-    state.locked  = new Array(25).fill(false);
-    state.startTime = Date.now();
-
-    document.getElementById('quizSerieName').textContent = 'Série ' + series;
-    clearInterval(state.timerInterval);
-    state.timerInterval = setInterval(updateTimer, 1000);
-
-    showScreen('screen-quiz');
-    renderQuestion();
-}
-
-// ── TIMER ─────────────────────────────────────────────────────
-function updateTimer() {
-    const s = Math.floor((Date.now() - state.startTime) / 1000);
-    const m = Math.floor(s/60), sec = s%60;
-    document.getElementById('timer').textContent =
-        String(m).padStart(2,'0') + ':' + String(sec).padStart(2,'0');
-}
-
-// ── RENDER QUESTION ───────────────────────────────────────────
-function renderQuestion() {
-    const i = state.qIndex;
-    const q = quizData[state.series][i];
-    const locked = state.locked[i];
-
-    // Progress
-    document.getElementById('progressBar').style.width = ((i+1)/25*100) + '%';
-    document.getElementById('qNum').textContent = i+1;
-
-    // Image
-    const imgEl = document.getElementById('questionImg');
-    const placeholder = document.getElementById('imgPlaceholder');
-    const imgName = `${state.series}_Q${i+1}.jpg`;
-    imgEl.src = `images/${imgName}`;
-    imgEl.alt = `${state.series} Question ${i+1}`;
-    imgEl.style.display = 'block';
-    placeholder.style.display = 'none';
-
-    // Alert reset
-    document.getElementById('alertAnswer').classList.remove('show');
-
-    // Options
-    const container = document.getElementById('optionsContainer');
-    container.innerHTML = '';
-    q.o.forEach((opt, idx) => {
-        const div = document.createElement('div');
-        div.className = 'option';
-        const selected = state.answers[i].includes(idx);
-        const isCorrect = q.a.includes(idx);
-
-        if (locked) {
-            div.classList.add('locked');
-            if (isCorrect) div.classList.add('correct');
-            else if (selected && !isCorrect) div.classList.add('incorrect');
-            else if (selected) div.classList.add('selected');
-        } else {
-            if (selected) div.classList.add('selected');
+        // ============== SCREENS ==============
+        function showScreen(id) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            window.scrollTo(0, 0);
         }
 
-        div.innerHTML = `
-            <div class="opt-letter">${['A','B','C','D'][idx]}</div>
-            <div class="opt-text">${opt}</div>
-        `;
-        if (!locked) div.onclick = () => toggleOption(idx);
-        container.appendChild(div);
-    });
-
-    // Bouton suivant
-    const nextBtn = document.getElementById('nextBtn');
-    if (i === 24) {
-        nextBtn.textContent = locked ? 'Voir les résultats →' : 'Valider & Terminer';
-        nextBtn.onclick = locked ? finishQuiz : validateAndNext;
-    } else {
-        nextBtn.textContent = locked ? 'Suivant →' : 'Valider →';
-        nextBtn.onclick = locked ? goNext : validateAndNext;
-    }
-}
-
-// ── TOGGLE OPTION ─────────────────────────────────────────────
-function toggleOption(idx) {
-    const i = state.qIndex;
-    const arr = state.answers[i];
-    const pos = arr.indexOf(idx);
-    if (pos > -1) arr.splice(pos, 1);
-    else arr.push(idx);
-    renderQuestion();
-}
-
-// ── VALIDER ───────────────────────────────────────────────────
-function validateAndNext() {
-    const i = state.qIndex;
-    if (state.answers[i].length === 0) {
-        document.getElementById('alertAnswer').classList.add('show');
-        return;
-    }
-    state.locked[i] = true;
-    renderQuestion();
-}
-
-function goNext() {
-    if (state.qIndex < 24) { state.qIndex++; renderQuestion(); }
-}
-
-function prevQuestion() {
-    if (state.qIndex > 0) { state.qIndex--; renderQuestion(); }
-}
-
-function nextQuestion() { /* handled by btn onclick */ }
-
-// ── FINISH ────────────────────────────────────────────────────
-function finishQuiz() {
-    clearInterval(state.timerInterval);
-    const total = Math.floor((Date.now() - state.startTime)/1000);
-    const m = Math.floor(total/60), s = total%60;
-
-    let correct = 0;
-    quizData[state.series].forEach((q, i) => {
-        const ua = state.answers[i].slice().sort();
-        const ca = q.a.slice().sort();
-        if (JSON.stringify(ua) === JSON.stringify(ca)) correct++;
-    });
-    const errors = 25 - correct;
-    const admis = errors <= 6;
-
-    // Sauvegarder
-    state.progress[state.series] = { score: correct, admis };
-    localStorage.setItem('quiz_progress', JSON.stringify(state.progress));
-
-    // Résultats
-    document.getElementById('resultBadge').textContent = admis ? '🎉' : '😔';
-    document.getElementById('resultVerdict').textContent = admis ? 'ADMIS !' : 'AJOURNÉ';
-    document.getElementById('resultVerdict').className = 'result-verdict ' + (admis ? 'admis' : 'ajourn');
-    document.getElementById('resultSerie').textContent =
-        `Série ${state.series} · ${correct}/25 réponses correctes · ${errors} erreur(s)`;
-    document.getElementById('statCorrect').textContent = correct;
-    document.getElementById('statWrong').textContent = errors;
-    document.getElementById('statTime').textContent =
-        String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
-
-    // Grille corrections
-    const grid = document.getElementById('questionsGrid');
-    grid.innerHTML = '';
-    quizData[state.series].forEach((q, i) => {
-        const ua = state.answers[i].slice().sort();
-        const ca = q.a.slice().sort();
-        const ok = JSON.stringify(ua) === JSON.stringify(ca);
-        const cell = document.createElement('div');
-        cell.className = 'q-cell ' + (ok ? 'ok' : 'ko');
-        cell.textContent = i+1;
-        cell.title = `Question ${i+1} – ${ok ? '✓ Correct' : '✗ Incorrect'}`;
-        cell.onclick = () => openModal(i);
-        grid.appendChild(cell);
-    });
-
-    showScreen('screen-results');
-}
-
-// ── MODAL CORRECTION ─────────────────────────────────────────
-function openModal(qIndex) {
-    const q = quizData[state.series][qIndex];
-    const ua = state.answers[qIndex];
-    const ca = q.a;
-
-    document.getElementById('modalTitle').textContent =
-        `Correction — ${state.series} Q${qIndex+1}`;
-
-    // Image
-    const modalImg = document.getElementById('modalImg');
-    modalImg.src = `images/${state.series}_Q${qIndex+1}.jpg`;
-    modalImg.onerror = function() { this.style.display='none'; };
-    modalImg.style.display = 'block';
-
-    // Options
-    const opts = document.getElementById('modalOptions');
-    opts.innerHTML = '';
-    q.o.forEach((opt, idx) => {
-        const isCorrect = ca.includes(idx);
-        const wasSelected = ua.includes(idx);
-        let cls = 'neutral';
-        if (isCorrect) cls = 'correct';
-        else if (wasSelected && !isCorrect) cls = 'incorrect';
-
-        const div = document.createElement('div');
-        div.className = `modal-option ${cls}`;
-        div.innerHTML = `
-            <div class="modal-opt-letter">${['A','B','C','D'][idx]}</div>
-            <div style="flex:1">${opt}</div>
-            ${isCorrect ? '<span>✓</span>' : (wasSelected ? '<span>✗</span>' : '')}
-        `;
-        opts.appendChild(div);
-    });
-
-    document.getElementById('modalOverlay').classList.add('open');
-}
-
-function closeModal(e) {
-    if (e.target === document.getElementById('modalOverlay')) closeModalDirect();
-}
-function closeModalDirect() {
-    document.getElementById('modalOverlay').classList.remove('open');
-}
-
-// ── RETRY ─────────────────────────────────────────────────────
-function retryQuiz() { startQuiz(state.series); }
-
-// ── INIT ──────────────────────────────────────────────────────
-
-
-
-
-
-// ══════════════════════════════════════════════
-// PANNEAUX DATA
-// ══════════════════════════════════════════════
-var panneauxDB = {
-  "Panneaux de Danger (A)": { badge:"badge-danger", emoji:"⚠️", description:"Triangulaires, fond blanc, liséré rouge. Préviennent d'un danger.", items:[
-    {code:"A1a",def:"Virage dangereux à droite"},
-    {code:"A1b",def:"Virage dangereux à gauche"},
-    {code:"A1c",def:"Succession de virages, le premier à droite"},
-    {code:"A1d",def:"Succession de virages, le premier à gauche"},
-    {code:"A2a",def:"Cassis ou dos-d'âne"},
-    {code:"A2b",def:"Ralentisseur de type dos-d'âne"},
-    {code:"A3",def:"Chaussée rétrécie"},
-    {code:"A3a",def:"Chaussée rétrécie par la droite"},
-    {code:"A3b",def:"Chaussée rétrécie par la gauche"},
-    {code:"A4",def:"Chaussée particulièrement glissante"},
-    {code:"A6",def:"Pont mobile"},
-    {code:"A7",def:"Passage à niveau avec barrières à fonctionnement manuel lors du passage des trains"},
-    {code:"A8",def:"Passage à niveau sans barrières ni demi-barrières"},
-    {code:"A9",def:"Traversée de voies de tramways"},
-    {code:"A13a",def:"Endroit fréquenté par les enfants"},
-    {code:"A13b",def:"Passage pour piétons"},
-    {code:"A14",def:"Autres dangers (nature précisée par panonceau)"},
-    {code:"A15a1",def:"Passage d'animaux domestiques"},
-    {code:"A15a2",def:"Passage d'animaux domestiques (variante)"},
-    {code:"A15b",def:"Passage d'animaux sauvages"},
-    {code:"A15c",def:"Passage de cavaliers"},
-    {code:"A16",def:"Descente dangereuse"},
-    {code:"A17",def:"Annonce de feux tricolores"},
-    {code:"A18",def:"Circulation dans les deux sens"},
-    {code:"A19",def:"Risque de chute de pierres ou présence de pierres tombées sur la route"},
-    {code:"A20",def:"Débouché sur un quai ou une berge"},
-    {code:"A21",def:"Débouché de cyclistes venant de droite ou de gauche"},
-    {code:"A23",def:"Traversée d'une aire de danger aérien"},
-    {code:"A24",def:"Vent latéral"}
-  ]},
-  "Signalisation Temporaire de Danger (AK)": { badge:"badge-danger", emoji:"🚧", description:"Signaux temporaires de chantier et obstacles temporaires.", items:[
-    {code:"AK2",def:"Cassis, dos d'âne (temporaire)"},
-    {code:"AK3",def:"Chaussée rétrécie (temporaire)"},
-    {code:"AK4",def:"Chaussée glissante (temporaire)"},
-    {code:"AK5",def:"Travaux — imposer prudence et adaptation de la vitesse"},
-    {code:"AK14",def:"Autres dangers temporaires (nature précisée par inscription)"},
-    {code:"AK17",def:"Annonce de signaux lumineux réglant la circulation"},
-    {code:"AK22",def:"Projection de gravillons"},
-    {code:"AK30",def:"Bouchon"},
-    {code:"AK31",def:"Accident"}
-  ]},
-  "Panneaux de Priorité (AB)": { badge:"badge-priorite", emoji:"⚖️", description:"Règlent les priorités aux intersections.", items:[
-    {code:"AB1",def:"Intersection où le conducteur doit céder le passage aux véhicules venant de sa droite"},
-    {code:"AB2",def:"Intersection avec route dont les usagers doivent céder le passage (quand AB6 ne peut être utilisé)"},
-    {code:"AB3a",def:"Cédez le passage à l'intersection — signal de position"},
-    {code:"AB3b",def:"Cédez le passage à l'intersection — signal avancé"},
-    {code:"AB4",def:"STOP — arrêt obligatoire à l'intersection (signal de position)"},
-    {code:"AB5",def:"STOP — signal avancé du AB4"},
-    {code:"AB6",def:"Indication du caractère prioritaire d'une route"},
-    {code:"AB7",def:"Fin du caractère prioritaire d'une route"},
-    {code:"AB25",def:"Carrefour à sens giratoire — priorité aux véhicules engagés dans le giratoire"}
-  ]},
-  "Panneaux d'Interdiction (B)": { badge:"badge-interdiction", emoji:"🚫", description:"Ronds, fond blanc, liséré rouge. Imposent une interdiction.", items:[
-    {code:"B0",def:"Circulation interdite à tout véhicule dans les deux sens"},
-    {code:"B1",def:"Sens interdit à tout véhicule"},
-    {code:"B2a",def:"Interdiction de tourner à gauche à la prochaine intersection"},
-    {code:"B2b",def:"Interdiction de tourner à droite à la prochaine intersection"},
-    {code:"B2c",def:"Interdiction de faire demi-tour sur la route suivie jusqu'à la prochaine intersection"},
-    {code:"B3",def:"Interdiction de dépasser tous les véhicules à moteur (sauf deux roues sans side-car)"},
-    {code:"B3a",def:"Interdiction de dépasser pour poids lourds > 3,5 tonnes"},
-    {code:"B4",def:"Arrêt au poste de douane"},
-    {code:"B5a",def:"Arrêt au poste de gendarmerie"},
-    {code:"B5b",def:"Arrêt au poste de police"},
-    {code:"B5c",def:"Arrêt au poste de péage"},
-    {code:"B6a1",def:"Stationnement interdit"},
-    {code:"B6a2",def:"Stationnement interdit du 1er au 15 du mois"},
-    {code:"B6a3",def:"Stationnement interdit du 16 à la fin du mois"},
-    {code:"B6b1",def:"Entrée d'une zone à stationnement interdit"},
-    {code:"B6b2",def:"Entrée d'une zone à stationnement unilatéral à alternance semi-mensuelle"},
-    {code:"B6b3",def:"Entrée d'une zone à stationnement de durée limitée avec contrôle par disque"},
-    {code:"B6b4",def:"Entrée d'une zone à stationnement payant"},
-    {code:"B6b5",def:"Entrée d'une zone à stationnement unilatéral à alternance semi-mensuelle et durée limitée"},
-    {code:"B6d",def:"Arrêt et stationnement interdits"},
-    {code:"B7a",def:"Accès interdit aux véhicules à moteur (sauf cyclomoteurs)"},
-    {code:"B7b",def:"Accès interdit à tous les véhicules à moteur"},
-    {code:"B8",def:"Accès interdit aux véhicules affectés au transport de marchandises"},
-    {code:"B9a",def:"Accès interdit aux piétons"},
-    {code:"B9b",def:"Accès interdit aux cycles"},
-    {code:"B9c",def:"Accès interdit aux véhicules à traction animale"},
-    {code:"B9d",def:"Accès interdit aux véhicules agricoles à moteur"},
-    {code:"B9e",def:"Accès interdit aux voitures à bras"},
-    {code:"B9f",def:"Accès interdit aux véhicules de transport en commun"},
-    {code:"B9g",def:"Accès interdit aux cyclomoteurs"},
-    {code:"B9h",def:"Accès interdit aux motocyclettes et motocyclettes légères"},
-    {code:"B9i",def:"Accès interdit aux véhicules tractant une caravane ou remorque > 250 kg (PTRA <= 3,5t)"},
-    {code:"B10a",def:"Accès interdit aux véhicules dont la longueur dépasse le nombre indiqué"},
-    {code:"B11",def:"Accès interdit si la largeur (chargement compris) dépasse le nombre indiqué"},
-    {code:"B12",def:"Accès interdit si la hauteur (chargement compris) dépasse le nombre indiqué"},
-    {code:"B13",def:"Accès interdit si le poids total autorisé en charge dépasse le nombre indiqué"},
-    {code:"B13a",def:"Accès interdit aux véhicules pesant sur un essieu plus que le nombre indiqué"},
-    {code:"B14",def:"Limitation de vitesse — interdiction de dépasser la vitesse indiquée"},
-    {code:"B15",def:"Céder le passage à la circulation venant en sens inverse"},
-    {code:"B16",def:"Signaux sonores interdits (klaxon interdit)"},
-    {code:"B17",def:"Interdiction de circuler sans maintenir un intervalle minimum entre les véhicules"},
-    {code:"B18a",def:"Accès interdit aux véhicules transportant des marchandises explosives ou inflammables"},
-    {code:"B18b",def:"Accès interdit aux véhicules transportant des marchandises susceptibles de polluer les eaux"},
-    {code:"B18c",def:"Accès interdit aux véhicules transportant des marchandises dangereuses"},
-    {code:"B19",def:"Autres interdictions (nature indiquée par inscription sur le panneau)"},
-    {code:"B30",def:"Entrée d'une zone à vitesse limitée à 30 km/h"},
-    {code:"B52",def:"Entrée d'une zone de rencontre"}
-  ]},
-  "Panneaux d'Obligation (B21/B22)": { badge:"badge-obligation", emoji:"🔵", description:"Ronds, fond bleu. Imposent une obligation de direction ou de comportement.", items:[
-    {code:"B21-1",def:"Obligation de tourner à droite avant le panneau"},
-    {code:"B21-2",def:"Obligation de tourner à gauche avant le panneau"},
-    {code:"B21a1",def:"Contournement obligatoire par la droite"},
-    {code:"B21a2",def:"Contournement obligatoire par la gauche"},
-    {code:"B21b",def:"Direction obligatoire à la prochaine intersection : tout droit"},
-    {code:"B21c1",def:"Direction obligatoire à la prochaine intersection : à droite"},
-    {code:"B21c2",def:"Direction obligatoire à la prochaine intersection : à gauche"},
-    {code:"B21d1",def:"Directions obligatoires : tout droit ou à droite"},
-    {code:"B21d2",def:"Directions obligatoires : tout droit ou à gauche"},
-    {code:"B21e",def:"Directions obligatoires : à droite ou à gauche"},
-    {code:"B22a",def:"Piste ou bande obligatoire pour les cycles sans side-car ni remorque"},
-    {code:"B22b",def:"Chemin obligatoire pour piétons"},
-    {code:"B22c",def:"Chemin obligatoire pour cavaliers"},
-    {code:"B25",def:"Vitesse minimale obligatoire"},
-    {code:"B26",def:"Chaînes à neige obligatoires sur au moins deux roues motrices"},
-    {code:"B27a",def:"Voie réservée aux véhicules des services réguliers de transport en commun"},
-    {code:"B27b",def:"Voie réservée aux tramways"},
-    {code:"B29",def:"Autres obligations (nature mentionnée par inscription sur le panneau)"}
-  ]},
-  "Fin d'Interdiction / Obligation (B31-B53)": { badge:"badge-indication", emoji:"✅", description:"Signalent la fin d'une prescription précédente imposée aux véhicules.", items:[
-    {code:"B31",def:"Fin de toutes les interdictions précédemment signalées imposées aux véhicules en mouvement"},
-    {code:"B33",def:"Fin de limitation de vitesse"},
-    {code:"B34",def:"Fin d'interdiction de dépasser notifiée par le panneau B3"},
-    {code:"B34a",def:"Fin d'interdiction de dépasser pour poids lourds (B3a)"},
-    {code:"B35",def:"Fin d'interdiction de l'usage de l'avertisseur sonore"},
-    {code:"B39",def:"Fin d'interdiction (nature indiquée sur le panneau)"},
-    {code:"B40",def:"Fin de piste ou bande obligatoire pour cycles"},
-    {code:"B41",def:"Fin de chemin obligatoire pour piétons"},
-    {code:"B42",def:"Fin de chemin obligatoire pour cavaliers"},
-    {code:"B43",def:"Fin de vitesse minimale obligatoire"},
-    {code:"B44",def:"Fin d'obligation de l'usage des chaînes à neige"},
-    {code:"B45",def:"Fin de voie réservée aux transports en commun"},
-    {code:"B49",def:"Fin d'obligation (nature mentionnée par inscription)"},
-    {code:"B50a",def:"Sortie de zone à stationnement interdit"},
-    {code:"B50b",def:"Sortie de zone à stationnement unilatéral à alternance semi-mensuelle"},
-    {code:"B50c",def:"Sortie de zone à stationnement de durée limitée avec contrôle par disque"},
-    {code:"B50d",def:"Sortie de zone à stationnement payant"},
-    {code:"B50e",def:"Sortie de zone à stationnement unilatéral à alternance semi-mensuelle et durée limitée"},
-    {code:"B51",def:"Sortie d'une zone à vitesse limitée à 30 km/h"},
-    {code:"B53",def:"Sortie d'une zone de rencontre"},
-    {code:"B54",def:"Entrée d'aire piétonne"},
-    {code:"B55",def:"Sortie d'aire piétonne"}
-  ]},
-  "Panneaux d'Indication (C)": { badge:"badge-indication", emoji:"🟦", description:"Fond bleu ou blanc. Informent sans interdire ni obliger.", items:[
-    {code:"C1a",def:"Lieu aménagé pour le stationnement"},
-    {code:"C1b",def:"Lieu aménagé pour le stationnement gratuit à durée limitée avec contrôle par disque"},
-    {code:"C1c",def:"Lieu aménagé pour le stationnement payant"},
-    {code:"C3",def:"Risque d'incendie"},
-    {code:"C4a",def:"Vitesse conseillée — vitesse à laquelle il est conseillé de circuler si les circonstances le permettent"},
-    {code:"C4b",def:"Fin de vitesse conseillée"},
-    {code:"C5",def:"Station de taxis — arrêt et stationnement réservés aux taxis en service"},
-    {code:"C6",def:"Arrêt d'autobus — arrêt et stationnement des autres véhicules interdits"},
-    {code:"C8",def:"Emplacement d'arrêt d'urgence — réservé aux arrêts d'urgence"},
-    {code:"C12",def:"Circulation à sens unique"},
-    {code:"C13a",def:"Impasse"},
-    {code:"C13b",def:"Présignalisation d'une impasse"},
-    {code:"C14",def:"Présignalisation de la praticabilité d'une section de route (ouverte ou fermée)"},
-    {code:"C18",def:"Priorité par rapport à la circulation venant en sens inverse"},
-    {code:"C20a",def:"Passage pour piétons"},
-    {code:"C20c",def:"Traversée de tramways"},
-    {code:"C23",def:"Stationnement réglementé pour caravanes et autocaravanes"},
-    {code:"C24a",def:"Conditions particulières de circulation par voie sur la route suivie"},
-    {code:"C24b",def:"Voies affectées à l'approche d'une intersection"},
-    {code:"C24c",def:"Conditions particulières de circulation sur la route ou voie embranchée"},
-    {code:"C25a",def:"Indication aux frontières des limites de vitesse sur le territoire français"},
-    {code:"C25b",def:"Rappel des limites de vitesse sur autoroute"},
-    {code:"C26a",def:"Voie de détresse à droite"},
-    {code:"C26b",def:"Voie de détresse à gauche"},
-    {code:"C27",def:"Surélévation de chaussée (ralentisseur)"},
-    {code:"C28",def:"Réduction du nombre de voies sur une route à chaussées séparées"},
-    {code:"C29a",def:"Présignalisation d'un créneau de dépassement ou section à chaussées séparées"},
-    {code:"C29b",def:"Créneau de dépassement à trois voies — deux voies dans un sens, une dans l'autre"},
-    {code:"C29c",def:"Section à trois voies — une voie dans un sens, deux dans l'autre"},
-    {code:"C30",def:"Fin d'un créneau de dépassement à trois voies"},
-    {code:"C50",def:"Indications diverses"},
-    {code:"C62",def:"Présignalisation d'une borne de retrait de ticket de péage"},
-    {code:"C64a",def:"Paiement auprès d'un péagiste"},
-    {code:"C64b",def:"Paiement par carte bancaire"},
-    {code:"C64c",def:"Paiement automatique par pièces de monnaie"},
-    {code:"C64d",def:"Paiement par abonnement — voie réservée aux usagers abonnés"},
-    {code:"C107",def:"Route à accès réglementé — vitesse max 110 km/h, règles autoroute applicables"},
-    {code:"C108",def:"Fin de route à accès réglementé"},
-    {code:"C111",def:"Entrée d'un tunnel — feux de croisement obligatoires, demi-tour et arrêt interdits"},
-    {code:"C112",def:"Sortie de tunnel — fin des prescriptions du C111"},
-    {code:"C113",def:"Piste ou bande cyclable conseillée et réservée aux cycles à deux ou trois roues"},
-    {code:"C114",def:"Fin d'une piste ou bande cyclable conseillée"},
-    {code:"C115",def:"Voie verte — réservée à la circulation des piétons et véhicules non motorisés"},
-    {code:"C116",def:"Fin de voie verte"},
-    {code:"C117",def:"Présignalisation d'un tunnel dont l'accès est interdit à certains véhicules dangereux"},
-    {code:"C207",def:"Début d'une section d'autoroute — début des règles particulières autoroute"},
-    {code:"C208",def:"Fin d'une section d'autoroute — fin des règles particulières autoroute"}
-  ]},
-  "Panneaux de Services (CE)": { badge:"badge-service", emoji:"🏥", description:"Signalent des équipements et services disponibles sur l'itinéraire.", items:[
-    {code:"CE1",def:"Poste de secours"},
-    {code:"CE2a",def:"Poste d'appel d'urgence"},
-    {code:"CE2b",def:"Cabine téléphonique publique"},
-    {code:"CE3a",def:"Informations relatives aux services ou activités touristiques"},
-    {code:"CE3b",def:"Panneau d'information service — relais d'information service"},
-    {code:"CE4a",def:"Terrain de camping pour tentes"},
-    {code:"CE4b",def:"Terrain de camping pour caravanes et autocaravanes"},
-    {code:"CE4c",def:"Terrain de camping pour tentes, caravanes et autocaravanes"},
-    {code:"CE5a",def:"Auberge de jeunesse"},
-    {code:"CE5b",def:"Chambre d'hôtes ou gîte"},
-    {code:"CE6a",def:"Point de départ d'un itinéraire pédestre"},
-    {code:"CE6b",def:"Point de départ d'un circuit de ski de fond"},
-    {code:"CE7",def:"Emplacement pour pique-nique"},
-    {code:"CE8",def:"Gare auto / train"},
-    {code:"CE10",def:"Embarcadère"},
-    {code:"CE12",def:"Toilettes ouvertes au public"},
-    {code:"CE14",def:"Installations accessibles aux personnes handicapées à mobilité réduite"},
-    {code:"CE15a",def:"Poste de distribution de carburant ouvert 7j/7 et 24h/24"},
-    {code:"CE15c",def:"Poste de carburant 7j/7 24h/24 assurant le ravitaillement en GPL"},
-    {code:"CE16",def:"Restaurant ouvert 7 jours sur 7"},
-    {code:"CE17",def:"Hôtel ou motel ouvert 7 jours sur 7"},
-    {code:"CE18",def:"Débit de boissons ou établissement proposant des collations sommaires, ouvert 7j/7"},
-    {code:"CE19",def:"Emplacement de mise à l'eau d'embarcations légères"},
-    {code:"CE20a",def:"Gare de téléphérique"},
-    {code:"CE20b",def:"Point de départ d'un télésiège ou télécabine"},
-    {code:"CE21",def:"Point de vue"},
-    {code:"CE22",def:"Fréquence d'émission d'une station radio dédiée aux infos circulation"},
-    {code:"CE23",def:"Jeux d'enfants"},
-    {code:"CE24",def:"Station de vidange pour caravanes, autocaravanes et cars"},
-    {code:"CE25",def:"Distributeur de billets de banque"},
-    {code:"CE26",def:"Station de gonflage gratuite hors station service"},
-    {code:"CE27",def:"Point de détente"},
-    {code:"CE28",def:"Poste de dépannage"},
-    {code:"CE29",def:"Moyen de lutte contre l'incendie"},
-    {code:"CE30a",def:"Issue de secours vers la droite"},
-    {code:"CE30b",def:"Issue de secours vers la gauche"},
-    {code:"CE50",def:"Installations ou services divers"}
-  ]},
-  "Panonceaux (M)": { badge:"badge-panonceaux", emoji:"📌", description:"Complètent et précisent la portée d'un panneau principal.", items:[
-    {code:"M1",def:"Longueur de la section comprise entre le signal et le début du passage dangereux ou de la zone réglementée"},
-    {code:"M1a",def:"Marque du distributeur de carburant et distance jusqu'au prochain poste sur autoroute"},
-    {code:"M2",def:"Longueur de la section dangereuse ou soumise à réglementation"},
-    {code:"M3a",def:"Position de la voie concernée par le panneau qu'il complète"},
-    {code:"M3b",def:"Direction à suivre (et distance) pour rencontrer le service indiqué"},
-    {code:"M3d",def:"Le panneau qu'il complète se rapporte à la voie au-dessus de laquelle il est implanté"},
-    {code:"M4a",def:"Désigne les véhicules dont le PTAC est inférieur à 3,5 tonnes"},
-    {code:"M4b",def:"Désigne les véhicules de transport en commun de personnes"},
-    {code:"M4c",def:"Désigne les motocyclettes et motocyclettes légères"},
-    {code:"M4d1",def:"Désigne les cycles (vélos)"},
-    {code:"M4d2",def:"Désigne les cyclomoteurs"},
-    {code:"M4e",def:"Désigne par l'inscription les usagers concernés"},
-    {code:"M4f",def:"Désigne les véhicules dont le PTAC excède le nombre indiqué"},
-    {code:"M4g",def:"Désigne les véhicules affectés au transport de marchandises"},
-    {code:"M4h",def:"Désigne les poids lourds de transport de marchandises dépassant le tonnage indiqué"},
-    {code:"M4i",def:"Désigne les véhicules agricoles à moteur"},
-    {code:"M4j",def:"Désigne les véhicules équipés de chaînes à neige"},
-    {code:"M4k",def:"Désigne les véhicules transportant des marchandises explosives ou inflammables"},
-    {code:"M4l",def:"Désigne les véhicules transportant des marchandises polluant les eaux"},
-    {code:"M4m",def:"Désigne les véhicules transportant des marchandises dangereuses"},
-    {code:"M4n",def:"Désigne les installations aménagées pour handicapés physiques"},
-    {code:"M4p",def:"Désigne les piétons"},
-    {code:"M4q",def:"Désigne les véhicules dont la longueur est supérieure au nombre indiqué"},
-    {code:"M4r",def:"Désigne les véhicules pesant sur un essieu plus que le nombre indiqué"},
-    {code:"M4s",def:"Désigne les véhicules à traction animale"},
-    {code:"M4t",def:"Désigne les charrettes à bras"},
-    {code:"M4u",def:"Désigne les véhicules dont la largeur (chargement compris) est supérieure au nombre indiqué"},
-    {code:"M4v",def:"Désigne les véhicules dont la hauteur (chargement compris) est supérieure au nombre indiqué"},
-    {code:"M4w",def:"Désigne les véhicules tractant une remorque dont le PTAC dépasse 250 kg"},
-    {code:"M4x",def:"Désigne les véhicules tractant une caravane/remorque > 250 kg avec PTRC <= 3,5t"},
-    {code:"M4y",def:"Désigne les cavaliers"},
-    {code:"M4z",def:"Indique la catégorie d'un tunnel concernant les marchandises dangereuses"},
-    {code:"M5",def:"Distance entre le signal et l'endroit où le conducteur doit marquer l'arrêt et céder le passage"},
-    {code:"M6a",def:"Stationnement gênant — véhicule susceptible de mise en fourrière"},
-    {code:"M6b",def:"Stationnement unilatéral à alternance semi-mensuelle"},
-    {code:"M6c",def:"Durée maximum du stationnement avec contrôle par disque"},
-    {code:"M6d",def:"Stationnement payant avec parcmètre"},
-    {code:"M6e",def:"Stationnement payant sans parcmètre"},
-    {code:"M6f",def:"Précisions concernant l'interdiction"},
-    {code:"M6g",def:"Indications diverses ne concernant pas les interdictions"},
-    {code:"M6h",def:"Stationnement réservé aux personnes handicapées à mobilité réduite"},
-    {code:"M6i",def:"Stationnement réservé aux véhicules électriques pendant la recharge"},
-    {code:"M7",def:"Panonceau schéma — représente l'intersection à venir et indique les branches prioritaires"},
-    {code:"M8a",def:"La prescription s'étend après le panneau (début de section)"},
-    {code:"M8b",def:"La prescription s'étend avant le panneau (fin de section)"},
-    {code:"M8c",def:"La prescription s'étend de part et d'autre du panneau (rappel)"},
-    {code:"M8d",def:"La prescription s'étend dans les sens indiqués par les flèches"},
-    {code:"M8e",def:"La prescription s'étend dans les sens indiqués par les flèches (variante)"},
-    {code:"M8f",def:"La prescription s'étend dans les sens indiqués par les flèches (variante)"},
-    {code:"M9a",def:"Le panneau associé concerne une aire de danger aérien"},
-    {code:"M9b",def:"Au passage à niveau, la voie ferrée est électrifiée"},
-    {code:"M9c",def:"Cédez le passage"},
-    {code:"M9d",def:"Le passage pour piétons est surélevé"},
-    {code:"M9e",def:"L'emplacement d'arrêt d'urgence est doté d'un poste d'appel d'urgence"},
-    {code:"M9f",def:"L'emplacement d'arrêt d'urgence est doté d'un poste d'appel et d'un moyen de lutte contre l'incendie"},
-    {code:"M9j1",def:"Indique le risque de heurt de véhicules lents"},
-    {code:"M9j2",def:"Indique le risque de heurt de véhicules lents (variante)"},
-    {code:"M9v1",def:"La prescription du panneau associé ne s'applique pas aux cyclistes"},
-    {code:"M9v2",def:"La prescription du panneau associé ne s'applique pas aux cyclistes (variante)"},
-    {code:"M9z",def:"Indications diverses par inscriptions"},
-    {code:"M10a",def:"Indique le numéro d'une route ou d'une autoroute"},
-    {code:"M10b",def:"Indique le numéro d'un échangeur"},
-    {code:"M10c",def:"Indique l'accès à une rocade"},
-    {code:"M10z",def:"Indique le nom propre d'un site ou de certains services"},
-    {code:"M11a",def:"Signale les dérogations aux prescriptions d'une route à accès réglementé"},
-    {code:"M11b",def:"Panonceau signalant des dérogations ou des prescriptions"}
-  ]},
-  "Signalisation Directionnelle (D)": { badge:"badge-direction", emoji:"🗺️", description:"Jalonnement, présignalisation et panneaux de direction.", items:[
-    {code:"D21a",def:"Panneau de position comportant une indication de distance"},
-    {code:"D21b",def:"Panneau de position ne comportant pas d'indication de distance"},
-    {code:"D29",def:"Panneau de position signalant les lieux-dits et fermes"},
-    {code:"D31b",def:"Panneau de signalisation avancée de sortie non numérotée"},
-    {code:"D31d",def:"Panneau de signalisation avancée de sortie numérotée"},
-    {code:"D31e",def:"Panneau de signalisation avancée de sortie non numérotée (variante)"},
-    {code:"D31f",def:"Panneau de signalisation avancée de bifurcation autoroutière"},
-    {code:"D32a",def:"Panneau de signalisation avancée d'aire sur route"},
-    {code:"D32b",def:"Panneau de signalisation avancée d'aire sur autoroute"},
-    {code:"D41a",def:"Panneau de présignalisation de sortie numérotée"},
-    {code:"D41b",def:"Panneau de présignalisation de sortie non numérotée"},
-    {code:"D41c",def:"Panneau de présignalisation de bifurcation autoroutière"},
-    {code:"D42a",def:"Panneau de présignalisation diagrammatique des carrefours complexes"},
-    {code:"D42b",def:"Panneau de présignalisation diagrammatique à sens giratoire"},
-    {code:"D43",def:"Panneau de présignalisation courante des carrefours"},
-    {code:"D44",def:"Panneau de présignalisation d'un village étape"},
-    {code:"D45",def:"Panneau de présignalisation à 20 km environ d'un village étape"},
-    {code:"D46",def:"Présignalisation d'une aire de service ou de repos sur autoroute"},
-    {code:"D47a",def:"Présignalisation du début d'une section à péage"},
-    {code:"D47b",def:"Présignalisation d'une gare de péage (retrait ticket ou paiement)"},
-    {code:"D47c",def:"Présignalisation du paiement du péage"},
-    {code:"D61a",def:"Panneau de confirmation courante utilisé sur route"},
-    {code:"D61b",def:"Panneau de confirmation courante utilisé sur autoroute"},
-    {code:"D62a",def:"Panneau de confirmation de filante utilisé sur route à chaussées séparées"},
-    {code:"D62b",def:"Panneau de confirmation de filante utilisé sur autoroute"},
-    {code:"D71",def:"Panneau de signalisation complémentaire de sortie"},
-    {code:"D72b",def:"Panneau de signalisation complémentaire des différentes sorties d'une agglomération"},
-    {code:"D73",def:"Panneau de présignalisation complémentaire de sortie"},
-    {code:"Dv11",def:"Panneau complémentaire d'identification d'un itinéraire cyclable"},
-    {code:"Dv12",def:"Panneau complémentaire de dénomination d'un itinéraire cyclable"},
-    {code:"Dv21a",def:"Panneau de position cyclable avec indication de destination et distance"},
-    {code:"Dv21b",def:"Panneau de position cyclable avec indication de destination"},
-    {code:"Dv43a",def:"Panneau de présignalisation courante cyclable avec destination et distance"},
-    {code:"Dv43b",def:"Panneau de présignalisation courante cyclable avec destination"},
-    {code:"Dv43c",def:"Panneau de présignalisation courante cyclable sans destination ni distance"},
-    {code:"Dv61",def:"Panneau de confirmation courante cyclable"}
-  ]},
-  "Signaux d'Agglomération (EB)": { badge:"badge-indication", emoji:"🏙️", description:"Signalent l'entrée et la sortie des agglomérations.", items:[
-    {code:"EB10",def:"Panneau d'entrée d'agglomération — la limitation à 50 km/h s'applique automatiquement"},
-    {code:"EB20",def:"Panneau de sortie d'agglomération — fin de la limitation à 50 km/h de l'agglomération"}
-  ]},
-  "Signalisation Spéciale (SI/SC)": { badge:"badge-priorite", emoji:"🚛", description:"Directions interdites ou conseillées pour certains types de véhicules.", items:[
-    {code:"SI1a",def:"Signalisation avancée d'une direction interdite aux véhicules de transport de marchandises"},
-    {code:"SI1b",def:"Direction interdite aux poids lourds dépassant le tonnage indiqué"},
-    {code:"SI2",def:"Direction interdite aux cycles"},
-    {code:"SI3",def:"Direction interdite aux véhicules de transport en commun"},
-    {code:"SI4",def:"Direction interdite aux cyclomoteurs"},
-    {code:"SI5",def:"Direction interdite aux véhicules de transport de marchandises dépassant la longueur indiquée"},
-    {code:"SI6",def:"Direction interdite aux véhicules dépassant la largeur indiquée"},
-    {code:"SI7",def:"Direction interdite aux véhicules dépassant la hauteur indiquée"},
-    {code:"SI8",def:"Direction interdite aux véhicules dépassant le tonnage indiqué"},
-    {code:"SI9",def:"Direction interdite aux véhicules pesant sur un essieu plus que le nombre indiqué"},
-    {code:"SI10",def:"Direction interdite aux véhicules transportant des marchandises explosives ou inflammables"},
-    {code:"SI11",def:"Direction interdite aux véhicules transportant des marchandises polluant les eaux"},
-    {code:"SI12",def:"Direction interdite aux véhicules transportant des marchandises dangereuses"},
-    {code:"SI13",def:"Direction interdite aux motocyclettes et motocyclettes légères"},
-    {code:"SI14",def:"Direction interdite aux véhicules tractant une caravane ou remorque > 250 kg"},
-    {code:"SC1a",def:"Direction conseillée aux véhicules de transport de marchandises"},
-    {code:"SC2",def:"Direction conseillée aux cycles"},
-    {code:"SC3",def:"Direction conseillée aux véhicules de transport en commun"},
-    {code:"SC4",def:"Direction conseillée aux cyclomoteurs"},
-    {code:"SC13",def:"Direction conseillée aux motocyclettes et motocyclettes légères"},
-    {code:"SC20",def:"Direction permettant d'indiquer l'itinéraire Bis"}
-  ]},
-  "Signaux Lumineux (R)": { badge:"badge-service", emoji:"🚦", description:"Feux et signaux lumineux de circulation.", items:[
-    {code:"R1",def:"Feux de balisage et d'alerte — complètent la signalisation permanente de danger (orange fixe)"},
-    {code:"R2",def:"Feux de balisage et d'alerte — complètent la signalisation temporaire (orange clignotant)"},
-    {code:"R2d",def:"Feux de balisage à défilement — s'allument successivement pour indiquer une direction"},
-    {code:"R12",def:"Signaux bicolores destinés aux piétons (rouge/vert)"},
-    {code:"R13b",def:"Signaux tricolores modaux pour services réguliers de transport en commun"},
-    {code:"R13c",def:"Signaux tricolores modaux pour cyclistes"},
-    {code:"R14",def:"Signaux tricolores directionnels — autorisent ou interdisent un mouvement précis"},
-    {code:"R15b",def:"Signaux d'anticipation modaux pour bus"},
-    {code:"R15c",def:"Signaux d'anticipation modaux pour cycle"},
-    {code:"R16",def:"Signaux d'anticipation directionnels"},
-    {code:"R17",def:"Signaux pour tramways"},
-    {code:"R18",def:"Signaux directionnels pour tramways"},
-    {code:"R21a",def:"Signal d'affectation de voies — interdiction d'emprunter la voie (croix rouge)"},
-    {code:"R21b",def:"Signal d'affectation de voies — autorisation d'emprunter la voie (flèche verte)"},
-    {code:"R21c",def:"Signal d'affectation de voies — obligation de se rabattre vers la voie indiquée"},
-    {code:"R22",def:"Signaux tricolores de contrôle de flot"},
-    {code:"R23",def:"Signaux bicolores de contrôle individuel"},
-    {code:"R24",def:"Signaux d'arrêt"},
-    {code:"R25",def:"Signal d'arrêt destiné aux piétons"},
-    {code:"PMV",def:"Panneau à Message Variable — affiche des informations dynamiques sur la circulation"}
-  ]},
-  "Signaux de Sécurité Routière (SR)": { badge:"badge-panonceaux", emoji:"🛡️", description:"Signaux de rappel des règles de sécurité routière.", items:[
-    {code:"SR2a",def:"Rappelle l'espacement minimum à laisser entre les véhicules sur autoroute et 2x2 voies"},
-    {code:"SR2b",def:"Rappelle l'espacement minimum entre véhicules (variante autoroute)"},
-    {code:"SR2c",def:"Rappelle l'espacement minimum entre véhicules (variante route à chaussées séparées)"},
-    {code:"SR3",def:"Annonce une zone où la vitesse est contrôlée par radar automatique"},
-    {code:"SR4",def:"Annonce une zone sous vidéosurveillance pour la sécurité et régulation du trafic"},
-    {code:"SR50",def:"Signal rappelant un message de sécurité routière de portée générale"}
-  ]},
-  "Signalisation de Chantier (K)": { badge:"badge-danger", emoji:"🔶", description:"Balises, barrages et signalisation temporaire de chantier.", items:[
-    {code:"K2",def:"Barrages — signalisation de position de travaux ou obstacle temporaire"},
-    {code:"K5a",def:"Dispositif conique — signalisation des limites d'obstacles temporaires ou de chantier"},
-    {code:"K5b",def:"Piquet — signalisation des limites d'obstacles temporaires"},
-    {code:"K5c",def:"Balise d'alignement — signalisation des limites d'obstacles temporaires"},
-    {code:"K5d",def:"Balise de guidage — signalisation des limites d'obstacles temporaires"},
-    {code:"K8",def:"Signal de position d'une déviation ou rétrécissement temporaire de chaussée"},
-    {code:"K10",def:"Signal servant à régler manuellement la circulation"},
-    {code:"K14",def:"Ruban — signal de délimitation de chantier ou fermeture d'un passage à niveau"},
-    {code:"K15",def:"Portique — signal de présignalisation de gabarit limité"},
-    {code:"K16",def:"Séparateur modulaire de voie — dispositif de séparation et guidage"},
-    {code:"KC1",def:"Indication de chantier important ou de situations diverses"},
-    {code:"KD8",def:"Présignalisation de changement de chaussée ou de trajectoire"},
-    {code:"KD9",def:"Affectation de voies de chantier"},
-    {code:"KD10a",def:"Annonce de la réduction du nombre de voies sur routes à chaussées séparées"},
-    {code:"KD21",def:"Direction de déviation avec mention de la ville"},
-    {code:"KD22",def:"Direction de déviation"},
-    {code:"KD42",def:"Présignalisation de déviation"},
-    {code:"KD43",def:"Présignalisation courante de chantier"},
-    {code:"KD62",def:"Confirmation de déviation"},
-    {code:"KD69",def:"Fin de déviation"},
-    {code:"KR11",def:"Signaux tricolores d'alternat temporaire"},
-    {code:"KR41",def:"Rampe lumineuse — indique le côté par lequel contourner un véhicule d'intervention"},
-    {code:"KR42",def:"Flèche lumineuse — indique le côté vers lequel se déporter"},
-    {code:"KR43",def:"Flèche lumineuse — obligation de se déporter vers la voie adjacente indiquée"},
-    {code:"KM1",def:"Panonceau de distance associé aux panneaux temporaires"},
-    {code:"KM2",def:"Panonceau d'étendue associé aux panneaux temporaires"},
-    {code:"KM9",def:"Panonceau d'indications diverses associé aux panneaux temporaires de danger AK"}
-  ]},
-  "Passages à Niveau (G)": { badge:"badge-danger", emoji:"🚂", description:"Signaux spécifiques aux passages à niveau.", items:[
-    {code:"G1",def:"Signal de position d'un passage à niveau à une voie sans barrières ni signalisation automatique"},
-    {code:"G1bis",def:"Signal de position d'un passage à niveau à une voie avec signalisation automatique lumineuse et sonore"},
-    {code:"G1a",def:"Signal de position d'un passage à niveau à plusieurs voies sans barrières ni signalisation automatique"},
-    {code:"G1b",def:"Signal de position d'un passage à niveau ou aire de danger aérien (variante)"},
-    {code:"G1c",def:"Signal de position d'un passage à niveau à plusieurs voies (variante)"},
-    {code:"G2",def:"Signalisation automatique avec feu rouge clignotant et demi-barrières automatiques"},
-    {code:"G3",def:"Portique — signalisation des passages à niveau avec voies électrifiées (fils < 6 m de hauteur)"},
-    {code:"J1",def:"Balisage des virages"},
-    {code:"J3",def:"Signalisation de position des intersections de routes"},
-    {code:"J4",def:"Balisage de virages (variante)"},
-    {code:"J5",def:"Signalisation des têtes d'îlots directionnels à contournement par la droite"},
-    {code:"J6",def:"Délinéateur — balisage des limites de chaussées"},
-    {code:"J7",def:"Manche à air — balise indiquant l'endroit où souffle fréquemment un vent latéral violent"},
-    {code:"J10",def:"Balise pour passage à niveau"},
-    {code:"J13",def:"Balise de signalisation d'obstacle"},
-    {code:"J14a",def:"Balises de musoir signalant la divergence des voies"},
-    {code:"J14b",def:"Balises de musoir signalant la divergence des voies (variante)"}
-  ]}
-};
-
-// ══════════════════════════════════════════════
-// NAVIGATION COURS
-// ══════════════════════════════════════════════
-var pannSourceScreen = 'screen-cours';
-
-
-
-
-// ══════════════════════════════════════════════
-// PANNEAUX INDEX & NAVIGATION
-// ══════════════════════════════════════════════
-
-var pannCurrentCat = null;
-var pannMode = 'learn';
-var pannQuizState = { questions:[], current:0, score:0, answered:[] };
-
-function openPanneauxCat(catName) {
-    pannCurrentCat = catName;
-    var cat = panneauxDB[catName];
-    document.getElementById('pannTitle').textContent = cat.emoji + ' ' + catName;
-    document.getElementById('pannSub').textContent = cat.description;
-    var searchEl = document.getElementById('pannSearch');
-    if (searchEl) searchEl.value = '';
-    setPannMode('learn');
-    renderPannList(cat.items);
-    document.querySelector('#screen-panneaux .back-btn').onclick = function() {
-        openPanneauxIndex();
-    };
-    showScreen('screen-panneaux');
-}
-
-function setPannMode(mode) {
-    pannMode = mode;
-    document.getElementById('tab-learn').classList.toggle('active', mode==='learn');
-    document.getElementById('tab-quiz').classList.toggle('active', mode==='quiz');
-    document.getElementById('pannLearnView').style.display = mode==='learn' ? 'block' : 'none';
-    document.getElementById('pannQuizView').style.display = mode==='quiz' ? 'block' : 'none';
-    if (mode === 'quiz') startPannQuiz();
-}
-
-function renderPannList(items) {
-    var cat = panneauxDB[pannCurrentCat];
-    var list = document.getElementById('pannList');
-    var countEl = document.getElementById('pannCount');
-    if (countEl) countEl.textContent = items.length + ' panneau(x)';
-    var h = '<span class="panneau-cat-badge ' + cat.badge + '">' + cat.emoji + ' ' + pannCurrentCat + '</span>';
-    items.forEach(function(p) {
-        h += '<div class="panneau-list-item"><span class="panneau-code">' + p.code + '</span><span class="panneau-def">' + p.def + '</span></div>';
-    });
-    list.innerHTML = h;
-}
-
-function filterPanneaux() {
-    var q = document.getElementById('pannSearch').value.toLowerCase();
-    var cat = panneauxDB[pannCurrentCat];
-    var filtered = cat.items.filter(function(p) {
-        return p.code.toLowerCase().indexOf(q) !== -1 || p.def.toLowerCase().indexOf(q) !== -1;
-    });
-    renderPannList(filtered);
-}
-
-function startPannQuiz() {
-    var cat = panneauxDB[pannCurrentCat];
-    var allItems = cat.items;
-    if (allItems.length < 4) {
-        document.getElementById('pannQuizContainer').innerHTML = '<div class="info-rule">Pas assez de panneaux pour un quiz (minimum 4 requis).</div>';
-        return;
-    }
-    var shuffled = allItems.slice().sort(function() { return Math.random()-0.5; });
-    var questions = shuffled.slice(0, Math.min(10, allItems.length)).map(function(correct) {
-        var wrongs = allItems.filter(function(p) { return p.code !== correct.code; })
-            .sort(function() { return Math.random()-0.5; }).slice(0,3);
-        var opts = [correct].concat(wrongs).sort(function() { return Math.random()-0.5; });
-        return { correct: correct.code, opts: opts };
-    });
-    pannQuizState = { questions:questions, current:0, score:0, answered:new Array(questions.length).fill(null), selectedIdx:-1 };
-    renderPannQuiz();
-}
-
-function renderPannQuiz() {
-    var qs = pannQuizState;
-    var container = document.getElementById('pannQuizContainer');
-    if (qs.current >= qs.questions.length) {
-        var pct = Math.round(qs.score/qs.questions.length*100);
-        container.innerHTML = '<div class="quiz-pann-score">' + (pct>=70?'🎉':'📚') +
-            ' Score : ' + qs.score + '/' + qs.questions.length + ' (' + pct + '%)<br>' +
-            '<span style="font-size:1rem;color:var(--text-muted);font-weight:400">' +
-            (pct>=70?'Bravo ! Bonne maîtrise.':'Continuez à réviser !') + '</span></div>' +
-            '<button class="btn" onclick="startPannQuiz()">↺ Recommencer</button>';
-        return;
-    }
-    var q = qs.questions[qs.current];
-    var answered = qs.answered[qs.current];
-    var optsHtml = q.opts.map(function(o, i) {
-        var cls = 'pann-opt';
-        if (answered !== null) {
-            cls += ' locked';
-            if (o.code === q.correct) cls += ' correct';
-            else if (i === qs.selectedIdx) cls += ' incorrect';
+        // ============== SERIES GRID ==============
+        function renderSeriesGrid() {
+            const grid = document.getElementById('seriesGrid');
+            grid.innerHTML = '';
+            Object.keys(quizData).forEach(s => {
+                const btn = document.createElement('button');
+                btn.className = 'series-btn' + (state.progress[s] ? ' done' : '');
+                const p = state.progress[s];
+                btn.innerHTML = s + (p ? `<span class="serie-score">${p.score}/25</span>` : '');
+                btn.onclick = () => startQuiz(s);
+                grid.appendChild(btn);
+            });
         }
-        return '<button class="' + cls + '" onclick="answerPannQuiz(' + i + ',\'' + o.code + '\')">' + o.def + '</button>';
-    }).join('');
-    var feedbackHtml = '';
-    if (answered !== null) {
-        if (answered) feedbackHtml = '<div class="quiz-pann-feedback show ok">✅ Bonne réponse !</div>';
-        else {
-            var correctDef = q.opts.find(function(o) { return o.code === q.correct; });
-            feedbackHtml = '<div class="quiz-pann-feedback show ko">❌ Réponse : ' + (correctDef?correctDef.def:'') + '</div>';
+
+        // ============== START QUIZ ==============
+        function startQuiz(series) {
+            state.series = series;
+            state.qIndex = 0;
+            state.answers = Array.from({length: 25}, () => []);
+            state.locked = new Array(25).fill(false);
+            state.startTime = Date.now();
+
+            document.getElementById('quizSerieName').textContent = `Série ${series}`;
+            clearInterval(state.timerInterval);
+            state.timerInterval = setInterval(updateTimer, 1000);
+
+            showScreen('screen-quiz');
+            renderQuestion();
         }
-    }
-    container.innerHTML =
-        '<div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:0.75rem">Question ' + (qs.current+1) + '/' + qs.questions.length + ' · Score: ' + qs.score + '</div>' +
-        '<div class="progress-bar" style="margin-bottom:1rem"><div class="progress-fill" style="width:' + (qs.current/qs.questions.length*100) + '%"></div></div>' +
-        '<div class="quiz-pann-card' + (answered!==null?(answered?' correct':' incorrect'):'') + '">' +
-        '<div class="quiz-pann-q">À quoi correspond le panneau <strong style=\'color:var(--primary)\'>' + q.correct + '</strong> ?</div>' +
-        '<div class="quiz-pann-opts">' + optsHtml + '</div>' + feedbackHtml + '</div>' +
-        (answered!==null ? '<button class="btn" style="margin-top:0.75rem" onclick="nextPannQuestion()">' + (qs.current+1<qs.questions.length?'Suivant →':'Voir le score →') + '</button>' : '');
-}
 
-function answerPannQuiz(idx, code) {
-    if (pannQuizState.answered[pannQuizState.current] !== null) return;
-    var correct = code === pannQuizState.questions[pannQuizState.current].correct;
-    pannQuizState.answered[pannQuizState.current] = correct;
-    pannQuizState.selectedIdx = idx;
-    if (correct) pannQuizState.score++;
-    renderPannQuiz();
-}
+        // ============== TIMER ==============
+        function updateTimer() {
+            const s = Math.floor((Date.now() - state.startTime) / 1000);
+            const m = Math.floor(s / 60), sec = s % 60;
+            document.getElementById('timer').textContent = String(m).padStart(2, '0') + ':' + String(sec).padStart(2, '0');
+        }
 
-function nextPannQuestion() {
-    pannQuizState.current++;
-    renderPannQuiz();
-}
+        // ============== RENDER QUESTION ==============
+        function renderQuestion() {
+            const i = state.qIndex;
+            const q = quizData[state.series][i];
+            const locked = state.locked[i];
 
-// Init
-document.addEventListener('DOMContentLoaded', function() {
-    renderSeriesGrid();
-    showScreen('screen-welcome');
-});
-</script>
+            // Progress
+            document.getElementById('progressBar').style.width = ((i + 1) / 25 * 100) + '%';
+            document.getElementById('qNum').textContent = i + 1;
 
-<!-- ══ PANNEAUX SCREEN ══ -->
-<div class="screen" id="screen-panneaux">
-    
-    <div class="card">
-        <div class="series-title" id="pannTitle">Panneaux</div>
-        <div class="series-sub" id="pannSub"></div>
+            // Image
+            const imgEl = document.getElementById('questionImg');
+            const placeholder = document.getElementById('imgPlaceholder');
+            const imgName = `${state.series}_Q${i + 1}.jpg`;
+            imgEl.src = `images/${imgName}`;
+            imgEl.alt = `${state.series} Question ${i + 1}`;
+            imgEl.style.display = 'block';
+            placeholder.style.display = 'none';
 
-        <!-- Onglets modes -->
-        <div class="cat-tabs" id="pannModeTabs">
-            <button class="cat-tab active" onclick="setPannMode('learn')" id="tab-learn">📖 Apprendre</button>
-            <button class="cat-tab" onclick="setPannMode('quiz')" id="tab-quiz">🎯 S'exercer</button>
-        </div>
+            // Alert reset
+            document.getElementById('alertAnswer').classList.remove('show');
 
-        <!-- MODE APPRENDRE -->
-        <div id="pannLearnView">
-            <input type="text" class="search-box" id="pannSearch" placeholder="🔍 Rechercher un panneau (ex: B1, STOP, interdit...)" oninput="filterPanneaux()">
-            <div class="panneaux-count" id="pannCount"></div>
-            <div id="pannList"></div>
-        </div>
+            // Options
+            const container = document.getElementById('optionsContainer');
+            container.innerHTML = '';
+            q.o.forEach((opt, idx) => {
+                const div = document.createElement('div');
+                div.className = 'option';
 
-        <!-- MODE QUIZ -->
-        <div id="pannQuizView" style="display:none">
-            <div id="pannQuizContainer"></div>
-        </div>
-    </div>
-</div>
+                const selected = state.answers[i].includes(idx);
+                const isCorrect = q.a.includes(idx);
 
+                if (locked) {
+                    div.classList.add('locked');
+                    if (isCorrect) {
+                        div.classList.add('correct');
+                    } else if (selected && !isCorrect) {
+                        div.classList.add('incorrect');
+                    }
+                } else if (selected) {
+                    div.classList.add('selected');
+                }
+
+                div.innerHTML = `<div class="opt-letter">${['A','B','C','D'][idx]}</div><div class="opt-text">${opt}</div>`;
+
+                if (!locked) {
+                    div.onclick = () => toggleOption(idx);
+                }
+
+                container.appendChild(div);
+            });
+
+            // Bouton suivant
+            const nextBtn = document.getElementById('nextBtn');
+            if (i === 24) {
+                nextBtn.textContent = locked ? 'Voir les résultats' : 'Valider & Terminer';
+                nextBtn.onclick = locked ? finishQuiz : validateAndNext;
+            } else {
+                nextBtn.textContent = locked ? 'Suivant →' : 'Valider';
+                nextBtn.onclick = locked ? goNext : validateAndNext;
+            }
+        }
+
+        // ============== TOGGLE OPTION ==============
+        function toggleOption(idx) {
+            const i = state.qIndex;
+            const arr = state.answers[i];
+            const pos = arr.indexOf(idx);
+
+            if (pos > -1) {
+                // Désélectionner
+                arr.splice(pos, 1);
+            } else {
+                // Règle : A et B forment un groupe, C et D forment un autre groupe
+                // On ne peut sélectionner qu'une option par groupe
+                if (idx === 0 || idx === 1) {
+                    // Groupe A-B : retirer l'autre option du groupe si elle existe
+                    const otherInGroup = idx === 0 ? 1 : 0;
+                    const posOther = arr.indexOf(otherInGroup);
+                    if (posOther > -1) arr.splice(posOther, 1);
+                } else if (idx === 2 || idx === 3) {
+                    // Groupe C-D : retirer l'autre option du groupe si elle existe
+                    const otherInGroup = idx === 2 ? 3 : 2;
+                    const posOther = arr.indexOf(otherInGroup);
+                    if (posOther > -1) arr.splice(posOther, 1);
+                }
+                
+                arr.push(idx);
+            }
+
+            renderQuestion();
+        }
+
+        // ============== VALIDER ==============
+        function validateAndNext() {
+            const i = state.qIndex;
+            if (state.answers[i].length === 0) {
+                document.getElementById('alertAnswer').classList.add('show');
+                return;
+            }
+
+            state.locked[i] = true;
+            renderQuestion();
+        }
+
+        function goNext() {
+            if (state.qIndex < 24) {
+                state.qIndex++;
+                renderQuestion();
+            }
+        }
+
+        function prevQuestion() {
+            if (state.qIndex > 0) {
+                state.qIndex--;
+                renderQuestion();
+            }
+        }
+
+        function nextQuestion() {
+            // handled by btn onclick
+        }
+
+        // ============== FINISH ==============
+        function finishQuiz() {
+            clearInterval(state.timerInterval);
+
+            const total = Math.floor((Date.now() - state.startTime) / 1000);
+            const m = Math.floor(total / 60), s = total % 60;
+
+            let correct = 0;
+            quizData[state.series].forEach((q, i) => {
+                const ua = state.answers[i].slice().sort();
+                const ca = q.a.slice().sort();
+                if (JSON.stringify(ua) === JSON.stringify(ca)) correct++;
+            });
+
+            const errors = 25 - correct;
+            const admis = errors <= 6;
+
+            // Sauvegarder
+            state.progress[state.series] = {score: correct, admis};
+            localStorage.setItem('quizprogress', JSON.stringify(state.progress));
+
+            // Résultats
+            document.getElementById('resultBadge').textContent = admis ? '🎉' : '📝';
+            document.getElementById('resultVerdict').textContent = admis ? 'ADMIS !' : 'AJOURNÉ';
+            document.getElementById('resultVerdict').className = 'result-verdict ' + (admis ? 'admis' : 'ajourn');
+            document.getElementById('resultSerie').textContent = `Série ${state.series} : ${correct}/25 réponses correctes (${errors} erreurs)`;
+
+            document.getElementById('statCorrect').textContent = correct;
+            document.getElementById('statWrong').textContent = errors;
+            document.getElementById('statTime').textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+
+            // Grille corrections
+            const grid = document.getElementById('questionsGrid');
+            grid.innerHTML = '';
+            quizData[state.series].forEach((q, i) => {
+                const ua = state.answers[i].slice().sort();
+                const ca = q.a.slice().sort();
+                const ok = JSON.stringify(ua) === JSON.stringify(ca);
+
+                const cell = document.createElement('div');
+                cell.className = 'q-cell ' + (ok ? 'ok' : 'ko');
+                cell.textContent = i + 1;
+                cell.title = `Question ${i + 1} : ${ok ? 'Correct' : 'Incorrect'}`;
+                cell.onclick = () => openModal(i);
+                grid.appendChild(cell);
+            });
+
+            showScreen('screen-results');
+        }
+
+        // ============== MODAL CORRECTION ==============
+        function openModal(qIndex) {
+            const q = quizData[state.series][qIndex];
+            const ua = state.answers[qIndex];
+            const ca = q.a;
+
+            document.getElementById('modalTitle').textContent = `Correction ${state.series} • Q${qIndex + 1}`;
+
+            // Image
+            const modalImg = document.getElementById('modalImg');
+            modalImg.src = `images/${state.series}_Q${qIndex + 1}.jpg`;
+            modalImg.onerror = function() { this.style.display = 'none'; };
+            modalImg.style.display = 'block';
+
+            // Options
+            const opts = document.getElementById('modalOptions');
+            opts.innerHTML = '';
+            q.o.forEach((opt, idx) => {
+                const isCorrect = ca.includes(idx);
+                const wasSelected = ua.includes(idx);
+
+                let cls = 'neutral';
+                if (isCorrect) cls = 'correct';
+                else if (wasSelected && !isCorrect) cls = 'incorrect';
+
+                const div = document.createElement('div');
+                div.className = 'modal-option ' + cls;
+                div.innerHTML = `<div class="modal-opt-letter">${['A','B','C','D'][idx]}</div><div style="flex:1">${opt}</div>${isCorrect ? '<span>✓</span>' : ''}${wasSelected ? '<span>✗</span>' : ''}`;
+                opts.appendChild(div);
+            });
+
+            document.getElementById('modalOverlay').classList.add('open');
+        }
+
+        function closeModal(e) {
+            if (e.target === document.getElementById('modalOverlay')) {
+                closeModalDirect();
+            }
+        }
+
+        function closeModalDirect() {
+            document.getElementById('modalOverlay').classList.remove('open');
+        }
+
+        // ============== RETRY ==============
+        function retryQuiz() {
+            startQuiz(state.series);
+        }
+
+        // ============== INIT ==============
+        document.addEventListener('DOMContentLoaded', function() {
+            renderSeriesGrid();
+            showScreen('screen-welcome');
+        });
+    </script>
 </body>
 </html>
