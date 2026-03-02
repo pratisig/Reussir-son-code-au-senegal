@@ -832,10 +832,15 @@
     </div>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getAuth, RecaptchaVerifier, signInWithPhoneNumber, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { 
+    getAuth, 
+    RecaptchaVerifier, 
+    signInWithPhoneNumber, 
+    onAuthStateChanged 
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBGKP7Z5PAgrCilt-e-8X5_8vqHGsUtWUA",
+  apiKey: "TA_CLE_API",
   authDomain: "reussir-code-senegal-70f3d.firebaseapp.com",
   projectId: "reussir-code-senegal-70f3d",
   storageBucket: "reussir-code-senegal-70f3d.firebasestorage.app",
@@ -846,27 +851,32 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
+// IMPORTANT
+auth.useDeviceLanguage();
+
+// ===== SEND OTP =====
 window.sendOTP = async function() {
     try {
-        const phoneRaw = document.getElementById("phoneInput").value.trim();
 
+        const phoneRaw = document.getElementById("phoneInput").value.trim();
         if (!phoneRaw) {
-            alert("Veuillez entrer votre numéro.");
+            alert("Entrez votre numéro");
             return;
         }
 
         const phone = "+221" + phoneRaw;
 
-        // 🔥 IMPORTANT : syntaxe correcte Firebase v10
+        // Détruire ancien recaptcha si existe
+        if (window.recaptchaVerifier) {
+            window.recaptchaVerifier.clear();
+        }
+
         window.recaptchaVerifier = new RecaptchaVerifier(
+            auth,
             'recaptcha-container',
             {
-                size: 'normal',
-                callback: () => {
-                    console.log("reCAPTCHA validé");
-                }
-            },
-            auth
+                size: 'normal'
+            }
         );
 
         const appVerifier = window.recaptchaVerifier;
@@ -876,24 +886,33 @@ window.sendOTP = async function() {
         window.confirmationResult = confirmationResult;
 
         alert("SMS envoyé !");
+
     } catch (error) {
         console.error(error);
         alert("Erreur : " + error.message);
     }
 };
 
+// ===== VERIFY OTP =====
 window.verifyOTP = async function() {
-    const code = document.getElementById("otpInput").value;
-
     try {
+        const code = document.getElementById("otpInput").value;
+        if (!code) {
+            alert("Entrez le code reçu");
+            return;
+        }
+
         await window.confirmationResult.confirm(code);
+
         alert("Connexion réussie !");
         showScreen('screen-welcome');
+
     } catch (error) {
         alert("Code incorrect");
     }
-}
+};
 
+// ===== AUTO LOGIN =====
 onAuthStateChanged(auth, (user) => {
     if (user) {
         showScreen('screen-welcome');
@@ -1263,24 +1282,26 @@ onAuthStateChanged(auth, (user) => {
 
         // ============== START QUIZ ==============
         function startQuiz(series) {
-            if (!firebase.auth().currentUser) {
-    alert("Connexion requise");
-    showScreen('screen-login');
-    return;
+
+    if (!auth.currentUser) {
+        alert("Connexion requise");
+        showScreen('screen-login');
+        return;
+    }
+
+    state.series = series;
+    state.qIndex = 0;
+    state.answers = Array.from({length: 25}, () => []);
+    state.locked = new Array(25).fill(false);
+    state.startTime = Date.now();
+
+    document.getElementById('quizSerieName').textContent = `Série ${series}`;
+    clearInterval(state.timerInterval);
+    state.timerInterval = setInterval(updateTimer, 1000);
+
+    showScreen('screen-quiz');
+    renderQuestion();
 }
-            state.series = series;
-            state.qIndex = 0;
-            state.answers = Array.from({length: 25}, () => []);
-            state.locked = new Array(25).fill(false);
-            state.startTime = Date.now();
-
-            document.getElementById('quizSerieName').textContent = `Série ${series}`;
-            clearInterval(state.timerInterval);
-            state.timerInterval = setInterval(updateTimer, 1000);
-
-            showScreen('screen-quiz');
-            renderQuestion();
-        }
 
         // ============== TIMER ==============
         function updateTimer() {
