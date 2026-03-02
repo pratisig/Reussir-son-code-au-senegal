@@ -189,14 +189,12 @@
             display: flex; align-items: center; justify-content: center;
             font-size: 0.875rem;
         }
-        .option:hover:not(.locked) { border-color: var(--green); background: rgba(0,133,63,0.1); }
+        .option:hover:not(.locked):not(.disabled-max) { border-color: var(--green); background: rgba(0,133,63,0.1); }
         .option.selected { border-color: var(--primary); background: rgba(56,189,248,0.1); }
         .option.correct { border-color: var(--success); background: rgba(16,185,129,0.15); }
         .option.incorrect { border-color: var(--error); background: rgba(239,68,68,0.1); }
         .option.locked { cursor: default; }
-        /* Option désactivée quand max atteint */
-        .option.disabled-max { opacity: 0.35; cursor: not-allowed; }
-        .option.disabled-max:hover { border-color: transparent; background: var(--bg-deep); }
+        .option.disabled-max { opacity: 0.3; cursor: not-allowed; pointer-events: none; }
         .opt-letter {
             width: 36px; height: 36px; border-radius: 50%;
             background: var(--bg-card);
@@ -863,19 +861,28 @@
             var q = quizData[state.series][i];
             var locked = state.locked[i];
             var isMulti = q.a.length > 1;
-            var maxSel = isMulti ? 2 : 1;
-            var currentSel = state.answers[i].length;
+            var currentSel = state.answers[i];
 
             document.getElementById('progressBar').style.width = ((i + 1) / 25 * 100) + '%';
             document.getElementById('qNum').textContent = i + 1;
 
-            // Hint
+            // Hint multi-choix
             var hintEl = document.getElementById('hintMulti');
             if (isMulti && !locked) {
                 hintEl.style.display = 'block';
-                hintEl.textContent = currentSel < 2
-                    ? 'ℹ️ Sélectionnez 2 réponses — ' + currentSel + '/2 choisie(s)'
-                    : '✅ 2 réponses sélectionnées — cliquez Valider';
+                var nbSel = currentSel.length;
+                // Déterminer ce qui manque
+                var hasTop = currentSel.some(function(x){ return x <= 1; });  // A ou B
+                var hasBot = currentSel.some(function(x){ return x >= 2; });  // C ou D
+                if (nbSel === 0) {
+                    hintEl.textContent = 'ℹ️ Choisissez 1 réponse en haut (A/B) ET 1 en bas (C/D)';
+                } else if (nbSel === 1 && hasTop) {
+                    hintEl.textContent = '👇 Choisissez maintenant une réponse en bas (C ou D)';
+                } else if (nbSel === 1 && hasBot) {
+                    hintEl.textContent = '👆 Choisissez maintenant une réponse en haut (A ou B)';
+                } else {
+                    hintEl.textContent = '✅ 2 réponses sélectionnées — cliquez Valider';
+                }
             } else {
                 hintEl.style.display = 'none';
             }
@@ -890,15 +897,24 @@
 
             var container = document.getElementById('optionsContainer');
             container.innerHTML = '';
-            container.style.gridTemplateColumns = '1fr 1fr';
 
             var labels = ['A', 'B', 'C', 'D'];
 
             for (var idx = 0; idx < q.n; idx++) {
                 var div = document.createElement('div');
                 div.className = 'option';
-                var selected = state.answers[i].indexOf(idx) > -1;
+                var selected = currentSel.indexOf(idx) > -1;
                 var isCorrect = q.a.indexOf(idx) > -1;
+
+                // Calculer si cette option doit être grisée (même ligne déjà prise)
+                // Ligne haut = 0,1 ; Ligne bas = 2,3
+                var sameLineSelected = false;
+                if (isMulti && !locked && !selected) {
+                    var myLine = (idx <= 1) ? 'top' : 'bot';
+                    sameLineSelected = currentSel.some(function(x) {
+                        return (myLine === 'top') ? (x <= 1) : (x >= 2);
+                    });
+                }
 
                 if (locked) {
                     div.classList.add('locked');
@@ -906,14 +922,14 @@
                     else if (selected) div.classList.add('incorrect');
                 } else if (selected) {
                     div.classList.add('selected');
-                } else if (currentSel >= maxSel) {
-                    // Max atteint et cette option n'est pas sélectionnée → grisée
+                } else if (sameLineSelected) {
+                    // L'autre option de la même ligne est prise → grisée
                     div.classList.add('disabled-max');
                 }
 
                 div.innerHTML = '<div class="opt-letter">' + labels[idx] + '</div>';
 
-                if (!locked) {
+                if (!locked && !sameLineSelected) {
                     (function(capturedIdx) {
                         div.onclick = function() { toggleOption(capturedIdx); };
                     })(idx);
@@ -932,30 +948,42 @@
             }
         }
 
-        // ============== TOGGLE OPTION (CORRIGÉ) ==============
-        // RÈGLE :
-        // • Question à 2 options  → sélection exclusive (1 seule)
-        // • Question à 4 options, 1 réponse attendue → sélection exclusive
-        // • Question à 4 options, 2 réponses attendues → libre parmi A/B/C/D, max 2
-        //   Aucune exclusion par ligne (A/B ne s'excluent PAS mutuellement,
-        //   C/D ne s'excluent PAS mutuellement).
+        // ============== TOGGLE OPTION ==============
+        // RÈGLE MÉTIER :
+        //   Grille 2×2 :  [ A(0) | B(1) ]   ← Ligne HAUT
+        //                 [ C(2) | D(3) ]   ← Ligne BAS
+        //
+        //   Question 2 options (n=2)    → 1 seule sélection (A ou B)
+        //   Question 4 options, 1 bonne → 1 seule sélection
+        //   Question 4 options, 2 bonne → OBLIGATOIREMENT 1 du haut + 1 du bas
+        //       • Cliquer A quand B est sélectionné → remplace B par A (même ligne)
+        //       • Cliquer C quand D est sélectionné → remplace D par C (même ligne)
+        //       • Cliquer A quand A est sélectionné → décocher A
         function toggleOption(idx) {
             var i = state.qIndex;
             var q = quizData[state.series][i];
             var arr = state.answers[i];
             var pos = arr.indexOf(idx);
-            var isMulti = q.a.length > 1;   // 2 bonnes réponses attendues
-            var maxSel = isMulti ? 2 : 1;
+            var isMulti = q.a.length > 1;
 
-            if (pos > -1) {
-                // Décocher l'option déjà sélectionnée
-                arr.splice(pos, 1);
+            if (!isMulti) {
+                // Sélection exclusive simple
+                state.answers[i] = (pos > -1) ? [] : [idx];
             } else {
-                if (arr.length >= maxSel) {
-                    // Déjà au max → remplacer la première sélection (rotation)
-                    arr.shift();
+                // Multi-choix : règle 1 par ligne
+                var myLine = (idx <= 1) ? 'top' : 'bot';
+
+                if (pos > -1) {
+                    // Décocher
+                    arr.splice(pos, 1);
+                } else {
+                    // Retirer l'autre option de la même ligne si présente
+                    var sameLinePeer = arr.findIndex(function(x) {
+                        return (myLine === 'top') ? (x <= 1) : (x >= 2);
+                    });
+                    if (sameLinePeer > -1) arr.splice(sameLinePeer, 1);
+                    arr.push(idx);
                 }
-                arr.push(idx);
             }
             renderQuestion();
         }
@@ -963,15 +991,10 @@
         // ============== VALIDER ==============
         function validateAndNext() {
             var i = state.qIndex;
-            var q = quizData[state.series][i];
-            var isMulti = q.a.length > 1;
-
             if (state.answers[i].length === 0) {
                 document.getElementById('alertAnswer').classList.add('show');
                 return;
             }
-            // Pour les questions multi-choix, valider même avec 1 seule réponse
-            // (l'utilisateur peut vouloir tenter avec une seule)
             state.locked[i] = true;
             renderQuestion();
         }
