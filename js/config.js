@@ -1,6 +1,4 @@
 // ============== CONFIGURATION FIREBASE ==============
-// IMPORTANT : Ce fichier est chargé APRÈS les SDK Firebase dans index.html
-
 const firebaseConfig = {
   apiKey: "AIzaSyBGKP7Z5PAgrCilt-e-8X5_8vqHGsUtWUA",
   authDomain: "reussir-code-senegal-70f3d.firebaseapp.com",
@@ -10,20 +8,20 @@ const firebaseConfig = {
   appId: "1:443909357377:web:08a65ba9081068fcde6bc0"
 };
 
-// Initialisation Firebase (les SDK sont déjà chargés avant ce script)
+// Initialisation
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
 
-// Exports globaux
 const auth = firebase.auth();
-const db = firebase.firestore();
+const db   = firebase.firestore();
 
-// Langue française
+// Langue française pour les emails Firebase
 auth.languageCode = 'fr';
 
-// Persistence locale (reste connecté après fermeture)
+// FIX: setPersistence SANS await au niveau global
+// La persistence sera établie avant chaque opération dans auth.js
 auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-  .catch((error) => {
-    console.error('Erreur persistence auth:', error);
+  .catch(function(err) {
+    console.warn('Persistence auth non disponible (mode privé ?):', err.message);
   });
