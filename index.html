@@ -5,7 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <title>Code de la Route - Sénégal</title>
     <meta name="theme-color" content="#00853F">
+    
+    <!-- Configuration Firebase -->
+    <script src="js/config.js"></script>
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+    
     <style>
+
+    </style>
+</head>
+<body>
         :root {
             --green: #00853F;
             --green-dark: #006d33;
@@ -687,6 +700,12 @@
     </style>
 </head>
 <body>
+    <!-- Écran de chargement Firebase -->
+    <div id="firebaseLoader" style="display:none; position:fixed; inset:0; background:var(--bg); z-index:999; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:1rem;">
+        <div style="font-size:3rem;">🔄</div>
+        <div style="color:var(--text-muted);">Initialisation...</div>
+    </div>
+
     <header>
         <div class="flag">
             <div class="flag-g"></div>
@@ -698,29 +717,9 @@
             <p>Permis blanc • Entraînement B1 → B12</p>
         </div>
     </header>
-<!-- LOGIN -->
-<div class="screen active" id="screen-login">
-    <div class="card" style="margin-top: 2rem;">
-        <div class="welcome-icon">🔐</div>
-        <div class="welcome-title">Connexion / Inscription</div>
-        <div class="welcome-sub">
-            Créez un compte ou connectez-vous
-        </div>
 
-        <input type="email" id="emailInput" placeholder="Votre email"
-            style="width:100%;padding:12px;border-radius:8px;border:none;margin-bottom:12px;font-size:1rem;">
-
-        <input type="password" id="passwordInput" placeholder="Mot de passe"
-            style="width:100%;padding:12px;border-radius:8px;border:none;margin-bottom:12px;font-size:1rem;">
-
-        <button class="btn" onclick="loginUser()">Se connecter</button>
-
-        <button class="btn btn-outline" style="margin-top:10px;" onclick="registerUser()">Créer un compte</button>
-    </div>
-</div>
-</div>
     <!-- WELCOME -->
-    <div class="screen" id="screen-welcome">
+    <div class="screen active" id="screen-welcome">
         <div class="card" style="margin-top: 1rem;">
             <div class="welcome-icon">🚗</div>
             <div class="welcome-title">Bienvenue candidat·e !</div>
@@ -829,80 +828,7 @@
             </div>
         </div>
     </div>
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { sendEmailVerification } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import { 
-    getAuth, 
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    signOut,
-    onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyBGKP7Z5PAgrCilt-e-8X5_8vqHGsUtWUA",
-  authDomain: "reussir-code-senegal-70f3d.firebaseapp.com",
-  projectId: "reussir-code-senegal-70f3d",
-  storageBucket: "reussir-code-senegal-70f3d.firebasestorage.app",
-  messagingSenderId: "443909357377",
-  appId: "1:443909357377:web:08a65ba9081068fcde6bc0"
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-
-// ===== INSCRIPTION =====
-window.registerUser = async function() {
-    const email = document.getElementById("emailInput").value;
-    const password = document.getElementById("passwordInput").value;
-
-    try {
-        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        
-        await sendEmailVerification(userCredential.user);
-
-        alert("Compte créé ! Vérifiez votre email avant de vous connecter.");
-        
-        await signOut(auth);
-
-    } catch (error) {
-        alert(error.message);
-    }
-}
-
-// ===== CONNEXION =====
-window.loginUser = async function() {
-    const email = document.getElementById("emailInput").value;
-    const password = document.getElementById("passwordInput").value;
-
-    try {
-        const userCredential = await signInWithEmailAndPassword(auth, email, password);
-
-        if (!userCredential.user.emailVerified) {
-            alert("Veuillez vérifier votre email avant de continuer.");
-            await signOut(auth);
-            return;
-        }
-
-        alert("Connexion réussie !");
-        showScreen('screen-welcome');
-
-    } catch (error) {
-        alert("Email ou mot de passe incorrect");
-    }
-}
-
-// ===== AUTO LOGIN =====
-onAuthStateChanged(auth, (user) => {
-    if (user) {
-        showScreen('screen-welcome');
-    } else {
-        showScreen('screen-login');
-    }
-});
-
-</script>
     <script>
         // ============== DONNÉES CORRIGÉES ==============
         const quizData = {
@@ -1266,26 +1192,19 @@ onAuthStateChanged(auth, (user) => {
 
         // ============== START QUIZ ==============
         function startQuiz(series) {
+            state.series = series;
+            state.qIndex = 0;
+            state.answers = Array.from({length: 25}, () => []);
+            state.locked = new Array(25).fill(false);
+            state.startTime = Date.now();
 
-    if (!auth.currentUser) {
-    alert("Connexion requise");
-    showScreen('screen-login');
-    return;
-}
+            document.getElementById('quizSerieName').textContent = `Série ${series}`;
+            clearInterval(state.timerInterval);
+            state.timerInterval = setInterval(updateTimer, 1000);
 
-    state.series = series;
-    state.qIndex = 0;
-    state.answers = Array.from({length: 25}, () => []);
-    state.locked = new Array(25).fill(false);
-    state.startTime = Date.now();
-
-    document.getElementById('quizSerieName').textContent = `Série ${series}`;
-    clearInterval(state.timerInterval);
-    state.timerInterval = setInterval(updateTimer, 1000);
-
-    showScreen('screen-quiz');
-    renderQuestion();
-}
+            showScreen('screen-quiz');
+            renderQuestion();
+        }
 
         // ============== TIMER ==============
         function updateTimer() {
@@ -1436,7 +1355,7 @@ onAuthStateChanged(auth, (user) => {
 
             // Sauvegarder
             state.progress[state.series] = {score: correct, admis};
-            localStorage.setItem('quizproPress', JSON.stringify(state.progress));
+            localStorage.setItem('quizprogress', JSON.stringify(state.progress));
 
             // Résultats
             document.getElementById('resultBadge').textContent = admis ? '🎉' : '📝';
@@ -1516,11 +1435,87 @@ onAuthStateChanged(auth, (user) => {
             startQuiz(state.series);
         }
 
+        // ============== FIREBASE INIT ==============
+        let firebaseInitialized = false;
+        let currentUser = null;
+
+        function initFirebase() {
+            if (typeof firebaseConfig === 'undefined') {
+                console.warn('Firebase config non trouvée. Fonctionnement en mode local.');
+                firebaseInitialized = false;
+                return;
+            }
+
+            try {
+                firebase.initializeApp(firebaseConfig);
+                firebaseInitialized = true;
+                
+                // Écouter les changements d'authentification
+                firebase.auth().onAuthStateChanged(user => {
+                    currentUser = user;
+                    if (user) {
+                        console.log('Utilisateur connecté:', user.email);
+                        loadUserProgress(user.uid);
+                    } else {
+                        console.log('Utilisateur non connecté');
+                    }
+                });
+            } catch (error) {
+                console.error('Erreur initialisation Firebase:', error);
+                firebaseInitialized = false;
+            }
+        }
+
+        // Charger la progression depuis Firebase
+        function loadUserProgress(uid) {
+            if (!firebaseInitialized) return;
+            
+            firebase.database().ref('users/' + uid + '/progress').once('value')
+                .then(snapshot => {
+                    const data = snapshot.val();
+                    if (data) {
+                        state.progress = data;
+                        localStorage.setItem('quizProgress', JSON.stringify(data));
+                        renderSeriesGrid();
+                    }
+                })
+                .catch(err => console.error('Erreur chargement progression:', err));
+        }
+
+        // Sauvegarder la progression vers Firebase
+        function saveProgressToFirebase() {
+            if (!firebaseInitialized || !currentUser) {
+                // Sauvegarde locale uniquement
+                localStorage.setItem('quizProgress', JSON.stringify(state.progress));
+                return;
+            }
+
+            const uid = currentUser.uid;
+            firebase.database().ref('users/' + uid + '/progress').set(state.progress)
+                .then(() => {
+                    console.log('Progression sauvegardée sur Firebase');
+                    localStorage.setItem('quizProgress', JSON.stringify(state.progress));
+                })
+                .catch(err => {
+                    console.error('Erreur sauvegarde Firebase:', err);
+                    // Fallback sur localStorage
+                    localStorage.setItem('quizProgress', JSON.stringify(state.progress));
+                });
+        }
+
         // ============== INIT ==============
         document.addEventListener('DOMContentLoaded', function() {
-    renderSeriesGrid();
-    showScreen('screen-login');
-});
+            // Initialiser Firebase
+            initFirebase();
+            
+            // Afficher l'interface
+            renderSeriesGrid();
+            showScreen('screen-welcome');
+        });
     </script>
+    
+    <!-- Scripts externes (gestion authentification, etc.) -->
+    <script src="js/auth.js"></script>
+    <script src="js/sync.js"></script>
 </body>
 </html>
