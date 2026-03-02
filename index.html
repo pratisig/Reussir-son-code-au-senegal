@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <title>Code de la Route - Sénégal</title>
     <meta name="theme-color" content="#00853F">
-    
-    <!-- Configuration Firebase -->
+
+    <!-- Firebase SDK AVANT config.js -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+    <!-- Config Firebase (après les SDK) -->
     <script src="js/config.js"></script>
-    
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
-    
+
     <style>
         :root {
             --green: #00853F;
@@ -32,11 +32,7 @@
             --radius: 12px;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -59,43 +55,47 @@
         }
 
         .flag {
-            width: 48px;
-            height: 32px;
-            border-radius: 3px;
-            overflow: hidden;
-            display: flex;
-            flex-shrink: 0;
+            width: 48px; height: 32px;
+            border-radius: 3px; overflow: hidden;
+            display: flex; flex-shrink: 0;
             border: 1px solid rgba(255,255,255,0.3);
         }
-
         .flag-g { flex: 1; background: var(--green); }
-        .flag-y { 
-            flex: 1; 
-            background: var(--yellow); 
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+        .flag-y { flex: 1; background: var(--yellow); display: flex; align-items: center; justify-content: center; }
         .flag-r { flex: 1; background: var(--red); }
         .flag-star { color: var(--green); font-size: 14px; }
 
-        .header-text h1 { 
-            font-size: 1.1rem; 
-            font-weight: 700; 
-            color: #fff; 
+        .header-text h1 { font-size: 1.1rem; font-weight: 700; color: #fff; }
+        .header-text p { font-size: 0.75rem; color: rgba(255,255,255,0.8); }
+
+        /* USER BADGE dans header */
+        .header-user {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
-        .header-text p { 
-            font-size: 0.75rem; 
-            color: rgba(255,255,255,0.8); 
+        .user-email {
+            font-size: 0.72rem;
+            color: rgba(255,255,255,0.75);
+            max-width: 120px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
+        .btn-logout {
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: #fff;
+            padding: 0.3rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            cursor: pointer;
+        }
+        .btn-logout:hover { background: rgba(255,255,255,0.25); }
 
         /* SCREENS */
-        .screen {
-            display: none;
-            padding: 1rem;
-            max-width: 680px;
-            margin: 0 auto;
-        }
+        .screen { display: none; padding: 1rem; max-width: 680px; margin: 0 auto; }
         .screen.active { display: block; }
 
         /* CARDS */
@@ -124,584 +124,155 @@
             gap: 0.5rem;
             width: 100%;
         }
-
-        .btn:hover {
-            background: var(--green-dark);
-            transform: translateY(-1px);
-        }
-
-        .btn:active {
-            transform: translateY(0);
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-        }
-
-        .btn-outline:hover {
-            background: var(--primary);
-            color: var(--bg);
-        }
-
-        .btn-sm {
-            padding: 0.5rem 1rem;
-            font-size: 0.85rem;
-            width: auto;
-        }
-
-        .btn-row {
-            display: flex;
-            gap: 0.75rem;
-            margin-top: 1rem;
-        }
-
+        .btn:hover { background: var(--green-dark); transform: translateY(-1px); }
+        .btn:active { transform: translateY(0); }
+        .btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); }
+        .btn-outline:hover { background: var(--primary); color: var(--bg); }
+        .btn-sm { padding: 0.5rem 1rem; font-size: 0.85rem; width: auto; }
+        .btn-row { display: flex; gap: 0.75rem; margin-top: 1rem; }
         .btn-row .btn { flex: 1; }
 
         /* WELCOME */
-        .welcome-icon {
-            font-size: 3rem;
-            text-align: center;
-            margin-bottom: 1rem;
-        }
-
-        .welcome-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 0.5rem;
-        }
-
-        .welcome-sub {
-            color: var(--text-muted);
-            text-align: center;
-            margin-bottom: 1.5rem;
-            font-size: 0.9rem;
-        }
-
+        .welcome-icon { font-size: 3rem; text-align: center; margin-bottom: 1rem; }
+        .welcome-title { font-size: 1.5rem; font-weight: 700; text-align: center; margin-bottom: 0.5rem; }
+        .welcome-sub { color: var(--text-muted); text-align: center; margin-bottom: 1.5rem; font-size: 0.9rem; }
         .info-box {
             background: rgba(56,189,248,0.08);
             border-left: 3px solid var(--primary);
-            padding: 1rem;
-            border-radius: 6px;
-            margin-bottom: 1.5rem;
-            font-size: 0.875rem;
+            padding: 1rem; border-radius: 6px;
+            margin-bottom: 1.5rem; font-size: 0.875rem;
         }
-
-        .info-box ul {
-            margin-left: 1.25rem;
-            margin-top: 0.5rem;
-            line-height: 2;
-        }
+        .info-box ul { margin-left: 1.25rem; margin-top: 0.5rem; line-height: 2; }
 
         /* SERIES GRID */
-        .series-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 0.25rem;
-        }
-
-        .series-sub {
-            color: var(--text-muted);
-            font-size: 0.875rem;
-            margin-bottom: 1.25rem;
-        }
-
-        .series-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
-            gap: 0.75rem;
-        }
-
+        .series-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.25rem; }
+        .series-sub { color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1.25rem; }
+        .series-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 0.75rem; }
         .series-btn {
             background: var(--bg-deep);
             border: 2px solid var(--green);
             color: var(--text);
             padding: 1.1rem 0.5rem;
             border-radius: 10px;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-align: center;
-            position: relative;
+            font-size: 1rem; font-weight: 700;
+            cursor: pointer; transition: all 0.2s;
+            text-align: center; position: relative;
         }
-
-        .series-btn:hover {
-            background: var(--green);
-            transform: scale(1.04);
-        }
-
-        .series-btn.done {
-            border-color: var(--success);
-            background: rgba(16,185,129,0.1);
-        }
-
-        .series-btn.done::after {
-            content: '✓';
-            position: absolute;
-            top: 4px;
-            right: 6px;
-            color: var(--success);
-            font-size: 0.85rem;
-        }
-
-        .serie-score {
-            display: block;
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            font-weight: 400;
-            margin-top: 3px;
-        }
+        .series-btn:hover { background: var(--green); transform: scale(1.04); }
+        .series-btn.done { border-color: var(--success); background: rgba(16,185,129,0.1); }
+        .series-btn.done::after { content: '✓'; position: absolute; top: 4px; right: 6px; color: var(--success); font-size: 0.85rem; }
+        .serie-score { display: block; font-size: 0.7rem; color: var(--text-muted); font-weight: 400; margin-top: 3px; }
 
         /* QUIZ HEADER */
-        .quiz-topbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0.875rem;
-            gap: 0.5rem;
-        }
-
-        .quiz-info {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--text-muted);
-        }
-
-        .quiz-serie {
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-
+        .quiz-topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.875rem; gap: 0.5rem; }
+        .quiz-info { font-size: 0.9rem; font-weight: 600; color: var(--text-muted); }
+        .quiz-serie { font-size: 1rem; font-weight: 700; color: var(--primary); }
         .timer {
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--yellow);
-            background: rgba(253,239,66,0.1);
-            padding: 0.3rem 0.75rem;
-            border-radius: 20px;
-            border: 1px solid rgba(253,239,66,0.3);
+            font-size: 1rem; font-weight: 700; color: var(--yellow);
+            background: rgba(253,239,66,0.1); padding: 0.3rem 0.75rem;
+            border-radius: 20px; border: 1px solid rgba(253,239,66,0.3);
         }
-
-        .progress-bar {
-            background: var(--bg-deep);
-            height: 6px;
-            border-radius: 3px;
-            overflow: hidden;
-            margin-bottom: 1rem;
-        }
-
-        .progress-fill {
-            background: linear-gradient(90deg, var(--green), var(--yellow));
-            height: 100%;
-            transition: width 0.4s ease;
-        }
+        .progress-bar { background: var(--bg-deep); height: 6px; border-radius: 3px; overflow: hidden; margin-bottom: 1rem; }
+        .progress-fill { background: linear-gradient(90deg, var(--green), var(--yellow)); height: 100%; transition: width 0.4s ease; }
 
         /* QUESTION CARD */
-        .question-card {
-            background: var(--bg-card);
-            border-radius: var(--radius);
-            overflow: hidden;
-            margin-bottom: 1rem;
-        }
+        .question-card { background: var(--bg-card); border-radius: var(--radius); overflow: hidden; margin-bottom: 1rem; }
+        .question-img { width: 100%; display: block; max-height: 260px; object-fit: contain; background: #000; padding: 0.5rem; }
+        .question-img-placeholder { background: rgba(251,191,36,0.08); border-left: 3px solid var(--warning); padding: 0.75rem 1rem; font-size: 0.8rem; color: var(--text-muted); }
+        .question-body { padding: 1rem; }
 
-        .question-img {
-            width: 100%;
-            display: block;
-            max-height: 260px;
-            object-fit: contain;
-            background: #000;
-            padding: 0.5rem;
-        }
-
-        .question-img-placeholder {
-            background: rgba(251,191,36,0.08);
-            border-left: 3px solid var(--warning);
-            padding: 0.75rem 1rem;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-
-        .question-body {
-            padding: 1rem;
-        }
-
-        /* OPTIONS (2 COLONNES) */
-        .options-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.6rem;
-        }
-
-        @media(max-width: 400px) {
-            .options-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
+        /* OPTIONS */
+        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+        @media(max-width: 400px) { .options-grid { grid-template-columns: 1fr; } }
         .option {
-            background: var(--bg-deep);
-            border: 2px solid transparent;
-            padding: 0.75rem 0.875rem;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.18s;
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            font-size: 0.875rem;
+            background: var(--bg-deep); border: 2px solid transparent;
+            padding: 0.75rem 0.875rem; border-radius: 8px;
+            cursor: pointer; transition: all 0.18s;
+            display: flex; align-items: center; gap: 0.6rem; font-size: 0.875rem;
         }
-
-        .option:hover:not(.locked) {
-            border-color: var(--green);
-            background: rgba(0,133,63,0.1);
-        }
-
-        .option.selected {
-            border-color: var(--primary);
-            background: rgba(56,189,248,0.1);
-        }
-
-        .option.correct {
-            border-color: var(--success);
-            background: rgba(16,185,129,0.15);
-        }
-
-        .option.incorrect {
-            border-color: var(--error);
-            background: rgba(239,68,68,0.1);
-        }
-
-        .option.locked {
-            cursor: default;
-        }
-
+        .option:hover:not(.locked) { border-color: var(--green); background: rgba(0,133,63,0.1); }
+        .option.selected { border-color: var(--primary); background: rgba(56,189,248,0.1); }
+        .option.correct { border-color: var(--success); background: rgba(16,185,129,0.15); }
+        .option.incorrect { border-color: var(--error); background: rgba(239,68,68,0.1); }
+        .option.locked { cursor: default; }
         .opt-letter {
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
+            width: 28px; height: 28px; border-radius: 50%;
             background: var(--bg-card);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 0.8rem;
-            flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 0.8rem; flex-shrink: 0;
         }
-
-        .option.correct .opt-letter {
-            background: var(--success);
-            color: #fff;
-        }
-
-        .option.incorrect .opt-letter {
-            background: var(--error);
-            color: #fff;
-        }
-
-        .opt-text {
-            flex: 1;
-            line-height: 1.3;
-        }
+        .option.correct .opt-letter { background: var(--success); color: #fff; }
+        .option.incorrect .opt-letter { background: var(--error); color: #fff; }
+        .opt-text { flex: 1; line-height: 1.3; }
 
         /* QUIZ ACTIONS */
-        .quiz-actions {
-            display: flex;
-            gap: 0.75rem;
-            align-items: center;
-        }
+        .quiz-actions { display: flex; gap: 0.75rem; align-items: center; }
+        .quiz-actions .btn { flex: 1; }
+        .btn-prev { max-width: 120px; }
 
-        .quiz-actions .btn {
-            flex: 1;
-        }
-
-        .btn-prev {
-            max-width: 120px;
-        }
-
-        /* ALERT RÉPONDRE */
+        /* ALERT */
         .alert-answer {
-            background: rgba(245,158,11,0.1);
-            border: 1px solid var(--warning);
-            color: var(--warning);
-            padding: 0.6rem 1rem;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            text-align: center;
-            margin-bottom: 0.75rem;
-            display: none;
+            background: rgba(245,158,11,0.1); border: 1px solid var(--warning);
+            color: var(--warning); padding: 0.6rem 1rem; border-radius: 8px;
+            font-size: 0.85rem; text-align: center; margin-bottom: 0.75rem; display: none;
         }
-
-        .alert-answer.show {
-            display: block;
-        }
+        .alert-answer.show { display: block; }
 
         /* RESULTS */
-        .result-header {
-            text-align: center;
-            padding: 1.5rem 1rem 1rem;
-        }
+        .result-header { text-align: center; padding: 1.5rem 1rem 1rem; }
+        .result-badge { font-size: 3.5rem; margin-bottom: 0.75rem; display: block; }
+        .result-verdict { font-size: 1.6rem; font-weight: 800; margin-bottom: 0.25rem; }
+        .result-verdict.admis { color: var(--success); }
+        .result-verdict.ajourn { color: var(--error); }
+        .result-serie { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem; }
+        .result-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin-bottom: 1rem; }
+        .stat-box { background: var(--bg-deep); border-radius: 10px; padding: 1rem 0.5rem; text-align: center; }
+        .stat-val { font-size: 1.6rem; font-weight: 800; }
+        .stat-lbl { font-size: 0.72rem; color: var(--text-muted); margin-top: 2px; }
 
-        .result-badge {
-            font-size: 3.5rem;
-            margin-bottom: 0.75rem;
-            display: block;
-        }
-
-        .result-verdict {
-            font-size: 1.6rem;
-            font-weight: 800;
-            margin-bottom: 0.25rem;
-        }
-
-        .result-verdict.admis {
-            color: var(--success);
-        }
-
-        .result-verdict.ajourn {
-            color: var(--error);
-        }
-
-        .result-serie {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-        }
-
-        .result-stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 0.75rem;
-            margin-bottom: 1rem;
-        }
-
-        .stat-box {
-            background: var(--bg-deep);
-            border-radius: 10px;
-            padding: 1rem 0.5rem;
-            text-align: center;
-        }
-
-        .stat-val {
-            font-size: 1.6rem;
-            font-weight: 800;
-        }
-
-        .stat-lbl {
-            font-size: 0.72rem;
-            color: var(--text-muted);
-            margin-top: 2px;
-        }
-
-        /* TABLEAU CORRECTIONS */
-        .correction-title {
-            font-size: 1rem;
-            font-weight: 700;
-            margin-bottom: 0.875rem;
-        }
-
-        .questions-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 0.5rem;
-        }
-
-        @media(min-width: 500px) {
-            .questions-grid {
-                grid-template-columns: repeat(7, 1fr);
-            }
-        }
-
+        /* CORRECTIONS */
+        .correction-title { font-size: 1rem; font-weight: 700; margin-bottom: 0.875rem; }
+        .questions-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.5rem; }
+        @media(min-width: 500px) { .questions-grid { grid-template-columns: repeat(7, 1fr); } }
         .q-cell {
-            aspect-ratio: 1;
-            border-radius: 8px;
-            border: 2px solid transparent;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: all 0.2s;
+            aspect-ratio: 1; border-radius: 8px; border: 2px solid transparent;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 0.85rem; cursor: pointer; transition: all 0.2s;
         }
+        .q-cell.ok { background: rgba(16,185,129,0.15); border-color: var(--success); color: var(--success); }
+        .q-cell.ko { background: rgba(239,68,68,0.15); border-color: var(--error); color: var(--error); }
+        .q-cell:hover { transform: scale(1.1); box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
 
-        .q-cell.ok {
-            background: rgba(16,185,129,0.15);
-            border-color: var(--success);
-            color: var(--success);
-        }
-
-        .q-cell.ko {
-            background: rgba(239,68,68,0.15);
-            border-color: var(--error);
-            color: var(--error);
-        }
-
-        .q-cell:hover {
-            transform: scale(1.1);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-        }
-
-        /* MODAL CORRECTION */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.85);
-            z-index: 200;
-            padding: 1rem;
-            overflow-y: auto;
-        }
-
-        .modal-overlay.open {
-            display: flex;
-            align-items: flex-start;
-            justify-content: center;
-        }
-
-        .modal {
-            background: var(--bg-card);
-            border-radius: var(--radius);
-            width: 100%;
-            max-width: 600px;
-            overflow: hidden;
-            margin: auto;
-        }
-
-        .modal-header {
-            background: var(--bg-deep);
-            padding: 0.875rem 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .modal-header h3 {
-            font-size: 1rem;
-            font-weight: 700;
-        }
-
-        .modal-close {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-size: 1.4rem;
-            cursor: pointer;
-            line-height: 1;
-            padding: 0.25rem;
-        }
-
-        .modal-img {
-            width: 100%;
-            display: block;
-            max-height: 300px;
-            object-fit: contain;
-            background: #000;
-            padding: 0.5rem;
-        }
-
-        .modal-options {
-            padding: 1rem;
-        }
-
-        .modal-option {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.75rem 1rem;
-            border-radius: 8px;
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-            border: 2px solid transparent;
-        }
-
-        .modal-option.correct {
-            border-color: var(--success);
-            background: rgba(16,185,129,0.12);
-            color: var(--success);
-        }
-
-        .modal-option.incorrect {
-            border-color: var(--error);
-            background: rgba(239,68,68,0.08);
-            color: var(--error);
-        }
-
-        .modal-option.neutral {
-            border-color: rgba(255,255,255,0.1);
-            color: var(--text-muted);
-        }
-
-        .modal-opt-letter {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 0.8rem;
-            flex-shrink: 0;
-        }
-
-        .modal-option.correct .modal-opt-letter {
-            background: var(--success);
-            color: #fff;
-        }
-
-        .modal-option.incorrect .modal-opt-letter {
-            background: var(--error);
-            color: #fff;
-        }
-
-        .modal-option.neutral .modal-opt-letter {
-            background: var(--bg-deep);
-            color: var(--text-muted);
-        }
-
-        .modal-legend {
-            padding: 0 1rem 1rem;
-            display: flex;
-            gap: 1rem;
-            font-size: 0.78rem;
-            color: var(--text-muted);
-        }
-
-        .modal-legend span {
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-        }
+        /* MODAL */
+        .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 200; padding: 1rem; overflow-y: auto; }
+        .modal-overlay.open { display: flex; align-items: flex-start; justify-content: center; }
+        .modal { background: var(--bg-card); border-radius: var(--radius); width: 100%; max-width: 600px; overflow: hidden; margin: auto; }
+        .modal-header { background: var(--bg-deep); padding: 0.875rem 1rem; display: flex; justify-content: space-between; align-items: center; }
+        .modal-header h3 { font-size: 1rem; font-weight: 700; }
+        .modal-close { background: none; border: none; color: var(--text-muted); font-size: 1.4rem; cursor: pointer; line-height: 1; padding: 0.25rem; }
+        .modal-img { width: 100%; display: block; max-height: 300px; object-fit: contain; background: #000; padding: 0.5rem; }
+        .modal-options { padding: 1rem; }
+        .modal-option { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; border-radius: 8px; margin-bottom: 0.5rem; font-size: 0.9rem; border: 2px solid transparent; }
+        .modal-option.correct { border-color: var(--success); background: rgba(16,185,129,0.12); color: var(--success); }
+        .modal-option.incorrect { border-color: var(--error); background: rgba(239,68,68,0.08); color: var(--error); }
+        .modal-option.neutral { border-color: rgba(255,255,255,0.1); color: var(--text-muted); }
+        .modal-opt-letter { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.8rem; flex-shrink: 0; }
+        .modal-option.correct .modal-opt-letter { background: var(--success); color: #fff; }
+        .modal-option.incorrect .modal-opt-letter { background: var(--error); color: #fff; }
+        .modal-option.neutral .modal-opt-letter { background: var(--bg-deep); color: var(--text-muted); }
+        .modal-legend { padding: 0 1rem 1rem; display: flex; gap: 1rem; font-size: 0.78rem; color: var(--text-muted); }
+        .modal-legend span { display: flex; align-items: center; gap: 0.3rem; }
 
         /* BACK BUTTON */
         .back-btn {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            cursor: pointer;
-            font-size: 0.875rem;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            padding: 0;
+            background: none; border: none; color: var(--text-muted);
+            cursor: pointer; font-size: 0.875rem; margin-bottom: 1rem;
+            display: flex; align-items: center; gap: 0.4rem; padding: 0;
         }
-
-        .back-btn:hover {
-            color: var(--text);
-        }
+        .back-btn:hover { color: var(--text); }
     </style>
 </head>
 <body>
-    <!-- Écran de chargement Firebase -->
-    <div id="firebaseLoader" style="display:none; position:fixed; inset:0; background:var(--bg); z-index:999; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:1rem;">
-        <div style="font-size:3rem;">🔄</div>
-        <div style="color:var(--text-muted);">Initialisation...</div>
-    </div>
-
     <header>
         <div class="flag">
             <div class="flag-g"></div>
@@ -711,6 +282,10 @@
         <div class="header-text">
             <h1>Code de la Route - Sénégal</h1>
             <p>Permis blanc • Entraînement B1 → B12</p>
+        </div>
+        <div class="header-user" id="headerUser" style="display:none">
+            <span class="user-email" id="userEmailDisplay"></span>
+            <button class="btn-logout" onclick="handleLogout()">Déconnexion</button>
         </div>
     </header>
 
@@ -753,19 +328,17 @@
             </div>
             <div class="timer" id="timer">00:00</div>
         </div>
-
         <div class="question-card">
-            <img class="question-img" id="questionImg" src="" alt="" 
+            <img class="question-img" id="questionImg" src="" alt=""
                 onerror="this.style.display='none'; document.getElementById('imgPlaceholder').style.display='block';">
             <div class="question-img-placeholder" id="imgPlaceholder" style="display:none;">
-                ⚠️ Image non disponible (placez les images dans le dossier : code/images/code/)
+                ⚠️ Image non disponible
             </div>
             <div class="question-body">
                 <div class="alert-answer" id="alertAnswer">⚠️ Veuillez sélectionner une réponse avant de continuer</div>
                 <div class="options-grid" id="optionsContainer"></div>
             </div>
         </div>
-
         <div class="quiz-actions">
             <button class="btn btn-outline btn-sm btn-prev" onclick="prevQuestion()">← Préc.</button>
             <button class="btn" id="nextBtn" onclick="nextQuestion()">Suivant</button>
@@ -780,7 +353,6 @@
                 <div class="result-verdict" id="resultVerdict"></div>
                 <div class="result-serie" id="resultSerie"></div>
             </div>
-
             <div class="result-stats">
                 <div class="stat-box">
                     <div class="stat-val" style="color: var(--success);" id="statCorrect">0</div>
@@ -795,14 +367,11 @@
                     <div class="stat-lbl">Temps</div>
                 </div>
             </div>
-
             <div class="btn-row">
                 <button class="btn btn-outline" onclick="retryQuiz()">↻ Recommencer</button>
                 <button class="btn btn-outline" onclick="showScreen('screen-series')">📚 Séries</button>
             </div>
         </div>
-
-        <!-- Tableau corrections -->
         <div class="card">
             <div class="correction-title">💡 Cliquez sur une question pour voir la correction</div>
             <div class="questions-grid" id="questionsGrid"></div>
@@ -826,7 +395,7 @@
     </div>
 
     <script>
-        // ============== DONNÉES CORRIGÉES ==============
+        // ============== DONNÉES ==============
         const quizData = {
             "B1": [
                 {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
@@ -1165,9 +734,84 @@
             progress: JSON.parse(localStorage.getItem('quizProgress') || '{}')
         };
 
+        // ============== FIREBASE AUTH LISTENER ==============
+        // Attendre que Firebase soit prêt
+        window.addEventListener('load', function() {
+            if (typeof firebase !== 'undefined' && typeof auth !== 'undefined') {
+                auth.onAuthStateChanged(function(user) {
+                    if (!user) {
+                        // Non connecté → rediriger vers login
+                        window.location.href = 'login.html';
+                    } else if (!user.emailVerified) {
+                        // Email non vérifié
+                        auth.signOut();
+                        window.location.href = 'login.html';
+                    } else {
+                        // Connecté et vérifié → afficher email dans header
+                        const headerUser = document.getElementById('headerUser');
+                        const emailDisplay = document.getElementById('userEmailDisplay');
+                        if (headerUser) headerUser.style.display = 'flex';
+                        if (emailDisplay) emailDisplay.textContent = user.email;
+                        // Charger progression depuis Firestore
+                        loadProgressFromFirestore(user.uid);
+                    }
+                });
+            } else {
+                // Firebase non disponible → mode local
+                console.warn('Firebase non disponible, mode local activé');
+                initApp();
+            }
+        });
+
+        // Charger progression Firestore
+        function loadProgressFromFirestore(uid) {
+            db.collection('users').doc(uid).get()
+                .then(function(doc) {
+                    if (doc.exists && doc.data().progress) {
+                        state.progress = doc.data().progress;
+                        localStorage.setItem('quizProgress', JSON.stringify(state.progress));
+                    }
+                })
+                .catch(function(err) {
+                    console.warn('Erreur Firestore, utilisation localStorage:', err);
+                })
+                .finally(function() {
+                    initApp();
+                });
+        }
+
+        // Sauvegarder progression
+        function saveProgress() {
+            localStorage.setItem('quizProgress', JSON.stringify(state.progress));
+            if (typeof auth !== 'undefined' && auth.currentUser) {
+                const uid = auth.currentUser.uid;
+                db.collection('users').doc(uid).set(
+                    { progress: state.progress },
+                    { merge: true }
+                ).catch(function(err) {
+                    console.warn('Erreur sauvegarde Firestore:', err);
+                });
+            }
+        }
+
+        // Déconnexion
+        function handleLogout() {
+            if (typeof auth !== 'undefined') {
+                auth.signOut().then(function() {
+                    window.location.href = 'login.html';
+                });
+            }
+        }
+
+        // ============== INIT APP ==============
+        function initApp() {
+            renderSeriesGrid();
+            showScreen('screen-welcome');
+        }
+
         // ============== SCREENS ==============
         function showScreen(id) {
-            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.screen').forEach(function(s) { s.classList.remove('active'); });
             document.getElementById(id).classList.add('active');
             window.scrollTo(0, 0);
         }
@@ -1176,12 +820,12 @@
         function renderSeriesGrid() {
             const grid = document.getElementById('seriesGrid');
             grid.innerHTML = '';
-            Object.keys(quizData).forEach(s => {
+            Object.keys(quizData).forEach(function(s) {
                 const btn = document.createElement('button');
                 btn.className = 'series-btn' + (state.progress[s] ? ' done' : '');
                 const p = state.progress[s];
-                btn.innerHTML = s + (p ? `<span class="serie-score">${p.score}/25</span>` : '');
-                btn.onclick = () => startQuiz(s);
+                btn.innerHTML = s + (p ? '<span class="serie-score">' + p.score + '/25</span>' : '');
+                btn.onclick = function() { startQuiz(s); };
                 grid.appendChild(btn);
             });
         }
@@ -1190,14 +834,12 @@
         function startQuiz(series) {
             state.series = series;
             state.qIndex = 0;
-            state.answers = Array.from({length: 25}, () => []);
+            state.answers = Array.from({length: 25}, function() { return []; });
             state.locked = new Array(25).fill(false);
             state.startTime = Date.now();
-
-            document.getElementById('quizSerieName').textContent = `Série ${series}`;
+            document.getElementById('quizSerieName').textContent = 'Série ' + series;
             clearInterval(state.timerInterval);
             state.timerInterval = setInterval(updateTimer, 1000);
-
             showScreen('screen-quiz');
             renderQuestion();
         }
@@ -1206,7 +848,8 @@
         function updateTimer() {
             const s = Math.floor((Date.now() - state.startTime) / 1000);
             const m = Math.floor(s / 60), sec = s % 60;
-            document.getElementById('timer').textContent = String(m).padStart(2, '0') + ':' + String(sec).padStart(2, '0');
+            document.getElementById('timer').textContent =
+                String(m).padStart(2, '0') + ':' + String(sec).padStart(2, '0');
         }
 
         // ============== RENDER QUESTION ==============
@@ -1215,53 +858,41 @@
             const q = quizData[state.series][i];
             const locked = state.locked[i];
 
-            // Progress
             document.getElementById('progressBar').style.width = ((i + 1) / 25 * 100) + '%';
             document.getElementById('qNum').textContent = i + 1;
 
-            // Image
             const imgEl = document.getElementById('questionImg');
             const placeholder = document.getElementById('imgPlaceholder');
-            const imgName = `${state.series}_Q${i + 1}.jpg`;
-            imgEl.src = `images/${imgName}`;
-            imgEl.alt = `${state.series} Question ${i + 1}`;
+            imgEl.src = 'images/' + state.series + '_Q' + (i + 1) + '.jpg';
+            imgEl.alt = state.series + ' Question ' + (i + 1);
             imgEl.style.display = 'block';
             placeholder.style.display = 'none';
 
-            // Alert reset
             document.getElementById('alertAnswer').classList.remove('show');
 
-            // Options
             const container = document.getElementById('optionsContainer');
             container.innerHTML = '';
-            q.o.forEach((opt, idx) => {
+            q.o.forEach(function(opt, idx) {
                 const div = document.createElement('div');
                 div.className = 'option';
-
                 const selected = state.answers[i].includes(idx);
                 const isCorrect = q.a.includes(idx);
 
                 if (locked) {
                     div.classList.add('locked');
-                    if (isCorrect) {
-                        div.classList.add('correct');
-                    } else if (selected && !isCorrect) {
-                        div.classList.add('incorrect');
-                    }
+                    if (isCorrect) div.classList.add('correct');
+                    else if (selected && !isCorrect) div.classList.add('incorrect');
                 } else if (selected) {
                     div.classList.add('selected');
                 }
 
-                div.innerHTML = `<div class="opt-letter">${['A','B','C','D'][idx]}</div><div class="opt-text">${opt}</div>`;
+                div.innerHTML = '<div class="opt-letter">' + ['A','B','C','D'][idx] + '</div>' +
+                    '<div class="opt-text">' + opt + '</div>';
 
-                if (!locked) {
-                    div.onclick = () => toggleOption(idx);
-                }
-
+                if (!locked) div.onclick = function() { toggleOption(idx); };
                 container.appendChild(div);
             });
 
-            // Bouton suivant
             const nextBtn = document.getElementById('nextBtn');
             if (i === 24) {
                 nextBtn.textContent = locked ? 'Voir les résultats' : 'Valider & Terminer';
@@ -1279,26 +910,19 @@
             const pos = arr.indexOf(idx);
 
             if (pos > -1) {
-                // Désélectionner
                 arr.splice(pos, 1);
             } else {
-                // Règle : A et B forment un groupe, C et D forment un autre groupe
-                // On ne peut sélectionner qu'une option par groupe
                 if (idx === 0 || idx === 1) {
-                    // Groupe A-B : retirer l'autre option du groupe si elle existe
-                    const otherInGroup = idx === 0 ? 1 : 0;
-                    const posOther = arr.indexOf(otherInGroup);
-                    if (posOther > -1) arr.splice(posOther, 1);
+                    const other = idx === 0 ? 1 : 0;
+                    const p = arr.indexOf(other);
+                    if (p > -1) arr.splice(p, 1);
                 } else if (idx === 2 || idx === 3) {
-                    // Groupe C-D : retirer l'autre option du groupe si elle existe
-                    const otherInGroup = idx === 2 ? 3 : 2;
-                    const posOther = arr.indexOf(otherInGroup);
-                    if (posOther > -1) arr.splice(posOther, 1);
+                    const other = idx === 2 ? 3 : 2;
+                    const p = arr.indexOf(other);
+                    if (p > -1) arr.splice(p, 1);
                 }
-                
                 arr.push(idx);
             }
-
             renderQuestion();
         }
 
@@ -1309,38 +933,28 @@
                 document.getElementById('alertAnswer').classList.add('show');
                 return;
             }
-
             state.locked[i] = true;
             renderQuestion();
         }
 
         function goNext() {
-            if (state.qIndex < 24) {
-                state.qIndex++;
-                renderQuestion();
-            }
+            if (state.qIndex < 24) { state.qIndex++; renderQuestion(); }
         }
 
         function prevQuestion() {
-            if (state.qIndex > 0) {
-                state.qIndex--;
-                renderQuestion();
-            }
+            if (state.qIndex > 0) { state.qIndex--; renderQuestion(); }
         }
 
-        function nextQuestion() {
-            // handled by btn onclick
-        }
+        function nextQuestion() { /* handled by btn onclick */ }
 
         // ============== FINISH ==============
         function finishQuiz() {
             clearInterval(state.timerInterval);
-
             const total = Math.floor((Date.now() - state.startTime) / 1000);
             const m = Math.floor(total / 60), s = total % 60;
 
             let correct = 0;
-            quizData[state.series].forEach((q, i) => {
+            quizData[state.series].forEach(function(q, i) {
                 const ua = state.answers[i].slice().sort();
                 const ca = q.a.slice().sort();
                 if (JSON.stringify(ua) === JSON.stringify(ca)) correct++;
@@ -1349,67 +963,65 @@
             const errors = 25 - correct;
             const admis = errors <= 6;
 
-            // Sauvegarder
-            state.progress[state.series] = {score: correct, admis};
-            localStorage.setItem('quizprogress', JSON.stringify(state.progress));
+            state.progress[state.series] = { score: correct, admis: admis };
+            saveProgress();
 
-            // Résultats
             document.getElementById('resultBadge').textContent = admis ? '🎉' : '📝';
             document.getElementById('resultVerdict').textContent = admis ? 'ADMIS !' : 'AJOURNÉ';
             document.getElementById('resultVerdict').className = 'result-verdict ' + (admis ? 'admis' : 'ajourn');
-            document.getElementById('resultSerie').textContent = `Série ${state.series} : ${correct}/25 réponses correctes (${errors} erreurs)`;
-
+            document.getElementById('resultSerie').textContent =
+                'Série ' + state.series + ' : ' + correct + '/25 réponses correctes (' + errors + ' erreurs)';
             document.getElementById('statCorrect').textContent = correct;
             document.getElementById('statWrong').textContent = errors;
-            document.getElementById('statTime').textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+            document.getElementById('statTime').textContent =
+                String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
 
-            // Grille corrections
             const grid = document.getElementById('questionsGrid');
             grid.innerHTML = '';
-            quizData[state.series].forEach((q, i) => {
+            quizData[state.series].forEach(function(q, i) {
                 const ua = state.answers[i].slice().sort();
                 const ca = q.a.slice().sort();
                 const ok = JSON.stringify(ua) === JSON.stringify(ca);
-
                 const cell = document.createElement('div');
                 cell.className = 'q-cell ' + (ok ? 'ok' : 'ko');
                 cell.textContent = i + 1;
-                cell.title = `Question ${i + 1} : ${ok ? 'Correct' : 'Incorrect'}`;
-                cell.onclick = () => openModal(i);
+                cell.title = 'Question ' + (i + 1) + ' : ' + (ok ? 'Correct' : 'Incorrect');
+                cell.onclick = function() { openModal(i); };
                 grid.appendChild(cell);
             });
 
+            renderSeriesGrid();
             showScreen('screen-results');
         }
 
-        // ============== MODAL CORRECTION ==============
+        // ============== MODAL ==============
         function openModal(qIndex) {
             const q = quizData[state.series][qIndex];
             const ua = state.answers[qIndex];
             const ca = q.a;
 
-            document.getElementById('modalTitle').textContent = `Correction ${state.series} • Q${qIndex + 1}`;
+            document.getElementById('modalTitle').textContent =
+                'Correction ' + state.series + ' • Q' + (qIndex + 1);
 
-            // Image
             const modalImg = document.getElementById('modalImg');
-            modalImg.src = `images/${state.series}_Q${qIndex + 1}.jpg`;
+            modalImg.src = 'images/' + state.series + '_Q' + (qIndex + 1) + '.jpg';
             modalImg.onerror = function() { this.style.display = 'none'; };
             modalImg.style.display = 'block';
 
-            // Options
             const opts = document.getElementById('modalOptions');
             opts.innerHTML = '';
-            q.o.forEach((opt, idx) => {
+            q.o.forEach(function(opt, idx) {
                 const isCorrect = ca.includes(idx);
                 const wasSelected = ua.includes(idx);
-
                 let cls = 'neutral';
                 if (isCorrect) cls = 'correct';
                 else if (wasSelected && !isCorrect) cls = 'incorrect';
-
                 const div = document.createElement('div');
                 div.className = 'modal-option ' + cls;
-                div.innerHTML = `<div class="modal-opt-letter">${['A','B','C','D'][idx]}</div><div style="flex:1">${opt}</div>${isCorrect ? '<span>✓</span>' : ''}${wasSelected ? '<span>✗</span>' : ''}`;
+                div.innerHTML = '<div class="modal-opt-letter">' + ['A','B','C','D'][idx] + '</div>' +
+                    '<div style="flex:1">' + opt + '</div>' +
+                    (isCorrect ? '<span>✓</span>' : '') +
+                    (wasSelected && !isCorrect ? '<span>✗</span>' : '');
                 opts.appendChild(div);
             });
 
@@ -1417,9 +1029,7 @@
         }
 
         function closeModal(e) {
-            if (e.target === document.getElementById('modalOverlay')) {
-                closeModalDirect();
-            }
+            if (e.target === document.getElementById('modalOverlay')) closeModalDirect();
         }
 
         function closeModalDirect() {
@@ -1427,91 +1037,7 @@
         }
 
         // ============== RETRY ==============
-        function retryQuiz() {
-            startQuiz(state.series);
-        }
-
-        // ============== FIREBASE INIT ==============
-        let firebaseInitialized = false;
-        let currentUser = null;
-
-        function initFirebase() {
-            if (typeof firebaseConfig === 'undefined') {
-                console.warn('Firebase config non trouvée. Fonctionnement en mode local.');
-                firebaseInitialized = false;
-                return;
-            }
-
-            try {
-                firebase.initializeApp(firebaseConfig);
-                firebaseInitialized = true;
-                
-                // Écouter les changements d'authentification
-                firebase.auth().onAuthStateChanged(user => {
-                    currentUser = user;
-                    if (user) {
-                        console.log('Utilisateur connecté:', user.email);
-                        loadUserProgress(user.uid);
-                    } else {
-                        console.log('Utilisateur non connecté');
-                    }
-                });
-            } catch (error) {
-                console.error('Erreur initialisation Firebase:', error);
-                firebaseInitialized = false;
-            }
-        }
-
-        // Charger la progression depuis Firebase
-        function loadUserProgress(uid) {
-            if (!firebaseInitialized) return;
-            
-            firebase.database().ref('users/' + uid + '/progress').once('value')
-                .then(snapshot => {
-                    const data = snapshot.val();
-                    if (data) {
-                        state.progress = data;
-                        localStorage.setItem('quizProgress', JSON.stringify(data));
-                        renderSeriesGrid();
-                    }
-                })
-                .catch(err => console.error('Erreur chargement progression:', err));
-        }
-
-        // Sauvegarder la progression vers Firebase
-        function saveProgressToFirebase() {
-            if (!firebaseInitialized || !currentUser) {
-                // Sauvegarde locale uniquement
-                localStorage.setItem('quizProgress', JSON.stringify(state.progress));
-                return;
-            }
-
-            const uid = currentUser.uid;
-            firebase.database().ref('users/' + uid + '/progress').set(state.progress)
-                .then(() => {
-                    console.log('Progression sauvegardée sur Firebase');
-                    localStorage.setItem('quizProgress', JSON.stringify(state.progress));
-                })
-                .catch(err => {
-                    console.error('Erreur sauvegarde Firebase:', err);
-                    // Fallback sur localStorage
-                    localStorage.setItem('quizProgress', JSON.stringify(state.progress));
-                });
-        }
-
-        // ============== INIT ==============
-        document.addEventListener('DOMContentLoaded', function() {
-            // Initialiser Firebase
-            initFirebase();
-            
-            // Afficher l'interface
-            renderSeriesGrid();
-            showScreen('screen-welcome');
-        });
+        function retryQuiz() { startQuiz(state.series); }
     </script>
-    
-    <!-- Scripts externes (gestion authentification, etc.) -->
-    <script src="js/auth.js"></script>
-    <script src="js/sync.js"></script>
 </body>
 </html>
