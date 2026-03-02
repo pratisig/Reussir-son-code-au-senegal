@@ -5,20 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <title>Code de la Route - Sénégal</title>
     <meta name="theme-color" content="#00853F">
-    
-    <!-- Configuration Firebase -->
-    <script src="js/config.js"></script>
-    
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
-    
     <style>
-
-    </style>
-</head>
-<body>
         :root {
             --green: #00853F;
             --green-dark: #006d33;
@@ -700,12 +687,6 @@
     </style>
 </head>
 <body>
-    <!-- Écran de chargement Firebase -->
-    <div id="firebaseLoader" style="display:none; position:fixed; inset:0; background:var(--bg); z-index:999; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:1rem;">
-        <div style="font-size:3rem;">🔄</div>
-        <div style="color:var(--text-muted);">Initialisation...</div>
-    </div>
-
     <header>
         <div class="flag">
             <div class="flag-g"></div>
@@ -1226,7 +1207,7 @@
             // Image
             const imgEl = document.getElementById('questionImg');
             const placeholder = document.getElementById('imgPlaceholder');
-            const imgName = `${state.series}_Q${i + 1}.jpg`;
+            const imgName = `${state.series}Q${i + 1}.jpg`;
             imgEl.src = `images/${imgName}`;
             imgEl.alt = `${state.series} Question ${i + 1}`;
             imgEl.style.display = 'block';
@@ -1283,23 +1264,8 @@
             const pos = arr.indexOf(idx);
 
             if (pos > -1) {
-                // Désélectionner
                 arr.splice(pos, 1);
             } else {
-                // Règle : A et B forment un groupe, C et D forment un autre groupe
-                // On ne peut sélectionner qu'une option par groupe
-                if (idx === 0 || idx === 1) {
-                    // Groupe A-B : retirer l'autre option du groupe si elle existe
-                    const otherInGroup = idx === 0 ? 1 : 0;
-                    const posOther = arr.indexOf(otherInGroup);
-                    if (posOther > -1) arr.splice(posOther, 1);
-                } else if (idx === 2 || idx === 3) {
-                    // Groupe C-D : retirer l'autre option du groupe si elle existe
-                    const otherInGroup = idx === 2 ? 3 : 2;
-                    const posOther = arr.indexOf(otherInGroup);
-                    if (posOther > -1) arr.splice(posOther, 1);
-                }
-                
                 arr.push(idx);
             }
 
@@ -1396,7 +1362,7 @@
 
             // Image
             const modalImg = document.getElementById('modalImg');
-            modalImg.src = `images/${state.series}_Q${qIndex + 1}.jpg`;
+            modalImg.src = `images/${state.series}Q${qIndex + 1}.jpg`;
             modalImg.onerror = function() { this.style.display = 'none'; };
             modalImg.style.display = 'block';
 
@@ -1435,87 +1401,11 @@
             startQuiz(state.series);
         }
 
-        // ============== FIREBASE INIT ==============
-        let firebaseInitialized = false;
-        let currentUser = null;
-
-        function initFirebase() {
-            if (typeof firebaseConfig === 'undefined') {
-                console.warn('Firebase config non trouvée. Fonctionnement en mode local.');
-                firebaseInitialized = false;
-                return;
-            }
-
-            try {
-                firebase.initializeApp(firebaseConfig);
-                firebaseInitialized = true;
-                
-                // Écouter les changements d'authentification
-                firebase.auth().onAuthStateChanged(user => {
-                    currentUser = user;
-                    if (user) {
-                        console.log('Utilisateur connecté:', user.email);
-                        loadUserProgress(user.uid);
-                    } else {
-                        console.log('Utilisateur non connecté');
-                    }
-                });
-            } catch (error) {
-                console.error('Erreur initialisation Firebase:', error);
-                firebaseInitialized = false;
-            }
-        }
-
-        // Charger la progression depuis Firebase
-        function loadUserProgress(uid) {
-            if (!firebaseInitialized) return;
-            
-            firebase.database().ref('users/' + uid + '/progress').once('value')
-                .then(snapshot => {
-                    const data = snapshot.val();
-                    if (data) {
-                        state.progress = data;
-                        localStorage.setItem('quizProgress', JSON.stringify(data));
-                        renderSeriesGrid();
-                    }
-                })
-                .catch(err => console.error('Erreur chargement progression:', err));
-        }
-
-        // Sauvegarder la progression vers Firebase
-        function saveProgressToFirebase() {
-            if (!firebaseInitialized || !currentUser) {
-                // Sauvegarde locale uniquement
-                localStorage.setItem('quizProgress', JSON.stringify(state.progress));
-                return;
-            }
-
-            const uid = currentUser.uid;
-            firebase.database().ref('users/' + uid + '/progress').set(state.progress)
-                .then(() => {
-                    console.log('Progression sauvegardée sur Firebase');
-                    localStorage.setItem('quizProgress', JSON.stringify(state.progress));
-                })
-                .catch(err => {
-                    console.error('Erreur sauvegarde Firebase:', err);
-                    // Fallback sur localStorage
-                    localStorage.setItem('quizProgress', JSON.stringify(state.progress));
-                });
-        }
-
         // ============== INIT ==============
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialiser Firebase
-            initFirebase();
-            
-            // Afficher l'interface
             renderSeriesGrid();
             showScreen('screen-welcome');
         });
     </script>
-    
-    <!-- Scripts externes (gestion authentification, etc.) -->
-    <script src="js/auth.js"></script>
-    <script src="js/sync.js"></script>
 </body>
 </html>
