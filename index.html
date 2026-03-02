@@ -181,14 +181,15 @@
         .question-img-placeholder { background: rgba(251,191,36,0.08); border-left: 3px solid var(--warning); padding: 0.75rem 1rem; font-size: 0.8rem; color: var(--text-muted); }
         .question-body { padding: 1rem; }
 
-        /* OPTIONS */
+        /* OPTIONS — boutons A/B/C/D uniquement, grand et lisible */
         .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
-        @media(max-width: 400px) { .options-grid { grid-template-columns: 1fr; } }
+        @media(max-width: 400px) { .options-grid { grid-template-columns: 1fr 1fr; } }
         .option {
             background: var(--bg-deep); border: 2px solid transparent;
-            padding: 0.75rem 0.875rem; border-radius: 8px;
+            padding: 1rem 0.5rem; border-radius: 8px;
             cursor: pointer; transition: all 0.18s;
-            display: flex; align-items: center; gap: 0.6rem; font-size: 0.875rem;
+            display: flex; align-items: center; justify-content: center;
+            gap: 0; font-size: 0.875rem;
         }
         .option:hover:not(.locked) { border-color: var(--green); background: rgba(0,133,63,0.1); }
         .option.selected { border-color: var(--primary); background: rgba(56,189,248,0.1); }
@@ -196,19 +197,29 @@
         .option.incorrect { border-color: var(--error); background: rgba(239,68,68,0.1); }
         .option.locked { cursor: default; }
         .opt-letter {
-            width: 28px; height: 28px; border-radius: 50%;
+            width: 36px; height: 36px; border-radius: 50%;
             background: var(--bg-card);
             display: flex; align-items: center; justify-content: center;
-            font-weight: 700; font-size: 0.8rem; flex-shrink: 0;
+            font-weight: 800; font-size: 1.1rem; flex-shrink: 0;
         }
         .option.correct .opt-letter { background: var(--success); color: #fff; }
         .option.incorrect .opt-letter { background: var(--error); color: #fff; }
-        .opt-text { flex: 1; line-height: 1.3; }
+        .option.selected .opt-letter { background: var(--primary); color: var(--bg); }
+
+        /* HINT multi-choix */
+        .hint-multi {
+            font-size: 0.75rem; color: var(--text-muted);
+            text-align: center; margin-bottom: 0.5rem;
+            background: rgba(56,189,248,0.06);
+            border-radius: 6px; padding: 0.3rem 0.5rem;
+        }
 
         /* QUIZ ACTIONS */
-        .quiz-actions { display: flex; gap: 0.75rem; align-items: center; }
-        .quiz-actions .btn { flex: 1; }
-        .btn-prev { max-width: 120px; }
+        .quiz-actions { display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap; }
+        .quiz-actions .btn { flex: 1; min-width: 80px; }
+        .btn-prev { max-width: 110px; }
+        .btn-quit { max-width: 110px; background: transparent; border: 2px solid var(--text-muted); color: var(--text-muted); }
+        .btn-quit:hover { border-color: var(--error); color: var(--error); background: rgba(239,68,68,0.08); transform: none; }
 
         /* ALERT */
         .alert-answer {
@@ -250,7 +261,9 @@
         .modal-header { background: var(--bg-deep); padding: 0.875rem 1rem; display: flex; justify-content: space-between; align-items: center; }
         .modal-header h3 { font-size: 1rem; font-weight: 700; }
         .modal-close { background: none; border: none; color: var(--text-muted); font-size: 1.4rem; cursor: pointer; line-height: 1; padding: 0.25rem; }
-        .modal-img { width: 100%; display: block; max-height: 300px; object-fit: contain; background: #000; padding: 0.5rem; }
+        .modal-img { width: 100%; display: block; max-height: 280px; object-fit: contain; background: #000; padding: 0.5rem; }
+        .modal-img-rep { width: 100%; display: block; max-height: 220px; object-fit: contain; background: #0a1628; padding: 0.5rem; border-top: 1px solid rgba(255,255,255,0.08); }
+        .modal-rep-label { background: rgba(16,185,129,0.1); border-top: 1px solid rgba(16,185,129,0.2); padding: 0.4rem 1rem; font-size: 0.75rem; color: var(--success); font-weight: 600; }
         .modal-options { padding: 1rem; }
         .modal-option { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; border-radius: 8px; margin-bottom: 0.5rem; font-size: 0.9rem; border: 2px solid transparent; }
         .modal-option.correct { border-color: var(--success); background: rgba(16,185,129,0.12); color: var(--success); }
@@ -336,10 +349,14 @@
             </div>
             <div class="question-body">
                 <div class="alert-answer" id="alertAnswer">⚠️ Veuillez sélectionner une réponse avant de continuer</div>
+                <!-- FIX: hint multi-choix affiché dynamiquement -->
+                <div class="hint-multi" id="hintMulti" style="display:none;">ℹ️ Sélectionnez 2 réponses (voir image)</div>
                 <div class="options-grid" id="optionsContainer"></div>
             </div>
         </div>
         <div class="quiz-actions">
+            <!-- FIX: bouton quitter le quiz ajouté -->
+            <button class="btn btn-quit btn-sm" onclick="quitQuiz()">✕ Quitter</button>
             <button class="btn btn-outline btn-sm btn-prev" onclick="prevQuestion()">← Préc.</button>
             <button class="btn" id="nextBtn" onclick="nextQuestion()">Suivant</button>
         </div>
@@ -385,7 +402,11 @@
                 <h3 id="modalTitle">Correction Q1</h3>
                 <button class="modal-close" onclick="closeModalDirect()">×</button>
             </div>
+            <!-- Image de la question -->
             <img class="modal-img" id="modalImg" src="" alt="">
+            <!-- FIX: image des réponses de la série -->
+            <div class="modal-rep-label">✅ Feuille de réponses — Série</div>
+            <img class="modal-img-rep" id="modalImgRep" src="" alt="Réponses série">
             <div class="modal-options" id="modalOptions"></div>
             <div class="modal-legend">
                 <span><span style="color: var(--success);">✓</span> Bonne réponse</span>
@@ -396,330 +417,333 @@
 
     <script>
         // ============== DONNÉES ==============
+        // Les textes des options sont dans les images (B1_Q1.jpg etc.)
+        // On n'affiche que les lettres A/B/C/D comme boutons de sélection
+        // "a" = indices des bonnes réponses (0=A, 1=B, 2=C, 3=D)
         const quizData = {
             "B1": [
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[2]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,2]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[1]}
+                {"n":4,"a":[1,3]},
+                {"n":4,"a":[0,3]},
+                {"n":2,"a":[0]},
+                {"n":4,"a":[1,2]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[0]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[1]},
+                {"n":4,"a":[0,3]},
+                {"n":2,"a":[1]},
+                {"n":4,"a":[2]},
+                {"n":4,"a":[1,2]},
+                {"n":4,"a":[0,3]},
+                {"n":4,"a":[0,2]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[0]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[0]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[0]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[1]}
             ],
             "B2": [
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,2]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]}
+                {"n":4,"a":[0,3]},
+                {"n":4,"a":[1,3]},
+                {"n":4,"a":[1,3]},
+                {"n":2,"a":[1]},
+                {"n":4,"a":[0,3]},
+                {"n":2,"a":[0]},
+                {"n":4,"a":[0,3]},
+                {"n":2,"a":[1]},
+                {"n":4,"a":[1,3]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[1]},
+                {"n":4,"a":[1,3]},
+                {"n":2,"a":[0]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[0]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[1]},
+                {"n":4,"a":[1,2]},
+                {"n":2,"a":[0]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[0]},
+                {"n":2,"a":[0]},
+                {"n":4,"a":[0,2]},
+                {"n":4,"a":[1,3]},
+                {"n":4,"a":[1,2]}
             ],
             "B3": [
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,2]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,2]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
-                {"o":["Réponse A","Réponse B"],"a":[1]}
+                {"n":4,"a":[1,3]},
+                {"n":4,"a":[0,2]},
+                {"n":2,"a":[1]},
+                {"n":4,"a":[1,3]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[0]},
+                {"n":4,"a":[1,2]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[0]},
+                {"n":4,"a":[1,2]},
+                {"n":2,"a":[0]},
+                {"n":4,"a":[1,3]},
+                {"n":2,"a":[1]},
+                {"n":4,"a":[1,2]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[0]},
+                {"n":4,"a":[1,2]},
+                {"n":2,"a":[0]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[0]},
+                {"n":2,"a":[0]},
+                {"n":4,"a":[0,2]},
+                {"n":4,"a":[0,3]},
+                {"n":2,"a":[1]}
             ],
             "B4": [
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,2]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,2]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[2]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]}
+                {"n":4,"a":[1,3]},
+                {"n":4,"a":[0,3]},
+                {"n":2,"a":[1]},
+                {"n":4,"a":[0,2]},
+                {"n":4,"a":[0,2]},
+                {"n":2,"a":[0]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[0]},
+                {"n":2,"a":[1]},
+                {"n":4,"a":[1,2]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[0]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[0]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[0]},
+                {"n":4,"a":[1,2]},
+                {"n":4,"a":[0,3]},
+                {"n":4,"a":[2]},
+                {"n":2,"a":[0]},
+                {"n":4,"a":[1,2]},
+                {"n":4,"a":[1,3]},
+                {"n":4,"a":[1,2]}
             ],
             "B5": [
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[2]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]}
+                {"n":4,"a":[0,3]},
+                {"n":4,"a":[1,3]},
+                {"n":4,"a":[1,3]},
+                {"n":4,"a":[1,2]},
+                {"n":4,"a":[0,3]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[1]},
+                {"n":4,"a":[2]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[0]},
+                {"n":2,"a":[0]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[0]},
+                {"n":2,"a":[0]},
+                {"n":4,"a":[1,3]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[0]},
+                {"n":2,"a":[0]},
+                {"n":4,"a":[1,2]},
+                {"n":4,"a":[0,3]},
+                {"n":4,"a":[0,3]}
             ],
             "B6": [
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,2]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,2]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]}
+                {"n":4,"a":[0,3]},
+                {"n":4,"a":[1,3]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[0]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[0]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[1]},
+                {"n":4,"a":[0,3]},
+                {"n":2,"a":[0]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[0]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[0]},
+                {"n":2,"a":[0]},
+                {"n":4,"a":[1,3]},
+                {"n":4,"a":[0,2]},
+                {"n":4,"a":[1,2]},
+                {"n":4,"a":[0,3]},
+                {"n":4,"a":[0,2]},
+                {"n":2,"a":[0]},
+                {"n":2,"a":[0]},
+                {"n":2,"a":[1]},
+                {"n":4,"a":[0,3]}
             ],
             "B7": [
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,2]}
+                {"n":4,"a":[0,3]},
+                {"n":4,"a":[1,3]},
+                {"n":4,"a":[1,3]},
+                {"n":2,"a":[0]},
+                {"n":2,"a":[0]},
+                {"n":2,"a":[1]},
+                {"n":4,"a":[1,3]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[0]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[1]},
+                {"n":4,"a":[1,2]},
+                {"n":2,"a":[0]},
+                {"n":2,"a":[0]},
+                {"n":4,"a":[1,2]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[0]},
+                {"n":2,"a":[0]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[1]},
+                {"n":4,"a":[0,3]},
+                {"n":4,"a":[0,2]}
             ],
             "B8": [
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[1]}
+                {"n":4,"a":[1,3]},
+                {"n":2,"a":[0]},
+                {"n":4,"a":[1,2]},
+                {"n":4,"a":[1,2]},
+                {"n":4,"a":[0,3]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[0]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[0]},
+                {"n":4,"a":[0,3]},
+                {"n":2,"a":[0]},
+                {"n":4,"a":[1,2]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[0]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[1]},
+                {"n":4,"a":[1,2]},
+                {"n":2,"a":[0]},
+                {"n":4,"a":[1,3]},
+                {"n":2,"a":[0]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[1]}
             ],
             "B9": [
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,2]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,2]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
-                {"o":["Réponse A","Réponse B"],"a":[0]}
+                {"n":4,"a":[0,2]},
+                {"n":4,"a":[1,3]},
+                {"n":4,"a":[0,2]},
+                {"n":2,"a":[1]},
+                {"n":4,"a":[1,3]},
+                {"n":2,"a":[0]},
+                {"n":2,"a":[0]},
+                {"n":2,"a":[0]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[1]},
+                {"n":4,"a":[1,2]},
+                {"n":2,"a":[0]},
+                {"n":4,"a":[0,3]},
+                {"n":2,"a":[1]},
+                {"n":4,"a":[0,3]},
+                {"n":2,"a":[1]},
+                {"n":4,"a":[0,3]},
+                {"n":4,"a":[1,2]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[0]},
+                {"n":2,"a":[1]},
+                {"n":4,"a":[1,2]},
+                {"n":2,"a":[0]},
+                {"n":4,"a":[1,2]},
+                {"n":2,"a":[0]}
             ],
             "B10": [
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]}
+                {"n":4,"a":[0,3]},
+                {"n":2,"a":[1]},
+                {"n":4,"a":[1,3]},
+                {"n":2,"a":[1]},
+                {"n":4,"a":[1,2]},
+                {"n":4,"a":[1,2]},
+                {"n":4,"a":[0,3]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[1]},
+                {"n":4,"a":[1,2]},
+                {"n":2,"a":[1]},
+                {"n":4,"a":[1,2]},
+                {"n":4,"a":[1,3]},
+                {"n":4,"a":[1,2]},
+                {"n":2,"a":[1]},
+                {"n":4,"a":[1,3]},
+                {"n":2,"a":[1]},
+                {"n":4,"a":[1,2]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[1]},
+                {"n":4,"a":[1,2]},
+                {"n":2,"a":[0]},
+                {"n":4,"a":[1,3]}
             ],
             "B11": [
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,2]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[0]}
+                {"n":4,"a":[0,3]},
+                {"n":4,"a":[1,3]},
+                {"n":4,"a":[1,3]},
+                {"n":4,"a":[0,3]},
+                {"n":2,"a":[0]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[0]},
+                {"n":2,"a":[1]},
+                {"n":4,"a":[1,2]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[1]},
+                {"n":4,"a":[1,2]},
+                {"n":2,"a":[0]},
+                {"n":2,"a":[1]},
+                {"n":4,"a":[0,2]},
+                {"n":2,"a":[0]},
+                {"n":4,"a":[1,2]},
+                {"n":2,"a":[0]},
+                {"n":4,"a":[1,2]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[0]},
+                {"n":4,"a":[0,3]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[0]}
             ],
             "B12": [
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,3]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,2]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[0,3]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B"],"a":[0]},
-                {"o":["Réponse A","Réponse B"],"a":[1]},
-                {"o":["Réponse A","Réponse B","Réponse C","Réponse D"],"a":[1,2]},
-                {"o":["Réponse A","Réponse B"],"a":[1]}
+                {"n":4,"a":[0,3]},
+                {"n":4,"a":[1,3]},
+                {"n":2,"a":[1]},
+                {"n":4,"a":[0,2]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[0]},
+                {"n":2,"a":[0]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[0]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[1]},
+                {"n":4,"a":[1,2]},
+                {"n":4,"a":[0,3]},
+                {"n":2,"a":[1]},
+                {"n":4,"a":[1,2]},
+                {"n":4,"a":[1,2]},
+                {"n":2,"a":[0]},
+                {"n":2,"a":[0]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[1]},
+                {"n":2,"a":[0]},
+                {"n":2,"a":[1]},
+                {"n":4,"a":[1,2]},
+                {"n":2,"a":[1]}
             ]
         };
 
@@ -735,35 +759,28 @@
         };
 
         // ============== FIREBASE AUTH LISTENER ==============
-        // Attendre que Firebase soit prêt
         window.addEventListener('load', function() {
             if (typeof firebase !== 'undefined' && typeof auth !== 'undefined') {
                 auth.onAuthStateChanged(function(user) {
                     if (!user) {
-                        // Non connecté → rediriger vers login
                         window.location.href = 'login.html';
                     } else if (!user.emailVerified) {
-                        // Email non vérifié
                         auth.signOut();
                         window.location.href = 'login.html';
                     } else {
-                        // Connecté et vérifié → afficher email dans header
-                        const headerUser = document.getElementById('headerUser');
-                        const emailDisplay = document.getElementById('userEmailDisplay');
+                        var headerUser = document.getElementById('headerUser');
+                        var emailDisplay = document.getElementById('userEmailDisplay');
                         if (headerUser) headerUser.style.display = 'flex';
                         if (emailDisplay) emailDisplay.textContent = user.email;
-                        // Charger progression depuis Firestore
                         loadProgressFromFirestore(user.uid);
                     }
                 });
             } else {
-                // Firebase non disponible → mode local
                 console.warn('Firebase non disponible, mode local activé');
                 initApp();
             }
         });
 
-        // Charger progression Firestore
         function loadProgressFromFirestore(uid) {
             db.collection('users').doc(uid).get()
                 .then(function(doc) {
@@ -773,18 +790,17 @@
                     }
                 })
                 .catch(function(err) {
-                    console.warn('Erreur Firestore, utilisation localStorage:', err);
+                    console.warn('Erreur Firestore:', err);
                 })
                 .finally(function() {
                     initApp();
                 });
         }
 
-        // Sauvegarder progression
         function saveProgress() {
             localStorage.setItem('quizProgress', JSON.stringify(state.progress));
             if (typeof auth !== 'undefined' && auth.currentUser) {
-                const uid = auth.currentUser.uid;
+                var uid = auth.currentUser.uid;
                 db.collection('users').doc(uid).set(
                     { progress: state.progress },
                     { merge: true }
@@ -794,7 +810,6 @@
             }
         }
 
-        // Déconnexion
         function handleLogout() {
             if (typeof auth !== 'undefined') {
                 auth.signOut().then(function() {
@@ -809,7 +824,6 @@
             showScreen('screen-welcome');
         }
 
-        // ============== SCREENS ==============
         function showScreen(id) {
             document.querySelectorAll('.screen').forEach(function(s) { s.classList.remove('active'); });
             document.getElementById(id).classList.add('active');
@@ -818,12 +832,12 @@
 
         // ============== SERIES GRID ==============
         function renderSeriesGrid() {
-            const grid = document.getElementById('seriesGrid');
+            var grid = document.getElementById('seriesGrid');
             grid.innerHTML = '';
             Object.keys(quizData).forEach(function(s) {
-                const btn = document.createElement('button');
+                var btn = document.createElement('button');
                 btn.className = 'series-btn' + (state.progress[s] ? ' done' : '');
-                const p = state.progress[s];
+                var p = state.progress[s];
                 btn.innerHTML = s + (p ? '<span class="serie-score">' + p.score + '/25</span>' : '');
                 btn.onclick = function() { startQuiz(s); };
                 grid.appendChild(btn);
@@ -844,25 +858,39 @@
             renderQuestion();
         }
 
+        // FIX: quitter le quiz et retourner aux séries
+        function quitQuiz() {
+            if (confirm('Quitter cette série ? La progression sera perdue.')) {
+                clearInterval(state.timerInterval);
+                showScreen('screen-series');
+            }
+        }
+
         // ============== TIMER ==============
         function updateTimer() {
-            const s = Math.floor((Date.now() - state.startTime) / 1000);
-            const m = Math.floor(s / 60), sec = s % 60;
+            var s = Math.floor((Date.now() - state.startTime) / 1000);
+            var m = Math.floor(s / 60), sec = s % 60;
             document.getElementById('timer').textContent =
                 String(m).padStart(2, '0') + ':' + String(sec).padStart(2, '0');
         }
 
         // ============== RENDER QUESTION ==============
         function renderQuestion() {
-            const i = state.qIndex;
-            const q = quizData[state.series][i];
-            const locked = state.locked[i];
+            var i = state.qIndex;
+            var q = quizData[state.series][i];
+            var locked = state.locked[i];
+            var nbOptions = q.n;  // nombre d'options: 2 ou 4
+            var isMulti = q.a.length > 1;  // question à choix multiple
 
             document.getElementById('progressBar').style.width = ((i + 1) / 25 * 100) + '%';
             document.getElementById('qNum').textContent = i + 1;
 
-            const imgEl = document.getElementById('questionImg');
-            const placeholder = document.getElementById('imgPlaceholder');
+            // Afficher/cacher le hint multi-choix
+            var hintEl = document.getElementById('hintMulti');
+            hintEl.style.display = (isMulti && !locked) ? 'block' : 'none';
+
+            var imgEl = document.getElementById('questionImg');
+            var placeholder = document.getElementById('imgPlaceholder');
             imgEl.src = 'images/' + state.series + '_Q' + (i + 1) + '.jpg';
             imgEl.alt = state.series + ' Question ' + (i + 1);
             imgEl.style.display = 'block';
@@ -870,13 +898,18 @@
 
             document.getElementById('alertAnswer').classList.remove('show');
 
-            const container = document.getElementById('optionsContainer');
+            var container = document.getElementById('optionsContainer');
             container.innerHTML = '';
-            q.o.forEach(function(opt, idx) {
-                const div = document.createElement('div');
+
+            // Adapter la grille selon le nombre d'options
+            container.style.gridTemplateColumns = nbOptions === 2 ? '1fr 1fr' : '1fr 1fr';
+
+            var labels = ['A', 'B', 'C', 'D'];
+            for (var idx = 0; idx < nbOptions; idx++) {
+                var div = document.createElement('div');
                 div.className = 'option';
-                const selected = state.answers[i].includes(idx);
-                const isCorrect = q.a.includes(idx);
+                var selected = state.answers[i].indexOf(idx) > -1;
+                var isCorrect = q.a.indexOf(idx) > -1;
 
                 if (locked) {
                     div.classList.add('locked');
@@ -886,14 +919,18 @@
                     div.classList.add('selected');
                 }
 
-                div.innerHTML = '<div class="opt-letter">' + ['A','B','C','D'][idx] + '</div>' +
-                    '<div class="opt-text">' + opt + '</div>';
+                // FIX: on affiche uniquement la lettre (le texte est dans l'image)
+                div.innerHTML = '<div class="opt-letter">' + labels[idx] + '</div>';
 
-                if (!locked) div.onclick = function() { toggleOption(idx); };
+                if (!locked) {
+                    (function(capturedIdx) {
+                        div.onclick = function() { toggleOption(capturedIdx); };
+                    })(idx);
+                }
                 container.appendChild(div);
-            });
+            }
 
-            const nextBtn = document.getElementById('nextBtn');
+            var nextBtn = document.getElementById('nextBtn');
             if (i === 24) {
                 nextBtn.textContent = locked ? 'Voir les résultats' : 'Valider & Terminer';
                 nextBtn.onclick = locked ? finishQuiz : validateAndNext;
@@ -903,24 +940,25 @@
             }
         }
 
-        // ============== TOGGLE OPTION ==============
+        // ============== FIX: TOGGLE OPTION ==============
+        // Correction: suppression de la logique d'exclusion mutuelle erronée
+        // Pour les questions à 2 options (Vrai/Faux), on ne garde qu'une seule sélection
+        // Pour les questions à 4 options, on permet la sélection libre (multi ou mono)
         function toggleOption(idx) {
-            const i = state.qIndex;
-            const arr = state.answers[i];
-            const pos = arr.indexOf(idx);
+            var i = state.qIndex;
+            var q = quizData[state.series][i];
+            var arr = state.answers[i];
+            var pos = arr.indexOf(idx);
 
             if (pos > -1) {
+                // Décocher
                 arr.splice(pos, 1);
             } else {
-                if (idx === 0 || idx === 1) {
-                    const other = idx === 0 ? 1 : 0;
-                    const p = arr.indexOf(other);
-                    if (p > -1) arr.splice(p, 1);
-                } else if (idx === 2 || idx === 3) {
-                    const other = idx === 2 ? 3 : 2;
-                    const p = arr.indexOf(other);
-                    if (p > -1) arr.splice(p, 1);
+                if (q.n === 2) {
+                    // Questions à 2 options (Vrai/Faux): sélection exclusive
+                    arr.length = 0;
                 }
+                // Pour 4 options: sélection libre (l'utilisateur voit les options dans l'image)
                 arr.push(idx);
             }
             renderQuestion();
@@ -928,7 +966,7 @@
 
         // ============== VALIDER ==============
         function validateAndNext() {
-            const i = state.qIndex;
+            var i = state.qIndex;
             if (state.answers[i].length === 0) {
                 document.getElementById('alertAnswer').classList.add('show');
                 return;
@@ -945,23 +983,24 @@
             if (state.qIndex > 0) { state.qIndex--; renderQuestion(); }
         }
 
-        function nextQuestion() { /* handled by btn onclick */ }
+        function nextQuestion() { /* géré par btn onclick */ }
 
         // ============== FINISH ==============
         function finishQuiz() {
             clearInterval(state.timerInterval);
-            const total = Math.floor((Date.now() - state.startTime) / 1000);
-            const m = Math.floor(total / 60), s = total % 60;
+            var total = Math.floor((Date.now() - state.startTime) / 1000);
+            var m = Math.floor(total / 60), s = total % 60;
 
-            let correct = 0;
-            quizData[state.series].forEach(function(q, i) {
-                const ua = state.answers[i].slice().sort();
-                const ca = q.a.slice().sort();
+            var correct = 0;
+            var series = quizData[state.series];
+            for (var i = 0; i < series.length; i++) {
+                var ua = state.answers[i].slice().sort(function(a,b){return a-b;});
+                var ca = series[i].a.slice().sort(function(a,b){return a-b;});
                 if (JSON.stringify(ua) === JSON.stringify(ca)) correct++;
-            });
+            }
 
-            const errors = 25 - correct;
-            const admis = errors <= 6;
+            var errors = 25 - correct;
+            var admis = errors <= 6;
 
             state.progress[state.series] = { score: correct, admis: admis };
             saveProgress();
@@ -976,54 +1015,71 @@
             document.getElementById('statTime').textContent =
                 String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
 
-            const grid = document.getElementById('questionsGrid');
+            var grid = document.getElementById('questionsGrid');
             grid.innerHTML = '';
-            quizData[state.series].forEach(function(q, i) {
-                const ua = state.answers[i].slice().sort();
-                const ca = q.a.slice().sort();
-                const ok = JSON.stringify(ua) === JSON.stringify(ca);
-                const cell = document.createElement('div');
+            for (var j = 0; j < series.length; j++) {
+                var ua2 = state.answers[j].slice().sort(function(a,b){return a-b;});
+                var ca2 = series[j].a.slice().sort(function(a,b){return a-b;});
+                var ok = JSON.stringify(ua2) === JSON.stringify(ca2);
+                var cell = document.createElement('div');
                 cell.className = 'q-cell ' + (ok ? 'ok' : 'ko');
-                cell.textContent = i + 1;
-                cell.title = 'Question ' + (i + 1) + ' : ' + (ok ? 'Correct' : 'Incorrect');
-                cell.onclick = function() { openModal(i); };
+                cell.textContent = j + 1;
+                cell.title = 'Question ' + (j + 1) + ' : ' + (ok ? 'Correct' : 'Incorrect');
+                (function(qi) {
+                    cell.onclick = function() { openModal(qi); };
+                })(j);
                 grid.appendChild(cell);
-            });
+            }
 
             renderSeriesGrid();
             showScreen('screen-results');
         }
 
-        // ============== MODAL ==============
+        // ============== FIX: MODAL avec image réponses ==============
         function openModal(qIndex) {
-            const q = quizData[state.series][qIndex];
-            const ua = state.answers[qIndex];
-            const ca = q.a;
+            var q = quizData[state.series][qIndex];
+            var ua = state.answers[qIndex];
+            var ca = q.a;
+            var labels = ['A', 'B', 'C', 'D'];
 
             document.getElementById('modalTitle').textContent =
                 'Correction ' + state.series + ' • Q' + (qIndex + 1);
 
-            const modalImg = document.getElementById('modalImg');
+            // Image de la question
+            var modalImg = document.getElementById('modalImg');
             modalImg.src = 'images/' + state.series + '_Q' + (qIndex + 1) + '.jpg';
             modalImg.onerror = function() { this.style.display = 'none'; };
             modalImg.style.display = 'block';
 
-            const opts = document.getElementById('modalOptions');
+            // FIX: Image de la feuille de réponses de la série
+            var modalImgRep = document.getElementById('modalImgRep');
+            modalImgRep.src = 'images/' + state.series + '_reponses.jpg';
+            modalImgRep.onerror = function() {
+                this.style.display = 'none';
+                var lbl = this.previousElementSibling;
+                if (lbl) lbl.style.display = 'none';
+            };
+            modalImgRep.style.display = 'block';
+            var repLabel = modalImgRep.previousElementSibling;
+            if (repLabel) repLabel.style.display = 'block';
+
+            // Options avec lettres seulement
+            var opts = document.getElementById('modalOptions');
             opts.innerHTML = '';
-            q.o.forEach(function(opt, idx) {
-                const isCorrect = ca.includes(idx);
-                const wasSelected = ua.includes(idx);
-                let cls = 'neutral';
+            for (var idx = 0; idx < q.n; idx++) {
+                var isCorrect = ca.indexOf(idx) > -1;
+                var wasSelected = ua.indexOf(idx) > -1;
+                var cls = 'neutral';
                 if (isCorrect) cls = 'correct';
                 else if (wasSelected && !isCorrect) cls = 'incorrect';
-                const div = document.createElement('div');
+                var div = document.createElement('div');
                 div.className = 'modal-option ' + cls;
-                div.innerHTML = '<div class="modal-opt-letter">' + ['A','B','C','D'][idx] + '</div>' +
-                    '<div style="flex:1">' + opt + '</div>' +
+                div.innerHTML = '<div class="modal-opt-letter">' + labels[idx] + '</div>' +
+                    '<div style="flex:1">Option ' + labels[idx] + ' (voir image)</div>' +
                     (isCorrect ? '<span>✓</span>' : '') +
                     (wasSelected && !isCorrect ? '<span>✗</span>' : '');
                 opts.appendChild(div);
-            });
+            }
 
             document.getElementById('modalOverlay').classList.add('open');
         }
@@ -1036,7 +1092,6 @@
             document.getElementById('modalOverlay').classList.remove('open');
         }
 
-        // ============== RETRY ==============
         function retryQuiz() { startQuiz(state.series); }
     </script>
 </body>
