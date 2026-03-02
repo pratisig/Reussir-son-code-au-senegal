@@ -847,18 +847,31 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 window.sendOTP = async function() {
-    const phone = "+221" + document.getElementById("phoneInput").value;
-
-    window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
-        size: 'normal'
-    });
+    console.log("Bouton cliqué");
 
     try {
-        const confirmationResult = await signInWithPhoneNumber(auth, phone, window.recaptchaVerifier);
+        const phoneRaw = document.getElementById("phoneInput").value;
+        console.log("Numéro saisi:", phoneRaw);
+
+        const phone = "+221" + phoneRaw;
+
+        window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+            size: 'normal'
+        });
+
+        const appVerifier = window.recaptchaVerifier;
+
+        console.log("Envoi OTP vers:", phone);
+
+        const confirmationResult = await signInWithPhoneNumber(auth, phone, appVerifier);
+
         window.confirmationResult = confirmationResult;
+
+        console.log("SMS envoyé !");
         alert("SMS envoyé !");
     } catch (error) {
-        alert(error.message);
+        console.error("Erreur OTP:", error);
+        alert("Erreur : " + error.message);
     }
 }
 
