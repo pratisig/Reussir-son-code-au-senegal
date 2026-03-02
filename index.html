@@ -847,33 +847,40 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 window.sendOTP = async function() {
-    console.log("Bouton cliqué");
-
     try {
-        const phoneRaw = document.getElementById("phoneInput").value;
-        console.log("Numéro saisi:", phoneRaw);
+        const phoneRaw = document.getElementById("phoneInput").value.trim();
+
+        if (!phoneRaw) {
+            alert("Veuillez entrer votre numéro.");
+            return;
+        }
 
         const phone = "+221" + phoneRaw;
 
-        window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
-            size: 'normal'
-        });
+        // 🔥 IMPORTANT : syntaxe correcte Firebase v10
+        window.recaptchaVerifier = new RecaptchaVerifier(
+            'recaptcha-container',
+            {
+                size: 'normal',
+                callback: () => {
+                    console.log("reCAPTCHA validé");
+                }
+            },
+            auth
+        );
 
         const appVerifier = window.recaptchaVerifier;
-
-        console.log("Envoi OTP vers:", phone);
 
         const confirmationResult = await signInWithPhoneNumber(auth, phone, appVerifier);
 
         window.confirmationResult = confirmationResult;
 
-        console.log("SMS envoyé !");
         alert("SMS envoyé !");
     } catch (error) {
-        console.error("Erreur OTP:", error);
+        console.error(error);
         alert("Erreur : " + error.message);
     }
-}
+};
 
 window.verifyOTP = async function() {
     const code = document.getElementById("otpInput").value;
