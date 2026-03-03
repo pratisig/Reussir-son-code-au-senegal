@@ -24,16 +24,13 @@
         .badge-admin{background:var(--green);color:#fff;padding:.2rem .6rem;border-radius:4px;font-size:.75rem;font-weight:700;}
         .btn-logout{background:rgba(239,68,68,.1);border:1px solid var(--error);color:var(--error);padding:.3rem .75rem;border-radius:6px;font-size:.8rem;cursor:pointer;}
         .container{max-width:960px;margin:0 auto;padding:1.5rem 1rem;}
-        /* TABS */
-        .tabs{display:flex;gap:.5rem;margin-bottom:1.5rem;border-bottom:2px solid rgba(255,255,255,.08);padding-bottom:0;}
+        .tabs{display:flex;gap:.5rem;margin-bottom:1.5rem;border-bottom:2px solid rgba(255,255,255,.08);}
         .tab-btn{background:none;border:none;color:var(--text-muted);font-size:.9rem;font-weight:600;padding:.6rem 1rem;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s;}
         .tab-btn.active{color:var(--primary);border-bottom-color:var(--primary);}
         .tab-pane{display:none;} .tab-pane.active{display:block;}
-        /* STATS */
         .stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:1rem;margin-bottom:1.5rem;}
         .stat-card{background:var(--bg-card);border-radius:var(--radius);padding:1rem;text-align:center;border:1px solid rgba(255,255,255,.06);}
         .stat-val{font-size:1.8rem;font-weight:800;} .stat-lbl{font-size:.75rem;color:var(--text-muted);margin-top:4px;}
-        /* TABLES */
         .section-title{font-size:1rem;font-weight:700;margin-bottom:.875rem;display:flex;align-items:center;gap:.5rem;}
         .search-bar{background:var(--bg-card);border:1px solid rgba(255,255,255,.1);color:var(--text);padding:.6rem 1rem;border-radius:8px;width:100%;margin-bottom:1rem;font-size:.9rem;}
         .search-bar:focus{outline:none;border-color:var(--primary);}
@@ -55,9 +52,7 @@
         .btn-approve{background:rgba(16,185,129,.1);border-color:var(--success);color:var(--success);}
         .btn-reject{background:rgba(239,68,68,.1);border-color:var(--error);color:var(--error);}
         .loading{text-align:center;padding:2rem;color:var(--text-muted);}
-        /* NOTIF BADGE */
         .notif-badge{background:var(--error);color:#fff;border-radius:50%;width:18px;height:18px;font-size:.65rem;font-weight:800;display:inline-flex;align-items:center;justify-content:center;margin-left:.3rem;}
-        /* MODAL */
         .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:200;align-items:center;justify-content:center;padding:1rem;}
         .modal-overlay.open{display:flex;}
         .modal{background:var(--bg-card);border-radius:var(--radius);width:100%;max-width:480px;padding:1.5rem;}
@@ -66,7 +61,6 @@
         .modal-btn-row button{flex:1;padding:.6rem;border-radius:8px;font-weight:600;cursor:pointer;font-size:.875rem;}
         .device-list{margin:.75rem 0;}
         .device-item{background:var(--bg-deep);padding:.5rem .75rem;border-radius:6px;margin-bottom:.4rem;font-size:.78rem;color:var(--text-muted);display:flex;justify-content:space-between;}
-        /* WAVE INFO BOX */
         .wave-info{background:rgba(56,189,248,.08);border:1px solid rgba(56,189,248,.2);border-radius:10px;padding:1rem 1.25rem;margin-bottom:1.25rem;font-size:.875rem;}
         .wave-info strong{color:var(--primary);}
         #accessDenied{display:none;text-align:center;padding:4rem 1rem;}
@@ -96,7 +90,6 @@
     </header>
 
     <div class="container">
-        <!-- STATS -->
         <div class="stats-grid">
             <div class="stat-card"><div class="stat-val" id="statTotal" style="color:var(--primary);">-</div><div class="stat-lbl">Utilisateurs</div></div>
             <div class="stat-card"><div class="stat-val" id="statPremium" style="color:var(--success);">-</div><div class="stat-lbl">Abonnés actifs</div></div>
@@ -104,7 +97,6 @@
             <div class="stat-card"><div class="stat-val" id="statPending" style="color:var(--warning);">-</div><div class="stat-lbl">En attente</div></div>
         </div>
 
-        <!-- TABS -->
         <div class="tabs">
             <button class="tab-btn active" onclick="switchTab('tabPayments',this)">
                 💳 Paiements
@@ -113,22 +105,19 @@
             <button class="tab-btn" onclick="switchTab('tabUsers',this)">👥 Utilisateurs</button>
         </div>
 
-        <!-- TAB PAIEMENTS -->
         <div class="tab-pane active" id="tabPayments">
             <div class="wave-info">
                 🌊 Votre numéro Wave : <strong>70 946 23 05</strong> —
-                Les clients vous envoient 2 500 FCFA puis soumettent leur référence ici.
-                Vous validez ci-dessous pour activer leur accès automatiquement.
+                Les clients envoient 2 500 FCFA puis soumettent leur référence.
+                Vérifiez dans votre app Wave, puis validez ici pour activer leur accès.
             </div>
             <div class="section-title">
-                ⏳ Demandes en attente
-                <button onclick="loadPayments()" style="background:none;border:1px solid var(--primary);color:var(--primary);padding:.2rem .5rem;border-radius:5px;font-size:.75rem;cursor:pointer;">↻</button>
+                ⏳ Demandes de paiement
+                <button onclick="loadPayments()" style="background:none;border:1px solid var(--primary);color:var(--primary);padding:.2rem .5rem;border-radius:5px;font-size:.75rem;cursor:pointer;">↻ Actualiser</button>
             </div>
             <div style="overflow-x:auto;">
                 <table class="data-table">
-                    <thead><tr>
-                        <th>Email</th><th>Réf. Wave</th><th>Date</th><th>Statut</th><th>Actions</th>
-                    </tr></thead>
+                    <thead><tr><th>Email</th><th>Réf. Wave</th><th>Date</th><th>Statut</th><th>Actions</th></tr></thead>
                     <tbody id="paymentsTableBody">
                         <tr><td colspan="5" class="loading">⏳ Chargement...</td></tr>
                     </tbody>
@@ -136,17 +125,14 @@
             </div>
         </div>
 
-        <!-- TAB UTILISATEURS -->
         <div class="tab-pane" id="tabUsers">
             <div class="section-title">👥 Utilisateurs inscrits
-                <button onclick="loadUsers()" style="background:none;border:1px solid var(--primary);color:var(--primary);padding:.2rem .5rem;border-radius:5px;font-size:.75rem;cursor:pointer;">↻</button>
+                <button onclick="loadUsers()" style="background:none;border:1px solid var(--primary);color:var(--primary);padding:.2rem .5rem;border-radius:5px;font-size:.75rem;cursor:pointer;">↻ Actualiser</button>
             </div>
             <input class="search-bar" type="text" id="searchInput" placeholder="🔍 Rechercher par email..." oninput="filterUsers(this.value)">
             <div style="overflow-x:auto;">
                 <table class="data-table">
-                    <thead><tr>
-                        <th>Email</th><th>Statut</th><th>Expiration</th><th>Appareils</th><th>Actions</th>
-                    </tr></thead>
+                    <thead><tr><th>Email</th><th>Statut</th><th>Expiration</th><th>Appareils</th><th>Actions</th></tr></thead>
                     <tbody id="usersTableBody">
                         <tr><td colspan="5" class="loading">⏳ Chargement...</td></tr>
                     </tbody>
@@ -156,7 +142,6 @@
     </div>
 </div>
 
-<!-- Modal Appareils -->
 <div class="modal-overlay" id="devicesModal">
     <div class="modal">
         <h3>📱 Appareils enregistrés</h3>
@@ -170,8 +155,7 @@
 </div>
 
 <script>
-    // --- REMPLACEZ PAR VOTRE UID FIREBASE ---
-    const ADMIN_UIDS = ['VOTRE_UID_ADMIN_ICI'];
+    const ADMIN_UIDS = ['MMRZK9Dpe4dDTnrU3cTmi32bWb82'];
 
     let allUsers = [], currentDevicesUid = null;
 
@@ -195,14 +179,11 @@
         btn.classList.add('active');
     }
 
-    // ============ PAIEMENTS ============
     async function loadPayments() {
         var tbody = document.getElementById('paymentsTableBody');
         tbody.innerHTML = '<tr><td colspan="5" class="loading">⏳ Chargement...</td></tr>';
         try {
-            var snap = await db.collection('payment_requests')
-                               .orderBy('createdAt', 'desc')
-                               .limit(50).get();
+            var snap = await db.collection('payment_requests').orderBy('createdAt','desc').limit(50).get();
             var rows = [], pending = 0;
             snap.forEach(function(doc) {
                 var d = doc.data();
@@ -214,16 +195,14 @@
                                               '<span class="badge badge-rejected">✗ Rejeté</span>';
                 var actions = d.status === 'pending'
                     ? '<button class="btn-action btn-approve" onclick="approvePayment(\'' + doc.id + '\',\'' + d.uid + '\')">✓ Valider</button>'
-                    + '<button class="btn-action btn-reject"  onclick="rejectPayment(\'' + doc.id + '\')">  ✕ Rejeter</button>'
+                    + '<button class="btn-action btn-reject" onclick="rejectPayment(\'' + doc.id + '\')">✕ Rejeter</button>'
                     : '-';
-                rows.push('<tr><td>' + (d.email||'-') + '</td><td style="font-family:monospace;">'
-                    + d.ref + '</td><td>' + date + '</td><td>' + statusBadge + '</td><td>' + actions + '</td></tr>');
+                rows.push('<tr><td>' + (d.email||'-') + '</td><td style="font-family:monospace;font-size:.8rem;">' + d.ref + '</td><td>' + date + '</td><td>' + statusBadge + '</td><td>' + actions + '</td></tr>');
             });
-            tbody.innerHTML = rows.length ? rows.join('') : '<tr><td colspan="5" class="loading">Aucune demande.</td></tr>';
-            // Notif badge
+            tbody.innerHTML = rows.length ? rows.join('') : '<tr><td colspan="5" class="loading">Aucune demande pour le moment.</td></tr>';
             var badge = document.getElementById('pendingBadge');
             if (pending > 0) { badge.style.display = 'inline-flex'; badge.textContent = pending; }
-            else { badge.style.display = 'none'; }
+            else badge.style.display = 'none';
             document.getElementById('statPending').textContent = pending;
         } catch(e) {
             tbody.innerHTML = '<tr><td colspan="5" class="loading" style="color:var(--error)">❌ ' + e.message + '</td></tr>';
@@ -235,7 +214,6 @@
         var expires = new Date();
         expires.setFullYear(expires.getFullYear() + 1);
         try {
-            // Activer premium
             await db.collection('users').doc(uid).set({
                 premium: {
                     active: true,
@@ -246,20 +224,17 @@
                     paymentMethod: 'Wave'
                 }
             }, { merge: true });
-            // Marquer paiement approuvé
             await db.collection('payment_requests').doc(docId).update({ status: 'approved' });
-            loadPayments();
-            loadUsers();
+            loadPayments(); loadUsers();
         } catch(e) { alert('Erreur : ' + e.message); }
     }
 
     async function rejectPayment(docId) {
-        if (!confirm('Rejeter cette demande de paiement ?')) return;
+        if (!confirm('Rejeter cette demande ?')) return;
         await db.collection('payment_requests').doc(docId).update({ status: 'rejected' });
         loadPayments();
     }
 
-    // ============ UTILISATEURS ============
     async function loadUsers() {
         var tbody = document.getElementById('usersTableBody');
         tbody.innerHTML = '<tr><td colspan="5" class="loading">⏳ Chargement...</td></tr>';
@@ -267,8 +242,7 @@
             var snap = await db.collection('users').get();
             allUsers = [];
             snap.forEach(function(doc) { allUsers.push(Object.assign({ uid: doc.id }, doc.data())); });
-            renderUsers(allUsers);
-            updateStats(allUsers);
+            renderUsers(allUsers); updateStats(allUsers);
         } catch(e) {
             tbody.innerHTML = '<tr><td colspan="5" class="loading" style="color:var(--error)">❌ ' + e.message + '</td></tr>';
         }
@@ -293,18 +267,18 @@
         tbody.innerHTML = users.map(function(u) {
             var p = u.premium || {};
             var isActive  = p.active && p.expiresAt && p.expiresAt.toDate() >= new Date();
-            var isExpired = p.active && p.expiresAt && p.expiresAt.toDate()  < new Date();
+            var isExpired = p.active && p.expiresAt && p.expiresAt.toDate() < new Date();
             var badge = isActive  ? '<span class="badge badge-prem">✓ Premium</span>'
                       : isExpired ? '<span class="badge badge-exp">⚠ Expiré</span>'
                                   : '<span class="badge badge-free">Gratuit</span>';
             var expDate  = p.expiresAt ? p.expiresAt.toDate().toLocaleDateString('fr-SN') : '-';
-            var devCount = (p.devices || []).length;
-            return '<tr><td>' + (u.email || u.uid.substr(0,12)+'...') + '</td><td>' + badge + '</td><td>' + expDate + '</td><td>' + devCount + ' / 3</td><td>'
-                + (isActive
-                    ? '<button class="btn-action btn-revoke" onclick="revokePremium(\'' + u.uid + '\')">✕ Révoquer</button>'
-                    : '<button class="btn-action btn-activate" onclick="grantPremium(\'' + u.uid + '\')">✓ Activer</button>')
-                + '<button class="btn-action btn-devices" onclick="showDevices(\'' + u.uid + '\',\'' + (u.email||'') + '\')">📱 Appareils</button>'
-                + '</td></tr>';
+            var devCount = (p.devices||[]).length;
+            return '<tr><td>'+(u.email||u.uid.substr(0,12)+'...')+'</td><td>'+badge+'</td><td>'+expDate+'</td><td>'+devCount+' / 3</td><td>'
+                +(isActive
+                    ? '<button class="btn-action btn-revoke" onclick="revokePremium(\''+ u.uid +'\')">✕ Révoquer</button>'
+                    : '<button class="btn-action btn-activate" onclick="grantPremium(\''+ u.uid +'\')">✓ Activer</button>')
+                +'<button class="btn-action btn-devices" onclick="showDevices(\''+ u.uid +'\',\''+(u.email||'')+'\')">📱 Appareils</button>'
+                +'</td></tr>';
         }).join('');
     }
 
@@ -313,39 +287,39 @@
     }
 
     async function grantPremium(uid) {
-        if (!confirm('Activer le premium pour cet utilisateur ?')) return;
-        var expires = new Date(); expires.setFullYear(expires.getFullYear() + 1);
+        if (!confirm('Activer le premium ?')) return;
+        var expires = new Date(); expires.setFullYear(expires.getFullYear()+1);
         await db.collection('users').doc(uid).set({
-            premium: { active:true, activatedAt:firebase.firestore.FieldValue.serverTimestamp(), expiresAt:expires, plan:'admin_manual', devices:[] }
-        }, { merge:true });
+            premium:{active:true,activatedAt:firebase.firestore.FieldValue.serverTimestamp(),expiresAt:expires,plan:'admin_manual',devices:[]}
+        },{merge:true});
         loadUsers();
     }
 
     async function revokePremium(uid) {
         if (!confirm('Révoquer l\'abonnement ?')) return;
-        await db.collection('users').doc(uid).update({ 'premium.active': false });
+        await db.collection('users').doc(uid).update({'premium.active':false});
         loadUsers();
     }
 
     async function showDevices(uid, email) {
         currentDevicesUid = uid;
-        document.getElementById('devicesEmail').textContent = email || uid;
+        document.getElementById('devicesEmail').textContent = email||uid;
         var doc = await db.collection('users').doc(uid).get();
-        var devices = (doc.exists && doc.data().premium) ? (doc.data().premium.devices || []) : [];
+        var devices = (doc.exists && doc.data().premium) ? (doc.data().premium.devices||[]) : [];
         document.getElementById('devicesList').innerHTML = devices.length
             ? devices.map(function(d,i){ return '<div class="device-item"><span>📱 Appareil '+(i+1)+'</span><span style="font-family:monospace;font-size:.7rem;">'+d+'</span></div>'; }).join('')
-            : '<p style="color:var(--text-muted);font-size:.82rem;">Aucun appareil.</p>';
+            : '<p style="color:var(--text-muted);font-size:.82rem;">Aucun appareil enregistré.</p>';
         document.getElementById('devicesModal').classList.add('open');
     }
 
     async function clearDevices() {
-        if (!currentDevicesUid || !confirm('Réinitialiser les appareils ?')) return;
-        await db.collection('users').doc(currentDevicesUid).update({ 'premium.devices': [] });
+        if (!currentDevicesUid||!confirm('Réinitialiser les appareils ?')) return;
+        await db.collection('users').doc(currentDevicesUid).update({'premium.devices':[]});
         closeDevicesModal(); loadUsers();
     }
 
-    function closeDevicesModal() { document.getElementById('devicesModal').classList.remove('open'); currentDevicesUid = null; }
-    function logout() { auth.signOut().then(function(){ window.location.href = 'login.html'; }); }
+    function closeDevicesModal(){document.getElementById('devicesModal').classList.remove('open');currentDevicesUid=null;}
+    function logout(){auth.signOut().then(function(){window.location.href='login.html';});}
 </script>
 </body>
 </html>
