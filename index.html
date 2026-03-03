@@ -39,9 +39,7 @@
         .welcome-sub{color:var(--text-muted);text-align:center;margin-bottom:1.5rem;font-size:.9rem;}
         .info-box{background:rgba(56,189,248,.08);border-left:3px solid var(--primary);padding:1rem;border-radius:6px;margin-bottom:1.5rem;font-size:.875rem;}
         .info-box ul{margin-left:1.25rem;margin-top:.5rem;line-height:2;}
-        /* PREMIUM BADGE header */
         .badge-premium{background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;padding:.2rem .55rem;border-radius:5px;font-size:.7rem;font-weight:800;margin-left:.3rem;}
-        /* SERIES GRID */
         .series-title{font-size:1.2rem;font-weight:700;margin-bottom:.25rem;}
         .series-sub{color:var(--text-muted);font-size:.875rem;margin-bottom:1.25rem;}
         .series-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:.75rem;}
@@ -50,13 +48,10 @@
         .series-btn.done{border-color:var(--success);background:rgba(16,185,129,.1);}
         .series-btn.done::after{content:'✓';position:absolute;top:4px;right:6px;color:var(--success);font-size:.85rem;}
         .serie-score{display:block;font-size:.7rem;color:var(--text-muted);font-weight:400;margin-top:3px;}
-        /* Série verrouillée */
         .series-btn.locked{border-color:var(--gold);background:rgba(245,158,11,.05);cursor:pointer;opacity:.85;}
         .series-btn.locked:hover{background:rgba(245,158,11,.15);transform:scale(1.04);border-color:var(--gold);}
         .lock-icon{display:block;font-size:1.1rem;margin-top:2px;}
-        /* FREE badge */
         .free-badge{display:block;font-size:.62rem;color:var(--success);font-weight:700;margin-top:2px;}
-        /* QUIZ HEADER */
         .quiz-topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:.875rem;gap:.5rem;}
         .quiz-info{font-size:.9rem;font-weight:600;color:var(--text-muted);} .quiz-serie{font-size:1rem;font-weight:700;color:var(--primary);}
         .timer{font-size:1rem;font-weight:700;color:var(--yellow);background:rgba(253,239,66,.1);padding:.3rem .75rem;border-radius:20px;border:1px solid rgba(253,239,66,.3);}
@@ -95,7 +90,6 @@
         .q-cell.ok{background:rgba(16,185,129,.15);border-color:var(--success);color:var(--success);}
         .q-cell.ko{background:rgba(239,68,68,.15);border-color:var(--error);color:var(--error);}
         .q-cell:hover{transform:scale(1.1);box-shadow:0 2px 8px rgba(0,0,0,.3);}
-        /* MODAL CORRECTION */
         .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:200;padding:1rem;overflow-y:auto;}
         .modal-overlay.open{display:flex;align-items:flex-start;justify-content:center;}
         .modal{background:var(--bg-card);border-radius:var(--radius);width:100%;max-width:600px;overflow:hidden;margin:auto;}
@@ -104,7 +98,6 @@
         .modal-close{background:none;border:none;color:var(--text-muted);font-size:1.4rem;cursor:pointer;line-height:1;padding:.25rem;}
         .modal-img{width:100%;display:block;max-height:340px;object-fit:contain;background:#000;padding:.75rem;}
         .modal-correction-hint{background:rgba(56,189,248,.08);border-left:3px solid var(--primary);padding:.75rem 1rem;font-size:.82rem;color:var(--text);}
-        /* MODAL PREMIUM */
         #premiumModal .modal{max-width:420px;}
         .premium-hero{text-align:center;padding:1.5rem 1rem 1rem;}
         .premium-hero .icon{font-size:3rem;margin-bottom:.5rem;}
@@ -117,11 +110,7 @@
         .premium-features li{font-size:.85rem;list-style:none;padding:.3rem 0;border-bottom:1px solid rgba(255,255,255,.05);}
         .premium-features li::before{content:'✅ ';}
         .pay-methods{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.6rem;margin:1rem;}
-        .pay-method-btn{
-            background:var(--bg-deep);border:2px solid rgba(255,255,255,.1);
-            border-radius:10px;padding:.75rem .4rem;text-align:center;
-            cursor:pointer;transition:all .2s;font-size:.78rem;font-weight:600;
-        }
+        .pay-method-btn{background:var(--bg-deep);border:2px solid rgba(255,255,255,.1);border-radius:10px;padding:.75rem .4rem;text-align:center;cursor:pointer;transition:all .2s;font-size:.78rem;font-weight:600;}
         .pay-method-btn:hover{border-color:var(--gold);background:rgba(245,158,11,.1);}
         .pay-method-btn.selected-pay{border-color:var(--gold);background:rgba(245,158,11,.15);}
         .pay-method-btn .pm-icon{font-size:1.5rem;display:block;margin-bottom:.3rem;}
@@ -131,13 +120,9 @@
         .pay-status.pending{background:rgba(56,189,248,.1);color:var(--primary);border:1px solid rgba(56,189,248,.2);}
         .pay-status.success{background:rgba(16,185,129,.1);color:var(--success);border:1px solid rgba(16,185,129,.2);}
         .pay-status.error{background:rgba(239,68,68,.1);color:var(--error);border:1px solid rgba(239,68,68,.2);}
-        /* EXPIRATION BANNER */
         .exp-banner{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);border-radius:8px;padding:.5rem 1rem;font-size:.8rem;color:var(--success);margin-bottom:.75rem;text-align:center;}
-        /* BACK */
         .back-btn{background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:.875rem;margin-bottom:1rem;display:flex;align-items:center;gap:.4rem;padding:0;}
         .back-btn:hover{color:var(--text);}
-
-        /* PAIEMENT WAVE INSTRUCTIONS */
         .pay-step{display:none;}
         .pay-step h3{font-size:1.1rem;margin-bottom:1rem;}
         .wave-steps{padding:1rem;}
@@ -150,19 +135,50 @@
         .ref-input{background:var(--bg-deep);border:2px solid rgba(255,255,255,.1);color:var(--text);padding:.75rem 1rem;border-radius:8px;width:100%;font-size:.9rem;margin:.75rem 0;}
         .ref-input:focus{outline:none;border-color:var(--primary);}
         .ref-label{font-size:.82rem;color:var(--text-muted);margin-bottom:.4rem;}
+        
+        /* HISTORIQUE */
+        .history-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:.75rem;margin-bottom:1.5rem;}
+        .history-stat-box{background:var(--bg-deep);border-radius:10px;padding:1rem;text-align:center;}
+        .history-stat-val{font-size:1.8rem;font-weight:800;color:var(--primary);}
+        .history-stat-lbl{font-size:.75rem;color:var(--text-muted);margin-top:.25rem;}
+        .history-accordion{margin-bottom:.75rem;}
+        .history-accordion-header{background:var(--bg-deep);border:2px solid transparent;border-radius:10px;padding:1rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:all .2s;}
+        .history-accordion-header:hover{border-color:var(--primary);}
+        .history-accordion-header.open{border-color:var(--primary);background:rgba(56,189,248,.08);border-bottom-left-radius:0;border-bottom-right-radius:0;}
+        .history-accordion-title{font-weight:700;font-size:1rem;}
+        .history-accordion-meta{font-size:.75rem;color:var(--text-muted);margin-top:.25rem;}
+        .history-accordion-icon{font-size:1.2rem;transition:transform .2s;}
+        .history-accordion-header.open .history-accordion-icon{transform:rotate(180deg);}
+        .history-accordion-body{display:none;background:var(--bg-deep);border:2px solid var(--primary);border-top:none;border-bottom-left-radius:10px;border-bottom-right-radius:10px;padding:0 1rem 1rem;}
+        .history-accordion-body.open{display:block;}
+        .history-attempt{background:rgba(56,189,248,.05);border-left:3px solid var(--primary);border-radius:6px;padding:.75rem;margin-top:.75rem;}
+        .history-attempt.admis{border-left-color:var(--success);background:rgba(16,185,129,.05);}
+        .history-attempt.ajourn{border-left-color:var(--error);background:rgba(239,68,68,.05);}
+        .history-attempt-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem;}
+        .history-attempt-date{font-size:.8rem;color:var(--text-muted);}
+        .history-attempt-badge{font-size:.7rem;font-weight:700;padding:.2rem .5rem;border-radius:5px;}
+        .history-attempt-badge.admis{background:var(--success);color:#fff;}
+        .history-attempt-badge.ajourn{background:var(--error);color:#fff;}
+        .history-attempt-stats{display:flex;gap:1rem;font-size:.85rem;}
+        .history-attempt-stat{display:flex;align-items:center;gap:.3rem;}
+        .history-chart{margin-top:1rem;padding:1rem;background:rgba(56,189,248,.03);border-radius:8px;}
+        .history-chart-title{font-size:.85rem;color:var(--text-muted);margin-bottom:.75rem;text-align:center;}
+        .history-chart-bars{display:flex;align-items:flex-end;justify-content:space-around;height:120px;gap:.25rem;}
+        .history-chart-bar{flex:1;background:linear-gradient(180deg,var(--primary),rgba(56,189,248,.3));border-radius:4px 4px 0 0;position:relative;min-height:20px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:.25rem;transition:all .2s;cursor:pointer;}
+        .history-chart-bar:hover{opacity:.8;transform:translateY(-2px);}
+        .history-chart-bar.success{background:linear-gradient(180deg,var(--success),rgba(16,185,129,.3));}
+        .history-chart-bar.fail{background:linear-gradient(180deg,var(--error),rgba(239,68,68,.3));}
+        .history-chart-bar-val{font-size:.7rem;font-weight:700;color:#fff;}
+        .history-chart-labels{display:flex;justify-content:space-around;margin-top:.5rem;}
+        .history-chart-label{font-size:.7rem;color:var(--text-muted);text-align:center;flex:1;}
+        .history-empty{text-align:center;padding:2rem 1rem;color:var(--text-muted);}
+        .history-empty-icon{font-size:3rem;margin-bottom:.75rem;opacity:.5;}
     </style>
 </head>
 <body>
     <header>
-        <div class="flag">
-            <div class="flag-g"></div>
-            <div class="flag-y"><span class="flag-star">★</span></div>
-            <div class="flag-r"></div>
-        </div>
-        <div class="header-text">
-            <h1>Code de la Route - Sénégal</h1>
-            <p>Permis blanc • Entraînement B1 → B12</p>
-        </div>
+        <div class="flag"><div class="flag-g"></div><div class="flag-y"><span class="flag-star">★</span></div><div class="flag-r"></div></div>
+        <div class="header-text"><h1>Code de la Route - Sénégal</h1><p>Permis blanc • Entraînement B1 → B12</p></div>
         <div class="header-user" id="headerUser" style="display:none">
             <span class="user-email" id="userEmailDisplay"></span>
             <span class="badge-premium" id="premiumBadge" style="display:none;">⭐ PREMIUM</span>
@@ -186,6 +202,7 @@
                 </ul>
             </div>
             <button class="btn" onclick="showScreen('screen-series')">Choisir une série</button>
+            <button class="btn btn-outline" onclick="showScreen('screen-history')" style="margin-top:.75rem;">📊 Mon historique</button>
         </div>
     </div>
 
@@ -200,6 +217,20 @@
         </div>
     </div>
 
+    <!-- HISTORIQUE -->
+    <div class="screen" id="screen-history">
+        <button class="back-btn" onclick="showScreen('screen-welcome')">← Accueil</button>
+        <div class="card">
+            <div class="series-title">📊 Mon historique</div>
+            <div class="series-sub">Suivi de vos tentatives et progression</div>
+            <div class="history-stats">
+                <div class="history-stat-box"><div class="history-stat-val" id="totalAttempts">0</div><div class="history-stat-lbl">Tentatives totales</div></div>
+                <div class="history-stat-box"><div class="history-stat-val" style="color:var(--success);" id="totalSuccess">0</div><div class="history-stat-lbl">Séries réussies</div></div>
+            </div>
+            <div id="historyContainer"></div>
+        </div>
+    </div>
+
     <!-- QUIZ -->
     <div class="screen" id="screen-quiz">
         <div class="progress-bar"><div class="progress-fill" id="progressBar"></div></div>
@@ -211,8 +242,7 @@
             <div class="timer" id="timer">00:00</div>
         </div>
         <div class="question-card">
-            <img class="question-img" id="questionImg" src="" alt=""
-                onerror="this.style.display='none';document.getElementById('imgPlaceholder').style.display='block';">
+            <img class="question-img" id="questionImg" src="" alt="" onerror="this.style.display='none';document.getElementById('imgPlaceholder').style.display='block';">
             <div class="question-img-placeholder" id="imgPlaceholder" style="display:none;">⚠️ Image non disponible</div>
             <div class="question-body">
                 <div class="alert-answer" id="alertAnswer">⚠️ Veuillez sélectionner une réponse avant de continuer</div>
@@ -254,101 +284,39 @@
     <!-- MODAL CORRECTION -->
     <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
         <div class="modal" id="modalContent">
-            <div class="modal-header">
-                <h3 id="modalTitle">Correction Q1</h3>
-                <button class="modal-close" onclick="closeModalDirect()">×</button>
-            </div>
+            <div class="modal-header"><h3 id="modalTitle">Correction Q1</h3><button class="modal-close" onclick="closeModalDirect()">×</button></div>
             <img class="modal-img" id="modalImg" src="" alt="">
-            <div class="modal-correction-hint">
-                💡 <strong>Astuce :</strong> Comparez l'image ci-dessus avec vos réponses sélectionnées (A/B/C/D). Les réponses correctes sont indiquées en vert dans la grille ci-dessous.
-            </div>
+            <div class="modal-correction-hint">💡 <strong>Astuce :</strong> Comparez l'image ci-dessus avec vos réponses sélectionnées (A/B/C/D). Les réponses correctes sont indiquées en vert dans la grille ci-dessous.</div>
         </div>
     </div>
 
-    <!-- ============ MODAL PREMIUM ============ -->
+    <!-- MODAL PREMIUM -->
     <div class="modal-overlay" id="premiumModal">
         <div class="modal">
-            <div class="modal-header">
-                <h3>🔓 Débloquer l'accès complet</h3>
-                <button class="modal-close" onclick="closePremiumModal()">×</button>
-            </div>
-            
-            <!-- Étape 1: Choix paiement -->
+            <div class="modal-header"><h3>🔓 Débloquer l'accès complet</h3><button class="modal-close" onclick="closePremiumModal()">×</button></div>
             <div class="pay-step" id="step1" style="display:block;">
-                <div class="premium-hero">
-                    <div class="icon">⭐</div>
-                    <h2>Passez en Premium</h2>
-                    <p>Série <strong id="premiumModalSeries"></strong> et toutes les séries B3–B12 débloquées</p>
-                </div>
-                <div class="premium-price">
-                    <div class="amount">2 500 FCFA</div>
-                    <div class="period">Accès complet • 12 mois • 3 appareils</div>
-                </div>
-                <ul class="premium-features">
-                    <li>Toutes les séries B1 à B12 (300 questions)</li>
-                    <li>Correction détaillée pour chaque question</li>
-                    <li>Suivi de progression sauvegardé</li>
-                    <li>Accès sur 3 appareils simultanément</li>
-                    <li>Valide 12 mois à partir de l'activation</li>
-                </ul>
+                <div class="premium-hero"><div class="icon">⭐</div><h2>Passez en Premium</h2><p>Série <strong id="premiumModalSeries"></strong> et toutes les séries B3–B12 débloquées</p></div>
+                <div class="premium-price"><div class="amount">2 500 FCFA</div><div class="period">Accès complet • 12 mois • 3 appareils</div></div>
+                <ul class="premium-features"><li>Toutes les séries B1 à B12 (300 questions)</li><li>Correction détaillée pour chaque question</li><li>Suivi de progression sauvegardé</li><li>Accès sur 3 appareils simultanément</li><li>Valide 12 mois à partir de l'activation</li></ul>
                 <p style="text-align:center;font-size:.8rem;color:var(--text-muted);margin:.5rem 0 .25rem;">Mode de paiement :</p>
-                <div class="pay-methods">
-                    <div class="pay-method-btn" style="grid-column:1/-1;max-width:200px;margin:0 auto;" id="pm-wave" onclick="showStep('step2')">
-                        <span class="pm-icon">🌊</span>Wave
-                    </div>
-                </div>
+                <div class="pay-methods"><div class="pay-method-btn" style="grid-column:1/-1;max-width:200px;margin:0 auto;" id="pm-wave" onclick="showStep('step2')"><span class="pm-icon">🌊</span>Wave</div></div>
             </div>
-
-            <!-- Étape 2: Instructions Wave -->
             <div class="pay-step" id="step2">
                 <h3 style="padding:0 1rem;">🌊 Paiement via Wave</h3>
                 <div class="wave-steps">
-                    <div class="wave-step">
-                        <div class="wave-step-num">1</div>
-                        <div class="wave-step-text">Ouvrez votre application <strong>Wave</strong></div>
-                    </div>
-                    <div class="wave-step">
-                        <div class="wave-step-num">2</div>
-                        <div class="wave-step-text">Envoyez <strong class="wave-amount">2 500 FCFA</strong> au numéro ci-dessous :</div>
-                    </div>
-                    <div class="wave-number-box">
-                        <div class="wave-number">70 946 23 05</div>
-                        <button class="btn btn-sm" id="copyBtn" onclick="copyWaveNumber()" style="margin-top:.75rem;">📋 Copier le numéro</button>
-                    </div>
-                    <div class="wave-step">
-                        <div class="wave-step-num">3</div>
-                        <div class="wave-step-text">Après l'envoi, <strong>notez votre référence de transaction Wave</strong> (ex: WT123456789)</div>
-                    </div>
-                    <div class="wave-step">
-                        <div class="wave-step-num">4</div>
-                        <div class="wave-step-text">Entrez cette référence ci-dessous pour validation :</div>
-                    </div>
-                    <div class="ref-label">Référence de transaction Wave :</div>
-                    <input type="text" class="ref-input" id="waveRef" placeholder="Ex: WT123456789">
+                    <div class="wave-step"><div class="wave-step-num">1</div><div class="wave-step-text">Ouvrez votre application <strong>Wave</strong></div></div>
+                    <div class="wave-step"><div class="wave-step-num">2</div><div class="wave-step-text">Envoyez <strong class="wave-amount">2 500 FCFA</strong> au numéro ci-dessous :</div></div>
+                    <div class="wave-number-box"><div class="wave-number">70 946 23 05</div><button class="btn btn-sm" id="copyBtn" onclick="copyWaveNumber()" style="margin-top:.75rem;">📋 Copier le numéro</button></div>
+                    <div class="wave-step"><div class="wave-step-num">3</div><div class="wave-step-text">Après l'envoi, <strong>notez votre référence de transaction Wave</strong> (ex: WT123456789)</div></div>
+                    <div class="wave-step"><div class="wave-step-num">4</div><div class="wave-step-text">Entrez cette référence ci-dessous pour validation :</div></div>
+                    <div class="ref-label">Référence de transaction Wave :</div><input type="text" class="ref-input" id="waveRef" placeholder="Ex: WT123456789">
                 </div>
-                <button class="btn btn-gold" id="submitRefBtn" onclick="submitWavePayment()" style="margin:0 1rem 1rem;width:calc(100% - 2rem);">
-                    ✅ Soumettre ma demande
-                </button>
+                <button class="btn btn-gold" id="submitRefBtn" onclick="submitWavePayment()" style="margin:0 1rem 1rem;width:calc(100% - 2rem);">✅ Soumettre ma demande</button>
                 <div class="pay-status" id="payStatus"></div>
-                <button class="btn btn-outline btn-sm" onclick="showStep('step1')" style="margin:0 1rem 1rem;width:calc(100% - 2rem);">
-                    ← Retour
-                </button>
+                <button class="btn btn-outline btn-sm" onclick="showStep('step1')" style="margin:0 1rem 1rem;width:calc(100% - 2rem);">← Retour</button>
             </div>
-
-            <!-- Étape 3: Confirmation -->
             <div class="pay-step" id="step3">
-                <div style="padding:2rem 1rem;text-align:center;">
-                    <div style="font-size:3rem;margin-bottom:1rem;">✅</div>
-                    <h3 style="margin-bottom:.75rem;">Demande envoyée !</h3>
-                    <p style="color:var(--text-muted);font-size:.875rem;line-height:1.6;margin-bottom:1.5rem;">
-                        Votre demande a été reçue. Un administrateur va vérifier votre paiement et activer votre compte <strong>Premium</strong> sous quelques minutes.
-                    </p>
-                    <p style="color:var(--text-muted);font-size:.82rem;">
-                        Vous recevrez une confirmation par email. Rafraîchissez la page pour accéder aux séries premium.
-                    </p>
-                    <button class="btn" onclick="closePremiumModal();location.reload();" style="margin-top:1.5rem;">
-Compris</button>
-                </div>
+                <div style="padding:2rem 1rem;text-align:center;"><div style="font-size:3rem;margin-bottom:1rem;">✅</div><h3 style="margin-bottom:.75rem;">Demande envoyée !</h3><p style="color:var(--text-muted);font-size:.875rem;line-height:1.6;margin-bottom:1.5rem;">Votre demande a été reçue. Un administrateur va vérifier votre paiement et activer votre compte <strong>Premium</strong> sous quelques minutes.</p><p style="color:var(--text-muted);font-size:.82rem;">Vous recevrez une confirmation par email. Rafraîchissez la page pour accéder aux séries premium.</p><button class="btn" onclick="closePremiumModal();location.reload();" style="margin-top:1.5rem;">Compris</button></div>
             </div>
         </div>
     </div>
@@ -356,420 +324,57 @@ Compris</button>
     <!-- MODAL MAX APPAREILS -->
     <div class="modal-overlay" id="maxDevicesModal">
         <div class="modal" style="max-width:380px;">
-            <div class="modal-header">
-                <h3>📱 Limite d'appareils atteinte</h3>
-                <button class="modal-close" onclick="document.getElementById('maxDevicesModal').classList.remove('open')">×</button>
-            </div>
-            <div style="padding:1.5rem;text-align:center;">
-                <div style="font-size:2.5rem;margin-bottom:1rem;">⚠️</div>
-                <p style="margin-bottom:1rem;font-size:.9rem;">Votre compte est déjà connecté sur <strong>3 appareils</strong>. Limite maximale atteinte.</p>
-                <p style="color:var(--text-muted);font-size:.82rem;">Pour ajouter cet appareil, contactez le support pour réinitialiser vos appareils.</p>
-                <button class="btn" style="margin-top:1.25rem;"
-                    onclick="document.getElementById('maxDevicesModal').classList.remove('open');">Compris</button>
-            </div>
+            <div class="modal-header"><h3>📱 Limite d'appareils atteinte</h3><button class="modal-close" onclick="document.getElementById('maxDevicesModal').classList.remove('open')">×</button></div>
+            <div style="padding:1.5rem;text-align:center;"><div style="font-size:2.5rem;margin-bottom:1rem;">⚠️</div><p style="margin-bottom:1rem;font-size:.9rem;">Votre compte est déjà connecté sur <strong>3 appareils</strong>. Limite maximale atteinte.</p><p style="color:var(--text-muted);font-size:.82rem;">Pour ajouter cet appareil, contactez le support pour réinitialiser vos appareils.</p><button class="btn" style="margin-top:1.25rem;" onclick="document.getElementById('maxDevicesModal').classList.remove('open');">Compris</button></div>
         </div>
     </div>
 
     <script src="js/premium.js"></script>
     <script>
-        // ============== DONNÉES ==============
-        const quizData = {
-            "B1":[
-                {"n":4,"a":[1,3]},{"n":4,"a":[0,3]},{"n":2,"a":[0]},{"n":4,"a":[1,2]},
-                {"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[1]},
-                {"n":4,"a":[0,3]},{"n":2,"a":[1]},{"n":4,"a":[2]},{"n":4,"a":[1,2]},
-                {"n":4,"a":[0,3]},{"n":4,"a":[0,2]},{"n":2,"a":[1]},{"n":2,"a":[1]},
-                {"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[1]},
-                {"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[1]}
-            ],
-            "B2":[
-                {"n":4,"a":[0,3]},{"n":4,"a":[1,3]},{"n":4,"a":[1,3]},{"n":2,"a":[1]},
-                {"n":4,"a":[0,3]},{"n":2,"a":[0]},{"n":4,"a":[0,3]},{"n":2,"a":[1]},
-                {"n":4,"a":[1,3]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":4,"a":[1,3]},
-                {"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[1]},
-                {"n":2,"a":[1]},{"n":4,"a":[1,2]},{"n":2,"a":[0]},{"n":2,"a":[1]},
-                {"n":2,"a":[0]},{"n":2,"a":[0]},{"n":4,"a":[0,2]},{"n":4,"a":[1,3]},{"n":4,"a":[1,2]}
-            ],
-            "B3":[
-                {"n":4,"a":[1,3]},{"n":4,"a":[0,2]},{"n":2,"a":[1]},{"n":4,"a":[1,3]},
-                {"n":2,"a":[1]},{"n":2,"a":[0]},{"n":4,"a":[1,2]},{"n":2,"a":[1]},
-                {"n":2,"a":[0]},{"n":4,"a":[1,2]},{"n":2,"a":[0]},{"n":4,"a":[1,3]},
-                {"n":2,"a":[1]},{"n":4,"a":[1,2]},{"n":2,"a":[1]},{"n":2,"a":[0]},
-                {"n":4,"a":[1,2]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[1]},
-                {"n":2,"a":[0]},{"n":2,"a":[0]},{"n":4,"a":[0,2]},{"n":4,"a":[0,3]},{"n":2,"a":[1]}
-            ],
-            "B4":[
-                {"n":4,"a":[1,3]},{"n":4,"a":[0,3]},{"n":2,"a":[1]},{"n":4,"a":[0,2]},
-                {"n":4,"a":[0,2]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[0]},
-                {"n":2,"a":[1]},{"n":4,"a":[1,2]},{"n":2,"a":[1]},{"n":2,"a":[1]},
-                {"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[1]},
-                {"n":2,"a":[1]},{"n":2,"a":[0]},{"n":4,"a":[1,2]},{"n":4,"a":[0,3]},
-                {"n":4,"a":[2]},{"n":2,"a":[0]},{"n":4,"a":[1,2]},{"n":4,"a":[1,3]},{"n":4,"a":[1,2]}
-            ],
-            "B5":[
-                {"n":4,"a":[0,3]},{"n":4,"a":[1,3]},{"n":4,"a":[1,3]},{"n":4,"a":[1,2]},
-                {"n":4,"a":[0,3]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[1]},
-                {"n":4,"a":[2]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[0]},
-                {"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[1]},
-                {"n":2,"a":[0]},{"n":2,"a":[0]},{"n":4,"a":[1,3]},{"n":2,"a":[1]},
-                {"n":2,"a":[0]},{"n":2,"a":[0]},{"n":4,"a":[1,2]},{"n":4,"a":[0,3]},{"n":4,"a":[0,3]}
-            ],
-            "B6":[
-                {"n":4,"a":[0,3]},{"n":4,"a":[1,3]},{"n":2,"a":[1]},{"n":2,"a":[0]},
-                {"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[1]},
-                {"n":4,"a":[0,3]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[1]},
-                {"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[0]},
-                {"n":4,"a":[1,3]},{"n":4,"a":[0,2]},{"n":4,"a":[1,2]},{"n":4,"a":[0,3]},
-                {"n":4,"a":[0,2]},{"n":2,"a":[0]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":4,"a":[0,3]}
-            ],
-            "B7":[
-                {"n":4,"a":[0,3]},{"n":4,"a":[1,3]},{"n":4,"a":[1,3]},{"n":2,"a":[0]},
-                {"n":2,"a":[0]},{"n":2,"a":[1]},{"n":4,"a":[1,3]},{"n":2,"a":[1]},
-                {"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[1]},
-                {"n":2,"a":[1]},{"n":4,"a":[1,2]},{"n":2,"a":[0]},{"n":2,"a":[0]},
-                {"n":4,"a":[1,2]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[0]},
-                {"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":4,"a":[0,3]},{"n":4,"a":[0,2]}
-            ],
-            "B8":[
-                {"n":4,"a":[1,3]},{"n":2,"a":[0]},{"n":4,"a":[1,2]},{"n":4,"a":[1,2]},
-                {"n":4,"a":[0,3]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[1]},
-                {"n":2,"a":[1]},{"n":2,"a":[0]},{"n":4,"a":[0,3]},{"n":2,"a":[0]},
-                {"n":4,"a":[1,2]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[1]},
-                {"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":4,"a":[1,2]},
-                {"n":2,"a":[0]},{"n":4,"a":[1,3]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[1]}
-            ],
-            "B9":[
-                {"n":4,"a":[0,2]},{"n":4,"a":[1,3]},{"n":4,"a":[0,2]},{"n":2,"a":[1]},
-                {"n":4,"a":[1,3]},{"n":2,"a":[0]},{"n":2,"a":[0]},{"n":2,"a":[0]},
-                {"n":2,"a":[1]},{"n":2,"a":[1]},{"n":4,"a":[1,2]},{"n":2,"a":[0]},
-                {"n":4,"a":[0,3]},{"n":2,"a":[1]},{"n":4,"a":[0,3]},{"n":2,"a":[1]},
-                {"n":4,"a":[0,3]},{"n":4,"a":[1,2]},{"n":2,"a":[1]},{"n":2,"a":[0]},
-                {"n":2,"a":[1]},{"n":4,"a":[1,2]},{"n":2,"a":[0]},{"n":4,"a":[1,2]},{"n":2,"a":[0]}
-            ],
-            "B10":[
-                {"n":4,"a":[0,3]},{"n":2,"a":[1]},{"n":4,"a":[1,3]},{"n":2,"a":[1]},
-                {"n":4,"a":[1,2]},{"n":4,"a":[1,2]},{"n":4,"a":[0,3]},{"n":2,"a":[1]},
-                {"n":2,"a":[1]},{"n":2,"a":[1]},{"n":4,"a":[1,2]},{"n":2,"a":[1]},
-                {"n":4,"a":[1,2]},{"n":4,"a":[1,3]},{"n":4,"a":[1,2]},{"n":2,"a":[1]},
-                {"n":4,"a":[1,3]},{"n":2,"a":[1]},{"n":4,"a":[1,2]},{"n":2,"a":[1]},
-                {"n":2,"a":[1]},{"n":2,"a":[1]},{"n":4,"a":[1,2]},{"n":2,"a":[0]},{"n":4,"a":[1,3]}
-            ],
-            "B11":[
-                {"n":4,"a":[0,3]},{"n":4,"a":[1,3]},{"n":4,"a":[1,3]},{"n":4,"a":[0,3]},
-                {"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[1]},
-                {"n":4,"a":[1,2]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[1]},
-                {"n":4,"a":[1,2]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":4,"a":[0,2]},
-                {"n":2,"a":[0]},{"n":4,"a":[1,2]},{"n":2,"a":[0]},{"n":4,"a":[1,2]},
-                {"n":2,"a":[1]},{"n":2,"a":[0]},{"n":4,"a":[0,3]},{"n":2,"a":[1]},{"n":2,"a":[0]}
-            ],
-            "B12":[
-                {"n":4,"a":[0,3]},{"n":4,"a":[1,3]},{"n":2,"a":[1]},{"n":4,"a":[0,2]},
-                {"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[0]},{"n":2,"a":[1]},
-                {"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[1]},
-                {"n":4,"a":[1,2]},{"n":4,"a":[0,3]},{"n":2,"a":[1]},{"n":4,"a":[1,2]},
-                {"n":4,"a":[1,2]},{"n":2,"a":[0]},{"n":2,"a":[0]},{"n":2,"a":[1]},
-                {"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":4,"a":[1,2]},{"n":2,"a":[1]}
-            ]
-        };
+const quizData={"B1":[{"n":4,"a":[1,3]},{"n":4,"a":[0,3]},{"n":2,"a":[0]},{"n":4,"a":[1,2]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":4,"a":[0,3]},{"n":2,"a":[1]},{"n":4,"a":[2]},{"n":4,"a":[1,2]},{"n":4,"a":[0,3]},{"n":4,"a":[0,2]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[1]}],"B2":[{"n":4,"a":[0,3]},{"n":4,"a":[1,3]},{"n":4,"a":[1,3]},{"n":2,"a":[1]},{"n":4,"a":[0,3]},{"n":2,"a":[0]},{"n":4,"a":[0,3]},{"n":2,"a":[1]},{"n":4,"a":[1,3]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":4,"a":[1,3]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":4,"a":[1,2]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[0]},{"n":4,"a":[0,2]},{"n":4,"a":[1,3]},{"n":4,"a":[1,2]}],"B3":[{"n":4,"a":[1,3]},{"n":4,"a":[0,2]},{"n":2,"a":[1]},{"n":4,"a":[1,3]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":4,"a":[1,2]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":4,"a":[1,2]},{"n":2,"a":[0]},{"n":4,"a":[1,3]},{"n":2,"a":[1]},{"n":4,"a":[1,2]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":4,"a":[1,2]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[0]},{"n":4,"a":[0,2]},{"n":4,"a":[0,3]},{"n":2,"a":[1]}],"B4":[{"n":4,"a":[1,3]},{"n":4,"a":[0,3]},{"n":2,"a":[1]},{"n":4,"a":[0,2]},{"n":4,"a":[0,2]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":4,"a":[1,2]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":4,"a":[1,2]},{"n":4,"a":[0,3]},{"n":4,"a":[2]},{"n":2,"a":[0]},{"n":4,"a":[1,2]},{"n":4,"a":[1,3]},{"n":4,"a":[1,2]}],"B5":[{"n":4,"a":[0,3]},{"n":4,"a":[1,3]},{"n":4,"a":[1,3]},{"n":4,"a":[1,2]},{"n":4,"a":[0,3]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":4,"a":[2]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[0]},{"n":4,"a":[1,3]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[0]},{"n":4,"a":[1,2]},{"n":4,"a":[0,3]},{"n":4,"a":[0,3]}],"B6":[{"n":4,"a":[0,3]},{"n":4,"a":[1,3]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":4,"a":[0,3]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[0]},{"n":4,"a":[1,3]},{"n":4,"a":[0,2]},{"n":4,"a":[1,2]},{"n":4,"a":[0,3]},{"n":4,"a":[0,2]},{"n":2,"a":[0]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":4,"a":[0,3]}],"B7":[{"n":4,"a":[0,3]},{"n":4,"a":[1,3]},{"n":4,"a":[1,3]},{"n":2,"a":[0]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":4,"a":[1,3]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":4,"a":[1,2]},{"n":2,"a":[0]},{"n":2,"a":[0]},{"n":4,"a":[1,2]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":4,"a":[0,3]},{"n":4,"a":[0,2]}],"B8":[{"n":4,"a":[1,3]},{"n":2,"a":[0]},{"n":4,"a":[1,2]},{"n":4,"a":[1,2]},{"n":4,"a":[0,3]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":4,"a":[0,3]},{"n":2,"a":[0]},{"n":4,"a":[1,2]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":4,"a":[1,2]},{"n":2,"a":[0]},{"n":4,"a":[1,3]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[1]}],"B9":[{"n":4,"a":[0,2]},{"n":4,"a":[1,3]},{"n":4,"a":[0,2]},{"n":2,"a":[1]},{"n":4,"a":[1,3]},{"n":2,"a":[0]},{"n":2,"a":[0]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":4,"a":[1,2]},{"n":2,"a":[0]},{"n":4,"a":[0,3]},{"n":2,"a":[1]},{"n":4,"a":[0,3]},{"n":2,"a":[1]},{"n":4,"a":[0,3]},{"n":4,"a":[1,2]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":4,"a":[1,2]},{"n":2,"a":[0]},{"n":4,"a":[1,2]},{"n":2,"a":[0]}],"B10":[{"n":4,"a":[0,3]},{"n":2,"a":[1]},{"n":4,"a":[1,3]},{"n":2,"a":[1]},{"n":4,"a":[1,2]},{"n":4,"a":[1,2]},{"n":4,"a":[0,3]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":4,"a":[1,2]},{"n":2,"a":[1]},{"n":4,"a":[1,2]},{"n":4,"a":[1,3]},{"n":4,"a":[1,2]},{"n":2,"a":[1]},{"n":4,"a":[1,3]},{"n":2,"a":[1]},{"n":4,"a":[1,2]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":4,"a":[1,2]},{"n":2,"a":[0]},{"n":4,"a":[1,3]}],"B11":[{"n":4,"a":[0,3]},{"n":4,"a":[1,3]},{"n":4,"a":[1,3]},{"n":4,"a":[0,3]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":4,"a":[1,2]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":4,"a":[1,2]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":4,"a":[0,2]},{"n":2,"a":[0]},{"n":4,"a":[1,2]},{"n":2,"a":[0]},{"n":4,"a":[1,2]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":4,"a":[0,3]},{"n":2,"a":[1]},{"n":2,"a":[0]}],"B12":[{"n":4,"a":[0,3]},{"n":4,"a":[1,3]},{"n":2,"a":[1]},{"n":4,"a":[0,2]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":4,"a":[1,2]},{"n":4,"a":[0,3]},{"n":2,"a":[1]},{"n":4,"a":[1,2]},{"n":4,"a":[1,2]},{"n":2,"a":[0]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":4,"a":[1,2]},{"n":2,"a":[1]}]};
+let state={series:null,qIndex:0,answers:[],locked:[],startTime:null,timerInterval:null,isPremium:false,premiumExpiry:null,progress:JSON.parse(localStorage.getItem('quizProgress')||'{}'),history:[]};
 
-        // ============== STATE ==============
-        let state = {
-            series: null, qIndex: 0, answers: [], locked: [],
-            startTime: null, timerInterval: null,
-            isPremium: false, premiumExpiry: null,
-            progress: JSON.parse(localStorage.getItem('quizProgress') || '{}')
-        };
+window.addEventListener('load',function(){if(typeof firebase!=='undefined'&&typeof auth!=='undefined'){auth.onAuthStateChanged(async function(user){if(!user){window.location.href='login.html';return;}if(!user.emailVerified){auth.signOut();window.location.href='login.html';return;}document.getElementById('headerUser').style.display='flex';document.getElementById('userEmailDisplay').textContent=user.email;await loadUserData(user.uid);});}else{initApp();}});
 
-        // ============== AUTH ==============
-        window.addEventListener('load', function() {
-            if (typeof firebase !== 'undefined' && typeof auth !== 'undefined') {
-                auth.onAuthStateChanged(async function(user) {
-                    if (!user) { window.location.href = 'login.html'; return; }
-                    if (!user.emailVerified) { auth.signOut(); window.location.href = 'login.html'; return; }
-                    document.getElementById('headerUser').style.display = 'flex';
-                    document.getElementById('userEmailDisplay').textContent = user.email;
-                    await loadUserData(user.uid);
-                });
-            } else {
-                initApp();
-            }
-        });
+async function loadUserData(uid){try{const doc=await db.collection('users').doc(uid).get();if(doc.exists){const data=doc.data();if(data.progress){state.progress=data.progress;localStorage.setItem('quizProgress',JSON.stringify(state.progress));}if(data.history){state.history=data.history;}}const result=await checkAndRegisterDevice(uid);if(!result.ok&&result.reason==='max_devices'){document.getElementById('maxDevicesModal').classList.add('open');state.isPremium=false;}else{state.isPremium=result.premium===true;state.premiumExpiry=result.expiresAt||null;if(result.expired){alert('⚠️ Votre abonnement Premium a expiré. Vous avez accès à B1 et B2 uniquement.');}}if(state.isPremium){document.getElementById('premiumBadge').style.display='inline-block';}}catch(e){console.warn('loadUserData error:',e);}initApp();}
 
-        async function loadUserData(uid) {
-            try {
-                // Charger progression
-                const doc = await db.collection('users').doc(uid).get();
-                if (doc.exists) {
-                    if (doc.data().progress) {
-                        state.progress = doc.data().progress;
-                        localStorage.setItem('quizProgress', JSON.stringify(state.progress));
-                    }
-                }
-                // Vérifier premium + appareils
-                const result = await checkAndRegisterDevice(uid);
-                if (!result.ok && result.reason === 'max_devices') {
-                    document.getElementById('maxDevicesModal').classList.add('open');
-                    state.isPremium = false;
-                } else {
-                    state.isPremium = result.premium === true;
-                    state.premiumExpiry = result.expiresAt || null;
-                    if (result.expired) {
-                        alert('⚠️ Votre abonnement Premium a expiré. Vous avez accès à B1 et B2 uniquement.');
-                    }
-                }
-                if (state.isPremium) {
-                    document.getElementById('premiumBadge').style.display = 'inline-block';
-                }
-            } catch(e) {
-                console.warn('loadUserData error:', e);
-            }
-            initApp();
-        }
+function saveProgress(){localStorage.setItem('quizProgress',JSON.stringify(state.progress));if(typeof auth!=='undefined'&&auth.currentUser){db.collection('users').doc(auth.currentUser.uid).set({progress:state.progress},{merge:true}).catch(function(e){console.warn('save error:',e);});}}
 
-        function saveProgress() {
-            localStorage.setItem('quizProgress', JSON.stringify(state.progress));
-            if (typeof auth !== 'undefined' && auth.currentUser) {
-                db.collection('users').doc(auth.currentUser.uid).set(
-                    { progress: state.progress }, { merge: true }
-                ).catch(function(e){ console.warn('save error:', e); });
-            }
-        }
+function saveHistory(){if(typeof auth!=='undefined'&&auth.currentUser){db.collection('users').doc(auth.currentUser.uid).set({history:state.history},{merge:true}).catch(function(e){console.warn('save history error:',e);});}}
 
-        function handleLogout() {
-            if (typeof auth !== 'undefined') {
-                auth.signOut().then(function(){ window.location.href = 'login.html'; });
-            }
-        }
+function handleLogout(){if(typeof auth!=='undefined'){auth.signOut().then(function(){window.location.href='login.html';});}}
 
-        // ============== INIT ==============
-        function initApp() {
-            renderSeriesGrid();
-            showScreen('screen-welcome');
-        }
+function initApp(){renderSeriesGrid();showScreen('screen-welcome');}
 
-        function showScreen(id) {
-            document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
-            document.getElementById(id).classList.add('active');
-            window.scrollTo(0,0);
-        }
+function showScreen(id){document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});document.getElementById(id).classList.add('active');if(id==='screen-history'){renderHistory();}window.scrollTo(0,0);}
 
-        // ============== SERIES GRID ==============
-        function renderSeriesGrid() {
-            var grid = document.getElementById('seriesGrid');
-            grid.innerHTML = '';
+function renderSeriesGrid(){var grid=document.getElementById('seriesGrid');grid.innerHTML='';var bannerContainer=document.getElementById('expBannerContainer');bannerContainer.innerHTML='';if(state.isPremium&&state.premiumExpiry){var expDate=state.premiumExpiry.toDate?state.premiumExpiry.toDate():new Date(state.premiumExpiry);var daysLeft=Math.ceil((expDate-new Date())/(1000*60*60*24));if(daysLeft<=30){bannerContainer.innerHTML='<div class="exp-banner">⏳ Abonnement Premium expire dans <strong>'+daysLeft+' jours</strong> ('+expDate.toLocaleDateString('fr-SN')+')</div>';}else{bannerContainer.innerHTML='<div class="exp-banner">⭐ Premium actif jusqu\'au '+expDate.toLocaleDateString('fr-SN')+'</div>';}}Object.keys(quizData).forEach(function(s){var isFree=FREE_SERIES.includes(s);var isLocked=!isFree&&!state.isPremium;var btn=document.createElement('button');var p=state.progress[s];if(isLocked){btn.className='series-btn locked';btn.innerHTML=s+'<span class="lock-icon">🔒</span>';btn.onclick=function(){showPremiumModal(s);};}else{btn.className='series-btn'+(p?' done':'');btn.innerHTML=s+(isFree?'<span class="free-badge">GRATUIT</span>':'')+(p?'<span class="serie-score">'+p.score+'/25</span>':'');btn.onclick=function(){startQuiz(s);};}grid.appendChild(btn);});}
 
-            // Bannière expiration
-            var bannerContainer = document.getElementById('expBannerContainer');
-            bannerContainer.innerHTML = '';
-            if (state.isPremium && state.premiumExpiry) {
-                var expDate = state.premiumExpiry.toDate ? state.premiumExpiry.toDate() : new Date(state.premiumExpiry);
-                var daysLeft = Math.ceil((expDate - new Date()) / (1000*60*60*24));
-                if (daysLeft <= 30) {
-                    bannerContainer.innerHTML = '<div class="exp-banner">⏳ Abonnement Premium expire dans <strong>' + daysLeft + ' jours</strong> (' + expDate.toLocaleDateString('fr-SN') + ')</div>';
-                } else {
-                    bannerContainer.innerHTML = '<div class="exp-banner">⭐ Premium actif jusqu\'au ' + expDate.toLocaleDateString('fr-SN') + '</div>';
-                }
-            }
+function renderHistory(){var container=document.getElementById('historyContainer');if(!state.history||state.history.length===0){container.innerHTML='<div class="history-empty"><div class="history-empty-icon">📝</div><p>Aucune tentative enregistrée pour le moment.</p><p style="margin-top:.5rem;font-size:.85rem;">Commencez une série pour voir votre historique ici !</p></div>';document.getElementById('totalAttempts').textContent='0';document.getElementById('totalSuccess').textContent='0';return;}var seriesMap={};state.history.forEach(function(h){if(!seriesMap[h.series])seriesMap[h.series]=[];seriesMap[h.series].push(h);});var totalAttempts=state.history.length;var totalSuccess=state.history.filter(function(h){return h.admis;}).length;document.getElementById('totalAttempts').textContent=totalAttempts;document.getElementById('totalSuccess').textContent=totalSuccess;container.innerHTML='';Object.keys(seriesMap).sort().forEach(function(s){var attempts=seriesMap[s];var best=Math.max.apply(null,attempts.map(function(a){return a.score;}));var card=document.createElement('div');card.className='history-accordion';var header=document.createElement('div');header.className='history-accordion-header';header.innerHTML='<div><div class="history-accordion-title">Série '+s+'</div><div class="history-accordion-meta">'+attempts.length+' tentative'+(attempts.length>1?'s':'')+' • Meilleur: '+best+'/25</div></div><div class="history-accordion-icon">▼</div>';header.onclick=function(){header.classList.toggle('open');body.classList.toggle('open');};var body=document.createElement('div');body.className='history-accordion-body';var chart=document.createElement('div');chart.className='history-chart';chart.innerHTML='<div class="history-chart-title">Évolution du score</div>';var bars=document.createElement('div');bars.className='history-chart-bars';var maxH=120;attempts.slice().reverse().slice(0,10).reverse().forEach(function(a){var h=(a.score/25)*maxH;var bar=document.createElement('div');bar.className='history-chart-bar '+(a.admis?'success':'fail');bar.style.height=h+'px';bar.innerHTML='<span class="history-chart-bar-val">'+a.score+'</span>';bar.title='Score: '+a.score+'/25';bars.appendChild(bar);});chart.appendChild(bars);var labels=document.createElement('div');labels.className='history-chart-labels';attempts.slice().reverse().slice(0,10).reverse().forEach(function(a,i){var lbl=document.createElement('div');lbl.className='history-chart-label';lbl.textContent='#'+(i+1);labels.appendChild(lbl);});chart.appendChild(labels);body.appendChild(chart);attempts.slice().reverse().forEach(function(a,i){var att=document.createElement('div');att.className='history-attempt '+(a.admis?'admis':'ajourn');var d=a.date?new Date(a.date.seconds?a.date.seconds*1000:a.date):new Date();att.innerHTML='<div class="history-attempt-header"><span class="history-attempt-date">'+d.toLocaleDateString('fr-SN',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'})+'</span><span class="history-attempt-badge '+(a.admis?'admis':'ajourn')+'">'+(a.admis?'ADMIS':'AJOURNÉ')+'</span></div><div class="history-attempt-stats"><div class="history-attempt-stat"><strong>'+a.score+'/25</strong></div><div class="history-attempt-stat">'+a.errors+' erreur'+(a.errors>1?'s':'')+'</div><div class="history-attempt-stat">⏱️ '+Math.floor(a.time/60)+'min '+Math.floor(a.time%60)+'s</div></div>';body.appendChild(att);});card.appendChild(header);card.appendChild(body);container.appendChild(card);});}
 
-            Object.keys(quizData).forEach(function(s) {
-                var isFree = FREE_SERIES.includes(s);
-                var isLocked = !isFree && !state.isPremium;
-                var btn = document.createElement('button');
-                var p = state.progress[s];
+function startQuiz(series){if(!canAccessSeries(series,state.isPremium)){showPremiumModal(series);return;}state.series=series;state.qIndex=0;state.answers=Array.from({length:25},function(){return[];});state.locked=new Array(25).fill(false);state.startTime=Date.now();document.getElementById('quizSerieName').textContent='Série '+series;clearInterval(state.timerInterval);state.timerInterval=setInterval(updateTimer,1000);showScreen('screen-quiz');renderQuestion();}
 
-                if (isLocked) {
-                    btn.className = 'series-btn locked';
-                    btn.innerHTML = s + '<span class="lock-icon">🔒</span>';
-                    btn.onclick = function(){ showPremiumModal(s); };
-                } else {
-                    btn.className = 'series-btn' + (p ? ' done' : '');
-                    btn.innerHTML = s
-                        + (isFree ? '<span class="free-badge">GRATUIT</span>' : '')
-                        + (p ? '<span class="serie-score">' + p.score + '/25</span>' : '');
-                    btn.onclick = function(){ startQuiz(s); };
-                }
-                grid.appendChild(btn);
-            });
-        }
+function quitQuiz(){if(confirm('Quitter cette série ? La progression sera perdue.')){clearInterval(state.timerInterval);showScreen('screen-series');}}
 
-        // ============== QUIZ ==============
-        function startQuiz(series) {
-            if (!canAccessSeries(series, state.isPremium)) { showPremiumModal(series); return; }
-            state.series = series;
-            state.qIndex = 0;
-            state.answers = Array.from({length:25}, function(){ return []; });
-            state.locked = new Array(25).fill(false);
-            state.startTime = Date.now();
-            document.getElementById('quizSerieName').textContent = 'Série ' + series;
-            clearInterval(state.timerInterval);
-            state.timerInterval = setInterval(updateTimer, 1000);
-            showScreen('screen-quiz');
-            renderQuestion();
-        }
+function updateTimer(){var s=Math.floor((Date.now()-state.startTime)/1000);var m=Math.floor(s/60),sec=s%60;document.getElementById('timer').textContent=String(m).padStart(2,'0')+':'+String(sec).padStart(2,'0');}
 
-        function quitQuiz() {
-            if (confirm('Quitter cette série ? La progression sera perdue.')) {
-                clearInterval(state.timerInterval);
-                showScreen('screen-series');
-            }
-        }
+function renderQuestion(){var i=state.qIndex;var q=quizData[state.series][i];var locked=state.locked[i];var isMulti=q.a.length>1;var currentSel=state.answers[i];document.getElementById('progressBar').style.width=((i+1)/25*100)+'%';document.getElementById('qNum').textContent=i+1;var hintEl=document.getElementById('hintMulti');if(isMulti&&!locked){hintEl.style.display='block';var hasTop=currentSel.some(function(x){return x<=1;});var hasBot=currentSel.some(function(x){return x>=2;});if(currentSel.length===0)hintEl.textContent='ℹ️ Choisissez 1 réponse en haut (A/B) ET 1 en bas (C/D)';else if(currentSel.length===1&&hasTop)hintEl.textContent='👇 Choisissez maintenant une réponse en bas (C ou D)';else if(currentSel.length===1&&hasBot)hintEl.textContent='👆 Choisissez maintenant une réponse en haut (A ou B)';else hintEl.textContent='✅ 2 réponses sélectionnées — cliquez Valider';}else{hintEl.style.display='none';}var imgEl=document.getElementById('questionImg');imgEl.src='images/'+state.series+'_Q'+(i+1)+'.jpg';imgEl.style.display='block';document.getElementById('imgPlaceholder').style.display='none';document.getElementById('alertAnswer').classList.remove('show');var container=document.getElementById('optionsContainer');container.innerHTML='';var labels=['A','B','C','D'];for(var idx=0;idx<q.n;idx++){var div=document.createElement('div');div.className='option';var selected=currentSel.indexOf(idx)>-1;var isCorrect=q.a.indexOf(idx)>-1;var sameLineSelected=false;if(isMulti&&!locked&&!selected){var myLine=(idx<=1)?'top':'bot';sameLineSelected=currentSel.some(function(x){return(myLine==='top')?(x<=1):(x>=2);});}if(locked){div.classList.add('locked');if(isCorrect)div.classList.add('correct');else if(selected)div.classList.add('incorrect');}else if(selected){div.classList.add('selected');}else if(sameLineSelected){div.classList.add('disabled-max');}div.innerHTML='<div class="opt-letter">'+labels[idx]+'</div>';if(!locked&&!sameLineSelected){(function(ci){div.onclick=function(){toggleOption(ci);};})(idx);}container.appendChild(div);}var nextBtn=document.getElementById('nextBtn');if(i===24){nextBtn.textContent=locked?'Voir les résultats':'Valider & Terminer';nextBtn.onclick=locked?finishQuiz:validateAndNext;}else{nextBtn.textContent=locked?'Suivant →':'Valider';nextBtn.onclick=locked?goNext:validateAndNext;}}
 
-        function updateTimer() {
-            var s = Math.floor((Date.now()-state.startTime)/1000);
-            var m = Math.floor(s/60), sec = s%60;
-            document.getElementById('timer').textContent = String(m).padStart(2,'0')+':'+String(sec).padStart(2,'0');
-        }
+function toggleOption(idx){var i=state.qIndex;var q=quizData[state.series][i];var arr=state.answers[i];var pos=arr.indexOf(idx);var isMulti=q.a.length>1;if(!isMulti){state.answers[i]=(pos>-1)?[]:[idx];}else{var myLine=(idx<=1)?'top':'bot';if(pos>-1){arr.splice(pos,1);}else{var peer=arr.findIndex(function(x){return(myLine==='top')?(x<=1):(x>=2);});if(peer>-1)arr.splice(peer,1);arr.push(idx);}}renderQuestion();}
 
-        function renderQuestion() {
-            var i = state.qIndex;
-            var q = quizData[state.series][i];
-            var locked = state.locked[i];
-            var isMulti = q.a.length > 1;
-            var currentSel = state.answers[i];
+function validateAndNext(){var i=state.qIndex;if(state.answers[i].length===0){document.getElementById('alertAnswer').classList.add('show');return;}state.locked[i]=true;renderQuestion();}
 
-            document.getElementById('progressBar').style.width = ((i+1)/25*100)+'%';
-            document.getElementById('qNum').textContent = i+1;
+function goNext(){if(state.qIndex<24){state.qIndex++;renderQuestion();}}
 
-            var hintEl = document.getElementById('hintMulti');
-            if (isMulti && !locked) {
-                hintEl.style.display = 'block';
-                var hasTop = currentSel.some(function(x){ return x<=1; });
-                var hasBot = currentSel.some(function(x){ return x>=2; });
-                if (currentSel.length===0) hintEl.textContent = 'ℹ️ Choisissez 1 réponse en haut (A/B) ET 1 en bas (C/D)';
-                else if (currentSel.length===1 && hasTop) hintEl.textContent = '👇 Choisissez maintenant une réponse en bas (C ou D)';
-                else if (currentSel.length===1 && hasBot) hintEl.textContent = '👆 Choisissez maintenant une réponse en haut (A ou B)';
-                else hintEl.textContent = '✅ 2 réponses sélectionnées — cliquez Valider';
-            } else { hintEl.style.display='none'; }
+function prevQuestion(){if(state.qIndex>0){state.qIndex--;renderQuestion();}}
 
-            var imgEl = document.getElementById('questionImg');
-            imgEl.src = 'images/'+state.series+'_Q'+(i+1)+'.jpg';
-            imgEl.style.display = 'block';
-            document.getElementById('imgPlaceholder').style.display = 'none';
-            document.getElementById('alertAnswer').classList.remove('show');
+function finishQuiz(){clearInterval(state.timerInterval);var total=Math.floor((Date.now()-state.startTime)/1000);var m=Math.floor(total/60),s=total%60;var correct=0;var series=quizData[state.series];for(var i=0;i<series.length;i++){var ua=state.answers[i].slice().sort(function(a,b){return a-b;});var ca=series[i].a.slice().sort(function(a,b){return a-b;});if(JSON.stringify(ua)===JSON.stringify(ca))correct++;}var errors=25-correct,admis=errors<=6;state.progress[state.series]={score:correct,admis:admis};saveProgress();var historyEntry={series:state.series,score:correct,errors:errors,admis:admis,time:total,date:new Date()};state.history.push(historyEntry);saveHistory();document.getElementById('resultBadge').textContent=admis?'🎉':'📝';document.getElementById('resultVerdict').textContent=admis?'ADMIS !':'AJOURNÉ';document.getElementById('resultVerdict').className='result-verdict '+(admis?'admis':'ajourn');document.getElementById('resultSerie').textContent='Série '+state.series+' : '+correct+'/25 ('+errors+' erreurs)';document.getElementById('statCorrect').textContent=correct;document.getElementById('statWrong').textContent=errors;document.getElementById('statTime').textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');var grid=document.getElementById('questionsGrid');grid.innerHTML='';for(var j=0;j<series.length;j++){var ua2=state.answers[j].slice().sort(function(a,b){return a-b;});var ca2=series[j].a.slice().sort(function(a,b){return a-b;});var ok=JSON.stringify(ua2)===JSON.stringify(ca2);var cell=document.createElement('div');cell.className='q-cell '+(ok?'ok':'ko');cell.textContent=j+1;(function(qi){cell.onclick=function(){openModal(qi);};})(j);grid.appendChild(cell);}renderSeriesGrid();showScreen('screen-results');}
 
-            var container = document.getElementById('optionsContainer');
-            container.innerHTML = '';
-            var labels = ['A','B','C','D'];
+function openModal(qIndex){var q=quizData[state.series][qIndex];var ua=state.answers[qIndex],ca=q.a;var labels=['A','B','C','D'];document.getElementById('modalTitle').textContent='Correction '+state.series+' • Q'+(qIndex+1);var mi=document.getElementById('modalImg');mi.src='images/'+state.series+'_Q'+(qIndex+1)+'.jpg';mi.onerror=function(){this.style.display='none';};mi.style.display='block';document.getElementById('modalOverlay').classList.add('open');}
 
-            for (var idx=0; idx<q.n; idx++) {
-                var div = document.createElement('div');
-                div.className = 'option';
-                var selected = currentSel.indexOf(idx)>-1;
-                var isCorrect = q.a.indexOf(idx)>-1;
-                var sameLineSelected = false;
-                if (isMulti && !locked && !selected) {
-                    var myLine = (idx<=1)?'top':'bot';
-                    sameLineSelected = currentSel.some(function(x){ return (myLine==='top')?(x<=1):(x>=2); });
-                }
-                if (locked) {
-                    div.classList.add('locked');
-                    if (isCorrect) div.classList.add('correct');
-                    else if (selected) div.classList.add('incorrect');
-                } else if (selected) {
-                    div.classList.add('selected');
-                } else if (sameLineSelected) {
-                    div.classList.add('disabled-max');
-                }
-                div.innerHTML = '<div class="opt-letter">'+labels[idx]+'</div>';
-                if (!locked && !sameLineSelected) {
-                    (function(ci){ div.onclick = function(){ toggleOption(ci); }; })(idx);
-                }
-                container.appendChild(div);
-            }
-
-            var nextBtn = document.getElementById('nextBtn');
-            if (i===24) {
-                nextBtn.textContent = locked?'Voir les résultats':'Valider & Terminer';
-                nextBtn.onclick = locked?finishQuiz:validateAndNext;
-            } else {
-                nextBtn.textContent = locked?'Suivant →':'Valider';
-                nextBtn.onclick = locked?goNext:validateAndNext;
-            }
-        }
-
-        function toggleOption(idx) {
-            var i = state.qIndex;
-            var q = quizData[state.series][i];
-            var arr = state.answers[i];
-            var pos = arr.indexOf(idx);
-            var isMulti = q.a.length > 1;
-            if (!isMulti) {
-                state.answers[i] = (pos>-1)?[]:[idx];
-            } else {
-                var myLine = (idx<=1)?'top':'bot';
-                if (pos>-1) {
-                    arr.splice(pos,1);
-                } else {
-                    var peer = arr.findIndex(function(x){ return (myLine==='top')?(x<=1):(x>=2); });
-                    if (peer>-1) arr.splice(peer,1);
-                    arr.push(idx);
-                }
-            }
-            renderQuestion();
-        }
-
-        function validateAndNext() {
-            var i = state.qIndex;
-            if (state.answers[i].length===0) { document.getElementById('alertAnswer').classList.add('show'); return; }
-            state.locked[i] = true;
-            renderQuestion();
-        }
-        function goNext(){ if(state.qIndex<24){ state.qIndex++; renderQuestion(); } }
-        function prevQuestion(){ if(state.qIndex>0){ state.qIndex--; renderQuestion(); } }
-        function nextQuestion(){}
-
-        function finishQuiz() {
-            clearInterval(state.timerInterval);
-            var total = Math.floor((Date.now()-state.startTime)/1000);
-            var m = Math.floor(total/60), s = total%60;
-            var correct=0;
-            var series = quizData[state.series];
-            for(var i=0;i<series.length;i++){
-                var ua=state.answers[i].slice().sort(function(a,b){return a-b;});
-                var ca=series[i].a.slice().sort(function(a,b){return a-b;});
-                if(JSON.stringify(ua)===JSON.stringify(ca)) correct++;
-            }
-            var errors=25-correct, admis=errors<=6;
-            state.progress[state.series]={score:correct,admis:admis};
-            saveProgress();
-            document.getElementById('resultBadge').textContent=admis?'🎉':'📝';
-            document.getElementById('resultVerdict').textContent=admis?'ADMIS !':'AJOURNÉ';
-            document.getElementById('resultVerdict').className='result-verdict '+(admis?'admis':'ajourn');
-            document.getElementById('resultSerie').textContent='Série '+state.series+' : '+correct+'/25 ('+errors+' erreurs)';
-            document.getElementById('statCorrect').textContent=correct;
-            document.getElementById('statWrong').textContent=errors;
-            document.getElementById('statTime').textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
-            var grid=document.getElementById('questionsGrid');
-            grid.innerHTML='';
-            for(var j=0;j<series.length;j++){
-                var ua2=state.answers[j].slice().sort(function(a,b){return a-b;});
-                var ca2=series[j].a.slice().sort(function(a,b){return a-b;});
-                var ok=JSON.stringify(ua2)===JSON.stringify(ca2);
-                var cell=document.createElement('div');
-                cell.className='q-cell '+(ok?'ok':'ko');
-                cell.textContent=j+1;
-                (function(qi){ cell.onclick=function(){ openModal(qi); }; })(j);
-                grid.appendChild(cell);
-            }
-            renderSeriesGrid();
-            showScreen('screen-results');
-        }
-
-        function openModal(qIndex) {
-            var q=quizData[state.series][qIndex];
-            var ua=state.answers[qIndex], ca=q.a;
-            var labels=['A','B','C','D'];
-            document.getElementById('modalTitle').textContent='Correction '+state.series+' • Q'+(qIndex+1);
-            var mi=document.getElementById('modalImg');
-            mi.src='images/'+state.series+'_Q'+(qIndex+1)+'.jpg';
-            mi.onerror=function(){ this.style.display='none'; };
-            mi.style.display='block';
-            document.getElementById('modalOverlay').classList.add('open');
-        }
-
-        function closeModal(e){ if(e.target===document.getElementById('modalOverlay')) closeModalDirect(); }
-        function closeModalDirect(){ document.getElementById('modalOverlay').classList.remove('open'); }
-        function retryQuiz(){ startQuiz(state.series); }
+function closeModal(e){if(e.target===document.getElementById('modalOverlay'))closeModalDirect();}
+function closeModalDirect(){document.getElementById('modalOverlay').classList.remove('open');}
+function retryQuiz(){startQuiz(state.series);}
     </script>
 </body>
 </html>
