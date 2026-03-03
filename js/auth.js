@@ -4,6 +4,9 @@ var _pendingEmail    = null;   // email en attente de vérification
 var _pendingPassword = null;   // mdp temporaire pour renvoi email
 var _redirecting     = false;  // verrou redirection
 
+// UID de l'administrateur
+const ADMIN_UID = 'MMRZK9Dpe4dDTnrU3cTmi32bWb82';
+
 // -----------------------------------------------
 // FIX PRINCIPAL : onAuthStateChanged UNIQUEMENT
 // pour la redirection automatique (pas d'action
@@ -17,13 +20,14 @@ auth.onAuthStateChanged(function(user) {
         || window.location.pathname.endsWith('/');
 
     if (isLoginPage) {
-        // Déjà connecté + email vérifié → aller à l'app
+        // Déjà connecté + email vérifié → redirection
         if (user && user.emailVerified) {
             _redirecting = true;
-            window.location.href = 'index.html';
+            // Admin → admin.html | Autres → index.html
+            var dest = (user.uid === ADMIN_UID) ? 'admin.html' : 'index.html';
+            window.location.href = dest;
         }
     }
-    // Note: la protection de index.html est gérée dans index.html lui-même
 });
 
 // ================================================
@@ -63,8 +67,12 @@ async function handleLogin(event) {
 
         // ✔ Connecté et vérifié
         showSuccess('✅ Connexion réussie ! Redirection...');
+        
+        // REDIRECTION ADMIN vs CLIENT
+        var dest = (user.uid === ADMIN_UID) ? 'admin.html' : 'index.html';
+        
         setTimeout(function() {
-            window.location.replace('index.html');
+            window.location.replace(dest);
         }, 1200);
 
     } catch (err) {
@@ -77,17 +85,15 @@ async function handleLogin(event) {
 
 function loginErrorMessage(code) {
     switch (code) {
-        // Codes Firebase Auth compat (tous les cas)
         case 'auth/user-not-found':
-            return '❌ Aucun compte trouvé avec cet email. Vérifiez l’adresse ou inscrivez-vous.';
+            return '❌ Aucun compte trouvé avec cet email. Vérifiez l'adresse ou inscrivez-vous.';
         case 'auth/wrong-password':
             return '❌ Mot de passe incorrect. Vérifiez votre saisie ou réinitialisez votre mot de passe.';
-        // FIX: Firebase retourne ce code depuis mi-2023 pour user-not-found + wrong-password
         case 'auth/invalid-credential':
         case 'auth/invalid-login-credentials':
             return '❌ Email ou mot de passe incorrect. Vérifiez vos identifiants ou réinitialisez votre mot de passe.';
         case 'auth/invalid-email':
-            return '❌ Format d’email invalide.';
+            return '❌ Format d'email invalide.';
         case 'auth/user-disabled':
             return '❌ Ce compte a été désactivé. Contactez le support.';
         case 'auth/too-many-requests':
@@ -95,7 +101,7 @@ function loginErrorMessage(code) {
         case 'auth/network-request-failed':
             return '❌ Erreur réseau. Vérifiez votre connexion internet.';
         case 'auth/operation-not-allowed':
-            return '❌ La connexion par email/mot de passe est désactivée dans Firebase. Contactez l’administrateur.';
+            return '❌ La connexion par email/mot de passe est désactivée dans Firebase. Contactez l'administrateur.';
         default:
             return '❌ Erreur de connexion (' + (code || 'inconnue') + '). Réessayez.';
     }
@@ -180,7 +186,7 @@ async function handlePasswordReset(event) {
     } catch (err) {
         _redirecting = false;
         console.error('[Reset]', err.code, err.message);
-        var msg = '❌ Erreur lors de l’envoi.';
+        var msg = '❌ Erreur lors de l'envoi.';
         if (err.code === 'auth/user-not-found')  { msg = '❌ Aucun compte associé à cet email.'; }
         else if (err.code === 'auth/invalid-email') { msg = '❌ Email invalide.'; }
         else if (err.code === 'auth/too-many-requests') { msg = '❌ Trop de demandes. Attendez quelques minutes.'; }
@@ -199,16 +205,14 @@ async function resendVerification() {
     _redirecting = true;
 
     try {
-        // Reconnexion temporaire pour pouvoir appeler sendEmailVerification
         var email    = _pendingEmail;
         var password = _pendingPassword;
 
         if (!email || !password) {
-            // Demander le mot de passe si on n'a pas les credentials
-            password = window.prompt('Entrez votre mot de passe pour renvoyer l’email :');
+            password = window.prompt('Entrez votre mot de passe pour renvoyer l'email :');
             if (!password) {
                 _redirecting = false;
-                setLoading(btn, false, '🔄 Renvoyer l’email de confirmation');
+                setLoading(btn, false, '🔄 Renvoyer l'email de confirmation');
                 return;
             }
             email = document.getElementById('verifyEmailDisplay').textContent;
@@ -222,13 +226,13 @@ async function resendVerification() {
         _redirecting = false;
 
         showSuccess('✅ Email renvoyé à ' + email + ' ! Cliquez sur le lien dans le mail.');
-        setLoading(btn, false, '🔄 Renvoyer l’email de confirmation');
+        setLoading(btn, false, '🔄 Renvoyer l'email de confirmation');
 
     } catch (err) {
         _redirecting = false;
         console.error('[Resend]', err.code, err.message);
         showError('❌ Impossible de renvoyer : ' + (err.message || err.code));
-        setLoading(btn, false, '🔄 Renvoyer l’email de confirmation');
+        setLoading(btn, false, '🔄 Renvoyer l'email de confirmation');
     }
 }
 
@@ -250,7 +254,6 @@ function showVerifyPanel(email) {
 // ================================================
 function switchTab(tab) {
     hideAlerts();
-    // Tout cacher
     document.getElementById('loginForm').classList.add('hidden');
     document.getElementById('signupForm').classList.add('hidden');
     document.getElementById('resetPanel').classList.add('hidden');
@@ -266,7 +269,7 @@ function switchTab(tab) {
         document.querySelectorAll('.auth-tab')[1].classList.add('active');
         document.getElementById('signupForm').classList.remove('hidden');
     } else if (tab === 'reset') {
-        tabs.style.display = 'none'; // cacher les onglets
+        tabs.style.display = 'none';
         document.getElementById('resetPanel').classList.remove('hidden');
     }
 }
