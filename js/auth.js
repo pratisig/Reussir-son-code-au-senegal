@@ -1,16 +1,14 @@
 // ============== AUTH.JS ==============
 // Variables d'état
-var _pendingEmail    = null;   // email en attente de vérification
-var _pendingPassword = null;   // mdp temporaire pour renvoi email
-var _redirecting     = false;  // verrou redirection
+var _pendingEmail    = null;
+var _pendingPassword = null;
+var _redirecting     = false;
 
-// UID de l'administrateur
-const ADMIN_UID = 'MMRZK9Dpe4dDTnrU3cTmi32bWb82';
+// UID administrateur
+var ADMIN_UID = 'MMRZK9Dpe4dDTnrU3cTmi32bWb82';
 
 // -----------------------------------------------
-// FIX PRINCIPAL : onAuthStateChanged UNIQUEMENT
-// pour la redirection automatique (pas d'action
-// en cours). On utilise un flag _redirecting.
+// onAuthStateChanged pour redirection automatique
 // -----------------------------------------------
 auth.onAuthStateChanged(function(user) {
     if (_redirecting) return;
@@ -19,14 +17,10 @@ auth.onAuthStateChanged(function(user) {
         || window.location.pathname === '/'
         || window.location.pathname.endsWith('/');
 
-    if (isLoginPage) {
-        // Déjà connecté + email vérifié → redirection
-        if (user && user.emailVerified) {
-            _redirecting = true;
-            // Admin → admin.html | Autres → index.html
-            var dest = (user.uid === ADMIN_UID) ? 'admin.html' : 'index.html';
-            window.location.href = dest;
-        }
+    if (isLoginPage && user && user.emailVerified) {
+        _redirecting = true;
+        var dest = (user.uid === ADMIN_UID) ? 'admin.html' : 'index.html';
+        window.location.href = dest;
     }
 });
 
@@ -35,7 +29,7 @@ auth.onAuthStateChanged(function(user) {
 // ================================================
 async function handleLogin(event) {
     event.preventDefault();
-    _redirecting = true; // bloquer le listener pendant l'opération
+    _redirecting = true;
 
     var email    = document.getElementById('loginEmail').value.trim();
     var password = document.getElementById('loginPassword').value;
@@ -45,13 +39,9 @@ async function handleLogin(event) {
     hideAlerts();
 
     try {
-        // S'assurer que la persistence est prête avant de se connecter
         await auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
-
         var cred = await auth.signInWithEmailAndPassword(email, password);
         var user = cred.user;
-
-        // Recharger le profil pour avoir l'état emailVerified à jour
         await user.reload();
         user = auth.currentUser;
 
@@ -65,10 +55,8 @@ async function handleLogin(event) {
             return;
         }
 
-        // ✔ Connecté et vérifié
-        showSuccess('✅ Connexion réussie ! Redirection...');
+        showSuccess('Connexion reussie ! Redirection...');
         
-        // REDIRECTION ADMIN vs CLIENT
         var dest = (user.uid === ADMIN_UID) ? 'admin.html' : 'index.html';
         
         setTimeout(function() {
@@ -79,32 +67,33 @@ async function handleLogin(event) {
         _redirecting = false;
         console.error('[Login]', err.code, err.message);
         setLoading(btn, false, 'Se connecter');
-        showError(loginErrorMessage(err.code));
+        showError(getLoginError(err.code));
     }
 }
 
-function loginErrorMessage(code) {
-    switch (code) {
-        case 'auth/user-not-found':
-            return '❌ Aucun compte trouvé avec cet email. Vérifiez l'adresse ou inscrivez-vous.';
-        case 'auth/wrong-password':
-            return '❌ Mot de passe incorrect. Vérifiez votre saisie ou réinitialisez votre mot de passe.';
-        case 'auth/invalid-credential':
-        case 'auth/invalid-login-credentials':
-            return '❌ Email ou mot de passe incorrect. Vérifiez vos identifiants ou réinitialisez votre mot de passe.';
-        case 'auth/invalid-email':
-            return '❌ Format d'email invalide.';
-        case 'auth/user-disabled':
-            return '❌ Ce compte a été désactivé. Contactez le support.';
-        case 'auth/too-many-requests':
-            return '❌ Trop de tentatives. Compte temporairement bloqué. Attendez ou réinitialisez votre mot de passe.';
-        case 'auth/network-request-failed':
-            return '❌ Erreur réseau. Vérifiez votre connexion internet.';
-        case 'auth/operation-not-allowed':
-            return '❌ La connexion par email/mot de passe est désactivée dans Firebase. Contactez l'administrateur.';
-        default:
-            return '❌ Erreur de connexion (' + (code || 'inconnue') + '). Réessayez.';
+function getLoginError(code) {
+    if (code === 'auth/user-not-found') {
+        return 'Aucun compte trouve avec cet email.';
     }
+    if (code === 'auth/wrong-password') {
+        return 'Mot de passe incorrect.';
+    }
+    if (code === 'auth/invalid-credential' || code === 'auth/invalid-login-credentials') {
+        return 'Email ou mot de passe incorrect.';
+    }
+    if (code === 'auth/invalid-email') {
+        return 'Format email invalide.';
+    }
+    if (code === 'auth/user-disabled') {
+        return 'Ce compte a ete desactive.';
+    }
+    if (code === 'auth/too-many-requests') {
+        return 'Trop de tentatives. Attendez ou reinitialisez votre mot de passe.';
+    }
+    if (code === 'auth/network-request-failed') {
+        return 'Erreur reseau. Verifiez votre connexion.';
+    }
+    return 'Erreur de connexion. Reessayez.';
 }
 
 // ================================================
@@ -121,11 +110,11 @@ async function handleSignup(event) {
 
     if (password !== confirm) {
         _redirecting = false;
-        showError('❌ Les mots de passe ne correspondent pas.');
+        showError('Les mots de passe ne correspondent pas.');
         return;
     }
 
-    setLoading(btn, true, 'Création...');
+    setLoading(btn, true, 'Creation...');
     hideAlerts();
 
     try {
@@ -139,26 +128,29 @@ async function handleSignup(event) {
         await auth.signOut();
         _redirecting = false;
 
-        showSuccess('✅ Compte créé ! Un email de confirmation a été envoyé à ' + email + '. Cliquez sur le lien reçu puis connectez-vous.');
+        showSuccess('Compte cree ! Email de confirmation envoye a ' + email);
         document.getElementById('signupForm').reset();
         setTimeout(function() { switchTab('login'); }, 4500);
-        setLoading(btn, false, 'Créer mon compte');
+        setLoading(btn, false, 'Creer mon compte');
 
     } catch (err) {
         _redirecting = false;
         console.error('[Signup]', err.code, err.message);
-        var msg = '❌ Erreur lors de la création du compte.';
+        var msg = 'Erreur lors de la creation du compte.';
         if (err.code === 'auth/email-already-in-use') {
-            msg = '❌ Cet email est déjà utilisé. <a href="#" onclick="switchTab(\'login\')">Connectez-vous</a> ou réinitialisez votre mot de passe.';
-        } else if (err.code === 'auth/invalid-email')  { msg = '❌ Email invalide.'; }
-          else if (err.code === 'auth/weak-password')  { msg = '❌ Mot de passe trop faible (min. 6 caractères).'; }
+            msg = 'Cet email est deja utilise.';
+        } else if (err.code === 'auth/invalid-email') {
+            msg = 'Email invalide.';
+        } else if (err.code === 'auth/weak-password') {
+            msg = 'Mot de passe trop faible (min. 6 caracteres).';
+        }
         showError(msg);
-        setLoading(btn, false, 'Créer mon compte');
+        setLoading(btn, false, 'Creer mon compte');
     }
 }
 
 // ================================================
-// RÉINITIALISATION MOT DE PASSE
+// REINITIALISATION MOT DE PASSE
 // ================================================
 async function handlePasswordReset(event) {
     event.preventDefault();
@@ -176,27 +168,28 @@ async function handlePasswordReset(event) {
         });
         _redirecting = false;
 
-        showSuccess(
-            '✅ Email envoyé ! Consultez la boîte ' + email + ' (vérifiez aussi les spams).\n' +
-            'Cliquez sur le lien pour choisir un nouveau mot de passe.'
-        );
+        showSuccess('Email envoye ! Consultez ' + email);
         document.getElementById('resetEmail').value = '';
-        setLoading(btn, false, '📧 Envoyer le lien de réinitialisation');
+        setLoading(btn, false, 'Envoyer le lien de reinitialisation');
 
     } catch (err) {
         _redirecting = false;
         console.error('[Reset]', err.code, err.message);
-        var msg = '❌ Erreur lors de l'envoi.';
-        if (err.code === 'auth/user-not-found')  { msg = '❌ Aucun compte associé à cet email.'; }
-        else if (err.code === 'auth/invalid-email') { msg = '❌ Email invalide.'; }
-        else if (err.code === 'auth/too-many-requests') { msg = '❌ Trop de demandes. Attendez quelques minutes.'; }
+        var msg = 'Erreur lors de envoi.';
+        if (err.code === 'auth/user-not-found') {
+            msg = 'Aucun compte associe a cet email.';
+        } else if (err.code === 'auth/invalid-email') {
+            msg = 'Email invalide.';
+        } else if (err.code === 'auth/too-many-requests') {
+            msg = 'Trop de demandes. Attendez quelques minutes.';
+        }
         showError(msg);
-        setLoading(btn, false, '📧 Envoyer le lien de réinitialisation');
+        setLoading(btn, false, 'Envoyer le lien de reinitialisation');
     }
 }
 
 // ================================================
-// RENVOI EMAIL DE VÉRIFICATION
+// RENVOI EMAIL VERIFICATION
 // ================================================
 async function resendVerification() {
     var btn = document.getElementById('resendBtn');
@@ -209,10 +202,10 @@ async function resendVerification() {
         var password = _pendingPassword;
 
         if (!email || !password) {
-            password = window.prompt('Entrez votre mot de passe pour renvoyer l'email :');
+            password = window.prompt('Entrez votre mot de passe :');
             if (!password) {
                 _redirecting = false;
-                setLoading(btn, false, '🔄 Renvoyer l'email de confirmation');
+                setLoading(btn, false, 'Renvoyer email de confirmation');
                 return;
             }
             email = document.getElementById('verifyEmailDisplay').textContent;
@@ -225,32 +218,32 @@ async function resendVerification() {
         await auth.signOut();
         _redirecting = false;
 
-        showSuccess('✅ Email renvoyé à ' + email + ' ! Cliquez sur le lien dans le mail.');
-        setLoading(btn, false, '🔄 Renvoyer l'email de confirmation');
+        showSuccess('Email renvoye a ' + email);
+        setLoading(btn, false, 'Renvoyer email de confirmation');
 
     } catch (err) {
         _redirecting = false;
         console.error('[Resend]', err.code, err.message);
-        showError('❌ Impossible de renvoyer : ' + (err.message || err.code));
-        setLoading(btn, false, '🔄 Renvoyer l'email de confirmation');
+        showError('Impossible de renvoyer : ' + err.message);
+        setLoading(btn, false, 'Renvoyer email de confirmation');
     }
 }
 
 // ================================================
-// PANNEAU EMAIL NON VÉRIFIÉ
+// PANNEAU EMAIL NON VERIFIE
 // ================================================
 function showVerifyPanel(email) {
-    document.getElementById('authTabs').style.display        = 'none';
+    document.getElementById('authTabs').style.display = 'none';
     document.getElementById('loginForm').classList.add('hidden');
     document.getElementById('signupForm').classList.add('hidden');
     document.getElementById('resetPanel').classList.add('hidden');
     document.getElementById('verifyPanel').classList.remove('hidden');
     document.getElementById('verifyEmailDisplay').textContent = email;
-    showWarning('⚠️ Email non vérifié. Consultez votre boîte de réception.');
+    showWarning('Email non verifie. Consultez votre boite de reception.');
 }
 
 // ================================================
-// NAVIGATION ENTRE ONGLETS / PANNEAUX
+// NAVIGATION ONGLETS
 // ================================================
 function switchTab(tab) {
     hideAlerts();
@@ -275,7 +268,7 @@ function switchTab(tab) {
 }
 
 // ================================================
-// DÉCONNEXION
+// DECONNEXION
 // ================================================
 async function handleLogout() {
     _redirecting = true;
@@ -302,19 +295,23 @@ function setLoading(btn, loading, text) {
 }
 function showError(msg) {
     var el = document.getElementById('alertError');
-    el.innerHTML = msg; el.classList.add('show');
+    el.innerHTML = msg;
+    el.classList.add('show');
 }
 function showSuccess(msg) {
     var el = document.getElementById('alertSuccess');
-    el.textContent = msg; el.classList.add('show');
+    el.textContent = msg;
+    el.classList.add('show');
 }
 function showWarning(msg) {
     var el = document.getElementById('alertWarning');
-    el.textContent = msg; el.classList.add('show');
+    el.textContent = msg;
+    el.classList.add('show');
 }
 function showInfo(msg) {
     var el = document.getElementById('alertInfo');
-    el.textContent = msg; el.classList.add('show');
+    el.textContent = msg;
+    el.classList.add('show');
 }
 function hideAlerts() {
     ['alertError','alertSuccess','alertWarning','alertInfo'].forEach(function(id) {
