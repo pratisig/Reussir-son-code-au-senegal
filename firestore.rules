@@ -1,0 +1,80 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ====================================================
+    // COLLECTION USERS
+    // ====================================================
+    match /users/{userId} {
+
+      // Lecture : seulement soi-même
+      allow read: if request.auth != null && request.auth.uid == userId;
+
+      // Création : seulement soi-même, premium absent ou false au départ
+      allow create: if request.auth != null
+                    && request.auth.uid == userId
+                    && (!request.resource.data.keys().hasAny(['premium'])
+                        || request.resource.data.premium.active == false);
+
+      // Mise à jour : seulement soi-même,
+      // MAIS protection contre l'auto-activation du premium
+      allow update: if request.auth != null
+                    && request.auth.uid == userId
+                    && canUpdateUser(request, resource);
+
+      // Suppression : interdite côté client
+      allow delete: if false;
+    }
+
+    // ====================================================
+    // COLLECTION PAYMENTS (futur webhook backend)
+    // ====================================================
+    match /payments/{payId} {
+      // Lecture : propriétaire seulement
+      allow read: if request.auth != null
+                  && resource.data.uid == request.auth.uid;
+      // Écriture : backend uniquement (via Admin SDK)
+      allow write: if false;
+    }
+
+    // ====================================================
+    // FONCTION : validation des mises à jour utilisateur
+    // Empêche :
+    //  - S'activer soi-même premium
+    //  - Modifier expiresAt
+    //  - Ajouter plus de 3 appareils
+    //  - Modifier les appareils d'un autre
+    // ====================================================
+    function canUpdateUser(request, resource) {
+      let incoming = request.resource.data;
+      let existing = resource.data;
+
+      // Si l'utilisateur ne touche pas au premium → OK
+      let touchesPremium = incoming.diff(existing).affectedKeys().hasAny(['premium']);
+      if (!touchesPremium) return true;
+
+      let p = incoming.premium;
+      let oldP = existing.get('premium', {});
+
+      // Interdire d'activer soi-même le premium (active: false → true)
+      // ou de modifier la date d'expiration
+      if (p.get('active', false) == true
+          && oldP.get('active', false) == false) {
+        return false;
+      }
+      if (p.get('expiresAt', null) != oldP.get('expiresAt', null)) {
+        return false;
+      }
+
+      // Autoriser uniquement l'ajout d'un device (arrayUnion)
+      let oldDevices = oldP.get('devices', []);
+      let newDevices = p.get('devices', []);
+      // Max 3 appareils
+      if (newDevices.size() > 3) return false;
+      // L'utilisateur ne peut qu'ajouter, pas supprimer ses devices
+      if (newDevices.size() < oldDevices.size()) return false;
+
+      return true;
+    }
+  }
+}
