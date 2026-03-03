@@ -2,10 +2,19 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
+    // UID de l'administrateur
+    function isAdmin() {
+      return request.auth != null
+          && request.auth.uid == 'MMRZK9Dpe4dDTnrU3cTmi32bWb82';
+    }
+
     // ====================================================
     // COLLECTION USERS
     // ====================================================
     match /users/{userId} {
+
+      // Admin : accès total
+      allow read, write: if isAdmin();
 
       // Lecture : seulement soi-même
       allow read: if request.auth != null
@@ -29,19 +38,34 @@ service cloud.firestore {
     }
 
     // ====================================================
-    // COLLECTION PAYMENTS — écriture réservée au backend
+    // COLLECTION PAYMENT_REQUESTS
     // ====================================================
-    match /payments/{payId} {
-      allow read:  if request.auth != null
-                   && resource.data.uid == request.auth.uid;
-      allow write: if false;
+    match /payment_requests/{reqId} {
+
+      // Admin : accès total (lire, valider, rejeter)
+      allow read, write: if isAdmin();
+
+      // Client : créer une demande (connecté)
+      allow create: if request.auth != null
+                    && request.resource.data.uid == request.auth.uid;
+
+      // Client : lire ses propres demandes
+      allow read: if request.auth != null
+                  && resource.data.uid == request.auth.uid;
     }
 
     // ====================================================
-    // FONCTION : validation des mises à jour
-    // - Interdit de s'activer soi-même premium
-    // - Interdit de modifier expiresAt
-    // - Maximum 3 appareils
+    // COLLECTION PAYMENTS (historique)
+    // ====================================================
+    match /payments/{payId} {
+      allow read:  if isAdmin()
+                   || (request.auth != null
+                       && resource.data.uid == request.auth.uid);
+      allow write: if isAdmin();
+    }
+
+    // ====================================================
+    // FONCTIONS DE VALIDATION
     // ====================================================
     function isValidUpdate(incoming, existing) {
       return !incoming.diff(existing).affectedKeys().hasAny(['premium'])
