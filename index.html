@@ -240,7 +240,8 @@
                     <li>Correction détaillée après chaque série</li>
                 </ul>
             </div>
-            <button class="btn" onclick="showScreen('screen-series')">📖 Choisir une série</button>
+            <button class="btn" onclick="showScreen('screen-series')"><span>📚</span> Choisir une série</button>
+            <button class="btn btn-outline" onclick="window.location.href='cours.html'" style="margin-top:.75rem;"><span>📚</span> Cours théoriques</button>
             <div class="feature-grid">
                 <div class="feature-card" onclick="showScreen('screen-revision')">
                     <div class="feature-icon">📔</div>
@@ -260,7 +261,7 @@
 
     <!-- SERIES -->
     <div class="screen" id="screen-series">
-        <button class="back-btn" onclick="showScreen('screen-welcome')">← Accueil</button>
+        <button class="back-btn" onclick="showScreen('screen-welcome')"><span>←</span> Accueil</button>
         <div class="card">
             <div class="series-title">Choisissez une série</div>
             <div class="series-sub" id="seriesSubtitle">B1 & B2 gratuites • B3–B12 Premium</div>
@@ -271,7 +272,7 @@
 
     <!-- MODE REVISION -->
     <div class="screen" id="screen-revision">
-        <button class="back-btn" onclick="showScreen('screen-welcome')">← Accueil</button>
+        <button class="back-btn" onclick="showScreen('screen-welcome')"><span>←</span> Accueil</button>
         <div class="card">
             <div class="series-title">📔 Mode Révision</div>
             <div class="series-sub">Revoir uniquement les questions ratées</div>
@@ -281,7 +282,7 @@
 
     <!-- EXAMEN BLANC -->
     <div class="screen" id="screen-exam">
-        <button class="back-btn" onclick="showScreen('screen-welcome')">← Accueil</button>
+        <button class="back-btn" onclick="showScreen('screen-welcome')"><span>←</span> Accueil</button>
         <div class="card">
             <div class="series-title">🎯 Examen Blanc</div>
             <div class="series-sub">25 questions aléatoires de toutes les séries</div>
@@ -294,13 +295,13 @@
                     <li>Correction complète à la fin</li>
                 </ul>
             </div>
-            <button class="btn" onclick="startExamBlanc()">🚀 Commencer l'examen blanc</button>
+            <button class="btn" onclick="startExamBlanc()"><span>🚀</span> Commencer l'examen blanc</button>
         </div>
     </div>
 
     <!-- STATISTIQUES AVANCEES -->
     <div class="screen" id="screen-stats">
-        <button class="back-btn" onclick="showScreen('screen-welcome')">← Accueil</button>
+        <button class="back-btn" onclick="showScreen('screen-welcome')"><span>←</span> Accueil</button>
         <div class="card">
             <div class="series-title">📊 Statistiques avancées</div>
             <div class="series-sub">Vue d'ensemble de vos performances</div>
@@ -310,7 +311,7 @@
 
     <!-- HISTORIQUE -->
     <div class="screen" id="screen-history">
-        <button class="back-btn" onclick="showScreen('screen-welcome')">← Accueil</button>
+        <button class="back-btn" onclick="showScreen('screen-welcome')"><span>←</span> Accueil</button>
         <div class="card">
             <div class="series-title">📅 Mon historique</div>
             <div class="series-sub">Suivi de vos tentatives et progression</div>
@@ -363,7 +364,7 @@
             </div>
             <div class="btn-row">
                 <button class="btn btn-outline" onclick="retryQuiz()">↻ Recommencer</button>
-                <button class="btn btn-outline" onclick="showScreen('screen-series')">📖 Séries</button>
+                <button class="btn btn-outline" onclick="showScreen('screen-series')"><span>📚</span> Séries</button>
             </div>
         </div>
         <div class="card">
