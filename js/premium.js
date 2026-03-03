@@ -1,11 +1,12 @@
 // ============================================================
 // PREMIUM.JS — Logique abonnement SaaS
-// B1 & B2 : gratuites
-// B3 → B12 : payantes (2500 FCFA, 12 mois, 3 appareils max)
+// Paiement manuel Wave — validation par admin
 // ============================================================
 
 const FREE_SERIES = ['B1', 'B2'];
 const MAX_DEVICES = 3;
+const WAVE_NUMBER  = '70 946 23 05';
+const WAVE_AMOUNT  = 2500;
 
 // ---- Générer un ID d'appareil persistant --------------------
 function getDeviceId() {
@@ -21,28 +22,20 @@ function getDeviceId() {
 async function checkAndRegisterDevice(uid) {
     const deviceId = getDeviceId();
     const userRef = db.collection('users').doc(uid);
-
     try {
         const doc = await userRef.get();
         const data = doc.exists ? doc.data() : {};
         const premium = data.premium || {};
-
-        // Pas premium
         if (!premium.active) return { ok: true, premium: false };
-
-        // Expiration
         if (premium.expiresAt && premium.expiresAt.toDate() < new Date()) {
             await userRef.update({ 'premium.active': false });
             return { ok: true, premium: false, expired: true };
         }
-
-        // Gestion appareils
         const devices = premium.devices || [];
         if (!devices.includes(deviceId)) {
             if (devices.length >= MAX_DEVICES) {
                 return { ok: false, premium: true, reason: 'max_devices' };
             }
-            // Enregistrer cet appareil
             await userRef.update({
                 'premium.devices': firebase.firestore.FieldValue.arrayUnion(deviceId)
             });
@@ -60,77 +53,111 @@ function canAccessSeries(seriesName, isPremium) {
     return isPremium === true;
 }
 
-// ---- Afficher le modal premium ------------------------------
+// ---- Afficher / Fermer le modal premium ---------------------
 function showPremiumModal(seriesName) {
     const el = document.getElementById('premiumModal');
-    if (el) {
-        document.getElementById('premiumModalSeries').textContent = seriesName || '';
-        el.classList.add('open');
-    }
+    if (!el) return;
+    document.getElementById('premiumModalSeries').textContent = seriesName || '';
+    // Reset état
+    showStep('step1');
+    document.getElementById('waveRef').value = '';
+    document.getElementById('payStatus').style.display = 'none';
+    document.getElementById('payStatus').textContent = '';
+    el.classList.add('open');
 }
 function closePremiumModal() {
     const el = document.getElementById('premiumModal');
     if (el) el.classList.remove('open');
 }
 
-// ---- Initier un paiement (simulation) -----------------------
-// En production : appeler votre backend ou l'API Orange Money / Wave / Jammu
-function initPayment(method) {
-    const btn = document.getElementById('payBtn');
-    const status = document.getElementById('payStatus');
-    if (btn) btn.disabled = true;
-    if (status) {
-        status.style.display = 'block';
-        status.textContent = '⏳ Connexion à ' + method + ' en cours...';
-        status.className = 'pay-status pending';
-    }
-
-    // ---- SIMULATION : remplacer par vraie intégration --------
-    // Orange Money Sénégal : https://developer.orange.com/
-    // Wave : https://wave.com/en/business/api/
-    // Jammu Pay : API locale
-    // ----------------------------------------------------------
-    // Pour test : activer après 3 secondes
-    setTimeout(function() {
-        if (status) {
-            status.textContent = '✅ Paiement confirmé ! Activation en cours...';
-            status.className = 'pay-status success';
-        }
-        activatePremium();
-    }, 3000);
+// ---- Navigation entre étapes du modal ----------------------
+function showStep(stepId) {
+    ['step1','step2','step3'].forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el) el.style.display = (id === stepId) ? 'block' : 'none';
+    });
 }
 
-// ---- Activer l'abonnement premium dans Firestore ------------
-async function activatePremium() {
-    const user = auth.currentUser;
-    if (!user) return;
-    const deviceId = getDeviceId();
-    const expiresAt = new Date();
-    expiresAt.setFullYear(expiresAt.getFullYear() + 1);
+// ---- Copier le numéro Wave dans le presse-papiers ----------
+function copyWaveNumber() {
+    var num = WAVE_NUMBER.replace(/\s/g,'');
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(num).then(function() {
+            var btn = document.getElementById('copyBtn');
+            if (btn) { btn.textContent = '✅ Copié !'; setTimeout(function(){ btn.textContent = '📋 Copier le numéro'; }, 2000); }
+        });
+    } else {
+        var ta = document.createElement('textarea');
+        ta.value = num;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        var btn = document.getElementById('copyBtn');
+        if (btn) { btn.textContent = '✅ Copié !'; setTimeout(function(){ btn.textContent = '📋 Copier le numéro'; }, 2000); }
+    }
+}
 
+// ---- Soumettre la référence de transaction ----------------
+async function submitWavePayment() {
+    var ref = document.getElementById('waveRef').value.trim();
+    var status = document.getElementById('payStatus');
+    if (!ref || ref.length < 4) {
+        status.style.display = 'block';
+        status.className = 'pay-status error';
+        status.textContent = '⚠️ Veuillez entrer votre référence de transaction Wave.';
+        return;
+    }
+    var user = auth.currentUser;
+    if (!user) return;
+    var submitBtn = document.getElementById('submitRefBtn');
+    if (submitBtn) submitBtn.disabled = true;
+    status.style.display = 'block';
+    status.className = 'pay-status pending';
+    status.textContent = '⏳ Envoi de votre demande...';
     try {
-        await db.collection('users').doc(user.uid).set({
+        // Enregistrer la demande de paiement dans Firestore
+        await db.collection('payment_requests').add({
+            uid:       user.uid,
+            email:     user.email || '',
+            method:    'Wave',
+            amount:    WAVE_AMOUNT,
+            ref:       ref,
+            status:    'pending',
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+        // Afficher étape de confirmation
+        showStep('step3');
+    } catch(e) {
+        status.className = 'pay-status error';
+        status.textContent = '❌ Erreur : ' + e.message;
+        if (submitBtn) submitBtn.disabled = false;
+    }
+}
+
+// ---- Activer l'abonnement premium (appelé par l'admin) -----
+async function activatePremium(uid) {
+    var targetUid = uid || (auth.currentUser ? auth.currentUser.uid : null);
+    if (!targetUid) return;
+    var deviceId = getDeviceId();
+    var expiresAt = new Date();
+    expiresAt.setFullYear(expiresAt.getFullYear() + 1);
+    try {
+        await db.collection('users').doc(targetUid).set({
             premium: {
                 active: true,
                 activatedAt: firebase.firestore.FieldValue.serverTimestamp(),
                 expiresAt: expiresAt,
                 plan: '2500fcfa_12mois',
                 devices: [deviceId],
-                paymentMethod: window._selectedPayMethod || 'unknown'
+                paymentMethod: 'Wave'
             }
         }, { merge: true });
-
-        // Rafraîchir la page pour appliquer
         setTimeout(function() {
             closePremiumModal();
             window.location.reload();
-        }, 1500);
-    } catch (e) {
+        }, 1000);
+    } catch(e) {
         console.error('activatePremium error:', e);
-        const status = document.getElementById('payStatus');
-        if (status) {
-            status.textContent = '❌ Erreur activation. Contactez le support.';
-            status.className = 'pay-status error';
-        }
     }
 }
