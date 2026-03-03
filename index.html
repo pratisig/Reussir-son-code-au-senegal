@@ -102,21 +102,9 @@
         .modal-header{background:var(--bg-deep);padding:.875rem 1rem;display:flex;justify-content:space-between;align-items:center;}
         .modal-header h3{font-size:1rem;font-weight:700;}
         .modal-close{background:none;border:none;color:var(--text-muted);font-size:1.4rem;cursor:pointer;line-height:1;padding:.25rem;}
-        .modal-img{width:100%;display:block;max-height:280px;object-fit:contain;background:#000;padding:.5rem;}
-        .modal-img-rep{width:100%;display:block;max-height:220px;object-fit:contain;background:#0a1628;padding:.5rem;border-top:1px solid rgba(255,255,255,.08);}
-        .modal-rep-label{background:rgba(16,185,129,.1);border-top:1px solid rgba(16,185,129,.2);padding:.4rem 1rem;font-size:.75rem;color:var(--success);font-weight:600;}
-        .modal-options{padding:1rem;}
-        .modal-option{display:flex;align-items:center;gap:.75rem;padding:.75rem 1rem;border-radius:8px;margin-bottom:.5rem;font-size:.9rem;border:2px solid transparent;}
-        .modal-option.correct{border-color:var(--success);background:rgba(16,185,129,.12);color:var(--success);}
-        .modal-option.incorrect{border-color:var(--error);background:rgba(239,68,68,.08);color:var(--error);}
-        .modal-option.neutral{border-color:rgba(255,255,255,.1);color:var(--text-muted);}
-        .modal-opt-letter{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.8rem;flex-shrink:0;}
-        .modal-option.correct .modal-opt-letter{background:var(--success);color:#fff;}
-        .modal-option.incorrect .modal-opt-letter{background:var(--error);color:#fff;}
-        .modal-option.neutral .modal-opt-letter{background:var(--bg-deep);color:var(--text-muted);}
-        .modal-legend{padding:0 1rem 1rem;display:flex;gap:1rem;font-size:.78rem;color:var(--text-muted);}
-        .modal-legend span{display:flex;align-items:center;gap:.3rem;}
-        /* ============ MODAL PREMIUM ============ */
+        .modal-img{width:100%;display:block;max-height:340px;object-fit:contain;background:#000;padding:.75rem;}
+        .modal-correction-hint{background:rgba(56,189,248,.08);border-left:3px solid var(--primary);padding:.75rem 1rem;font-size:.82rem;color:var(--text);}
+        /* MODAL PREMIUM */
         #premiumModal .modal{max-width:420px;}
         .premium-hero{text-align:center;padding:1.5rem 1rem 1rem;}
         .premium-hero .icon{font-size:3rem;margin-bottom:.5rem;}
@@ -148,6 +136,20 @@
         /* BACK */
         .back-btn{background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:.875rem;margin-bottom:1rem;display:flex;align-items:center;gap:.4rem;padding:0;}
         .back-btn:hover{color:var(--text);}
+
+        /* PAIEMENT WAVE INSTRUCTIONS */
+        .pay-step{display:none;}
+        .pay-step h3{font-size:1.1rem;margin-bottom:1rem;}
+        .wave-steps{padding:1rem;}
+        .wave-step{display:flex;gap:.75rem;margin-bottom:1rem;}
+        .wave-step-num{background:var(--primary);color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem;flex-shrink:0;}
+        .wave-step-text{flex:1;font-size:.875rem;line-height:1.6;}
+        .wave-number-box{background:var(--bg-deep);border:2px solid var(--primary);border-radius:10px;padding:1rem;text-align:center;margin:1rem 0;}
+        .wave-number{font-size:1.5rem;font-weight:800;color:var(--primary);letter-spacing:2px;}
+        .wave-amount{font-size:1.3rem;font-weight:800;color:var(--gold);margin:.5rem 0;}
+        .ref-input{background:var(--bg-deep);border:2px solid rgba(255,255,255,.1);color:var(--text);padding:.75rem 1rem;border-radius:8px;width:100%;font-size:.9rem;margin:.75rem 0;}
+        .ref-input:focus{outline:none;border-color:var(--primary);}
+        .ref-label{font-size:.82rem;color:var(--text-muted);margin-bottom:.4rem;}
     </style>
 </head>
 <body>
@@ -257,12 +259,8 @@
                 <button class="modal-close" onclick="closeModalDirect()">×</button>
             </div>
             <img class="modal-img" id="modalImg" src="" alt="">
-            <div class="modal-rep-label">✅ Feuille de réponses — Série</div>
-            <img class="modal-img-rep" id="modalImgRep" src="" alt="Réponses série">
-            <div class="modal-options" id="modalOptions"></div>
-            <div class="modal-legend">
-                <span><span style="color:var(--success);">✓</span> Bonne réponse</span>
-                <span><span style="color:var(--error);">✗</span> Votre réponse incorrecte</span>
+            <div class="modal-correction-hint">
+                💡 <strong>Astuce :</strong> Comparez l'image ci-dessus avec vos réponses sélectionnées (A/B/C/D). Les réponses correctes sont indiquées en vert dans la grille ci-dessous.
             </div>
         </div>
     </div>
@@ -274,38 +272,84 @@
                 <h3>🔓 Débloquer l'accès complet</h3>
                 <button class="modal-close" onclick="closePremiumModal()">×</button>
             </div>
-            <div class="premium-hero">
-                <div class="icon">⭐</div>
-                <h2>Passez en Premium</h2>
-                <p>Série <strong id="premiumModalSeries"></strong> et toutes les séries B3–B12 débloquées</p>
-            </div>
-            <div class="premium-price">
-                <div class="amount">2 500 FCFA</div>
-                <div class="period">Accès complet • 12 mois • 3 appareils</div>
-            </div>
-            <ul class="premium-features">
-                <li>Toutes les séries B1 à B12 (300 questions)</li>
-                <li>Correction détaillée pour chaque question</li>
-                <li>Suivi de progression sauvegardé</li>
-                <li>Accès sur 3 appareils simultanément</li>
-                <li>Valide 12 mois à partir de l'activation</li>
-            </ul>
-            <p style="text-align:center;font-size:.8rem;color:var(--text-muted);margin:.5rem 0 .25rem;">Choisissez votre mode de paiement :</p>
-            <div class="pay-methods">
-                <div class="pay-method-btn" id="pm-orange" onclick="selectPayMethod('Orange Money','pm-orange')">
-                    <span class="pm-icon">🟠</span>Orange Money
+            
+            <!-- Étape 1: Choix paiement -->
+            <div class="pay-step" id="step1" style="display:block;">
+                <div class="premium-hero">
+                    <div class="icon">⭐</div>
+                    <h2>Passez en Premium</h2>
+                    <p>Série <strong id="premiumModalSeries"></strong> et toutes les séries B3–B12 débloquées</p>
                 </div>
-                <div class="pay-method-btn" id="pm-wave" onclick="selectPayMethod('Wave','pm-wave')">
-                    <span class="pm-icon">🌊</span>Wave
+                <div class="premium-price">
+                    <div class="amount">2 500 FCFA</div>
+                    <div class="period">Accès complet • 12 mois • 3 appareils</div>
                 </div>
-                <div class="pay-method-btn" id="pm-jammu" onclick="selectPayMethod('Jammu','pm-jammu')">
-                    <span class="pm-icon">💛</span>Jammu
+                <ul class="premium-features">
+                    <li>Toutes les séries B1 à B12 (300 questions)</li>
+                    <li>Correction détaillée pour chaque question</li>
+                    <li>Suivi de progression sauvegardé</li>
+                    <li>Accès sur 3 appareils simultanément</li>
+                    <li>Valide 12 mois à partir de l'activation</li>
+                </ul>
+                <p style="text-align:center;font-size:.8rem;color:var(--text-muted);margin:.5rem 0 .25rem;">Mode de paiement :</p>
+                <div class="pay-methods">
+                    <div class="pay-method-btn" style="grid-column:1/-1;max-width:200px;margin:0 auto;" id="pm-wave" onclick="showStep('step2')">
+                        <span class="pm-icon">🌊</span>Wave
+                    </div>
                 </div>
             </div>
-            <button class="btn btn-gold" id="payBtn" onclick="launchPayment()" disabled>
-                🔓 Payer 2 500 FCFA
-            </button>
-            <div class="pay-status" id="payStatus"></div>
+
+            <!-- Étape 2: Instructions Wave -->
+            <div class="pay-step" id="step2">
+                <h3 style="padding:0 1rem;">🌊 Paiement via Wave</h3>
+                <div class="wave-steps">
+                    <div class="wave-step">
+                        <div class="wave-step-num">1</div>
+                        <div class="wave-step-text">Ouvrez votre application <strong>Wave</strong></div>
+                    </div>
+                    <div class="wave-step">
+                        <div class="wave-step-num">2</div>
+                        <div class="wave-step-text">Envoyez <strong class="wave-amount">2 500 FCFA</strong> au numéro ci-dessous :</div>
+                    </div>
+                    <div class="wave-number-box">
+                        <div class="wave-number">70 946 23 05</div>
+                        <button class="btn btn-sm" id="copyBtn" onclick="copyWaveNumber()" style="margin-top:.75rem;">📋 Copier le numéro</button>
+                    </div>
+                    <div class="wave-step">
+                        <div class="wave-step-num">3</div>
+                        <div class="wave-step-text">Après l'envoi, <strong>notez votre référence de transaction Wave</strong> (ex: WT123456789)</div>
+                    </div>
+                    <div class="wave-step">
+                        <div class="wave-step-num">4</div>
+                        <div class="wave-step-text">Entrez cette référence ci-dessous pour validation :</div>
+                    </div>
+                    <div class="ref-label">Référence de transaction Wave :</div>
+                    <input type="text" class="ref-input" id="waveRef" placeholder="Ex: WT123456789">
+                </div>
+                <button class="btn btn-gold" id="submitRefBtn" onclick="submitWavePayment()" style="margin:0 1rem 1rem;width:calc(100% - 2rem);">
+                    ✅ Soumettre ma demande
+                </button>
+                <div class="pay-status" id="payStatus"></div>
+                <button class="btn btn-outline btn-sm" onclick="showStep('step1')" style="margin:0 1rem 1rem;width:calc(100% - 2rem);">
+                    ← Retour
+                </button>
+            </div>
+
+            <!-- Étape 3: Confirmation -->
+            <div class="pay-step" id="step3">
+                <div style="padding:2rem 1rem;text-align:center;">
+                    <div style="font-size:3rem;margin-bottom:1rem;">✅</div>
+                    <h3 style="margin-bottom:.75rem;">Demande envoyée !</h3>
+                    <p style="color:var(--text-muted);font-size:.875rem;line-height:1.6;margin-bottom:1.5rem;">
+                        Votre demande a été reçue. Un administrateur va vérifier votre paiement et activer votre compte <strong>Premium</strong> sous quelques minutes.
+                    </p>
+                    <p style="color:var(--text-muted);font-size:.82rem;">
+                        Vous recevrez une confirmation par email. Rafraîchissez la page pour accéder aux séries premium.
+                    </p>
+                    <button class="btn" onclick="closePremiumModal();location.reload();" style="margin-top:1.5rem;">
+Compris</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -548,21 +592,6 @@
             });
         }
 
-        // ============== PAIEMENT ==============
-        function selectPayMethod(method, btnId) {
-            window._selectedPayMethod = method;
-            document.querySelectorAll('.pay-method-btn').forEach(function(b){ b.classList.remove('selected-pay'); });
-            document.getElementById(btnId).classList.add('selected-pay');
-            var payBtn = document.getElementById('payBtn');
-            payBtn.disabled = false;
-            payBtn.textContent = '🔓 Payer 2 500 FCFA via ' + method;
-        }
-
-        function launchPayment() {
-            if (!window._selectedPayMethod) return;
-            initPayment(window._selectedPayMethod);
-        }
-
         // ============== QUIZ ==============
         function startQuiz(series) {
             if (!canAccessSeries(series, state.isPremium)) { showPremiumModal(series); return; }
@@ -735,20 +764,6 @@
             mi.src='images/'+state.series+'_Q'+(qIndex+1)+'.jpg';
             mi.onerror=function(){ this.style.display='none'; };
             mi.style.display='block';
-            var mr=document.getElementById('modalImgRep');
-            mr.src='images/'+state.series+'_reponses.jpg';
-            mr.onerror=function(){ this.style.display='none'; var l=this.previousElementSibling; if(l) l.style.display='none'; };
-            mr.style.display='block';
-            var opts=document.getElementById('modalOptions');
-            opts.innerHTML='';
-            for(var idx=0;idx<q.n;idx++){
-                var isC=ca.indexOf(idx)>-1, wasS=ua.indexOf(idx)>-1;
-                var cls=isC?'correct':(wasS?'incorrect':'neutral');
-                var d=document.createElement('div');
-                d.className='modal-option '+cls;
-                d.innerHTML='<div class="modal-opt-letter">'+labels[idx]+'</div><div style="flex:1">Option '+labels[idx]+' (voir image)</div>'+(isC?'<span>✓</span>':'')+(wasS&&!isC?'<span>✗</span>':'');
-                opts.appendChild(d);
-            }
             document.getElementById('modalOverlay').classList.add('open');
         }
 
