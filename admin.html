@@ -10,97 +10,86 @@
     <script src="js/config.js"></script>
     <style>
         :root {
-            --green: #00853F; --green-dark: #006d33;
-            --bg: #0f172a; --bg-card: #1e293b; --bg-deep: #020617;
-            --text: #f1f5f9; --text-muted: #94a3b8;
-            --primary: #38bdf8; --success: #10b981;
-            --error: #ef4444; --warning: #f59e0b;
-            --radius: 10px;
+            --green:#00853F; --green-dark:#006d33;
+            --bg:#0f172a; --bg-card:#1e293b; --bg-deep:#020617;
+            --text:#f1f5f9; --text-muted:#94a3b8;
+            --primary:#38bdf8; --success:#10b981;
+            --error:#ef4444; --warning:#f59e0b;
+            --gold:#f59e0b; --radius:10px;
         }
-        * { margin:0; padding:0; box-sizing:border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-               background: var(--bg); color: var(--text); min-height: 100vh; }
-        header {
-            background: linear-gradient(135deg, #1e293b, #020617);
-            padding: 1rem 1.5rem; display: flex; align-items: center;
-            justify-content: space-between; border-bottom: 2px solid var(--green);
-        }
-        header h1 { font-size: 1.1rem; color: var(--green); }
-        .badge-admin { background: var(--green); color:#fff; padding:0.2rem 0.6rem;
-                       border-radius:4px; font-size:0.75rem; font-weight:700; }
-        .btn-logout { background: rgba(239,68,68,0.1); border:1px solid var(--error);
-                      color:var(--error); padding:0.3rem 0.75rem; border-radius:6px;
-                      font-size:0.8rem; cursor:pointer; }
-        .container { max-width: 900px; margin: 0 auto; padding: 1.5rem 1rem; }
-        .stats-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
-                      gap:1rem; margin-bottom:1.5rem; }
-        .stat-card { background:var(--bg-card); border-radius:var(--radius);
-                     padding:1rem; text-align:center;
-                     border:1px solid rgba(255,255,255,0.06); }
-        .stat-val { font-size:1.8rem; font-weight:800; }
-        .stat-lbl { font-size:0.75rem; color:var(--text-muted); margin-top:4px; }
-        .section-title { font-size:1rem; font-weight:700; margin-bottom:0.875rem;
-                         display:flex; align-items:center; gap:0.5rem; }
-        .search-bar { background:var(--bg-card); border:1px solid rgba(255,255,255,0.1);
-                      color:var(--text); padding:0.6rem 1rem; border-radius:8px;
-                      width:100%; margin-bottom:1rem; font-size:0.9rem; }
-        .search-bar:focus { outline:none; border-color:var(--primary); }
-        .user-table { width:100%; border-collapse:collapse; }
-        .user-table th { background:var(--bg-deep); padding:0.6rem 0.75rem;
-                         font-size:0.78rem; color:var(--text-muted); text-align:left;
-                         font-weight:600; }
-        .user-table td { padding:0.7rem 0.75rem; border-bottom:1px solid rgba(255,255,255,0.05);
-                         font-size:0.82rem; vertical-align:middle; }
-        .user-table tr:hover td { background:rgba(255,255,255,0.03); }
-        .badge { display:inline-block; padding:0.2rem 0.5rem; border-radius:4px;
-                 font-size:0.72rem; font-weight:700; }
-        .badge-free  { background:rgba(148,163,184,0.15); color:var(--text-muted); }
-        .badge-prem  { background:rgba(16,185,129,0.15); color:var(--success); }
-        .badge-exp   { background:rgba(239,68,68,0.15); color:var(--error); }
-        .btn-action { padding:0.25rem 0.6rem; border-radius:5px; font-size:0.75rem;
-                      cursor:pointer; border:1px solid transparent; margin:0 2px; }
-        .btn-activate { background:rgba(16,185,129,0.1); border-color:var(--success);
-                        color:var(--success); }
-        .btn-revoke   { background:rgba(239,68,68,0.1); border-color:var(--error);
-                        color:var(--error); }
-        .btn-devices  { background:rgba(56,189,248,0.1); border-color:var(--primary);
-                        color:var(--primary); }
-        .loading { text-align:center; padding:2rem; color:var(--text-muted); }
-        .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85);
-                         z-index:200; align-items:center; justify-content:center; padding:1rem; }
-        .modal-overlay.open { display:flex; }
-        .modal { background:var(--bg-card); border-radius:var(--radius); width:100%;
-                 max-width:480px; padding:1.5rem; }
-        .modal h3 { margin-bottom:1rem; }
-        .modal-btn-row { display:flex; gap:0.75rem; margin-top:1.25rem; }
-        .modal-btn-row button { flex:1; padding:0.6rem; border-radius:8px;
-                                font-weight:600; cursor:pointer; font-size:0.875rem; }
-        .device-list { margin:0.75rem 0; }
-        .device-item { background:var(--bg-deep); padding:0.5rem 0.75rem;
-                       border-radius:6px; margin-bottom:0.4rem; font-size:0.78rem;
-                       color:var(--text-muted); display:flex; justify-content:space-between; }
-        #accessDenied { display:none; text-align:center; padding:4rem 1rem; }
-        #adminPanel   { display:none; }
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+        header{background:linear-gradient(135deg,#1e293b,#020617);padding:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--green);}
+        header h1{font-size:1.1rem;color:var(--green);}
+        .badge-admin{background:var(--green);color:#fff;padding:.2rem .6rem;border-radius:4px;font-size:.75rem;font-weight:700;}
+        .btn-logout{background:rgba(239,68,68,.1);border:1px solid var(--error);color:var(--error);padding:.3rem .75rem;border-radius:6px;font-size:.8rem;cursor:pointer;}
+        .container{max-width:960px;margin:0 auto;padding:1.5rem 1rem;}
+        /* TABS */
+        .tabs{display:flex;gap:.5rem;margin-bottom:1.5rem;border-bottom:2px solid rgba(255,255,255,.08);padding-bottom:0;}
+        .tab-btn{background:none;border:none;color:var(--text-muted);font-size:.9rem;font-weight:600;padding:.6rem 1rem;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s;}
+        .tab-btn.active{color:var(--primary);border-bottom-color:var(--primary);}
+        .tab-pane{display:none;} .tab-pane.active{display:block;}
+        /* STATS */
+        .stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:1rem;margin-bottom:1.5rem;}
+        .stat-card{background:var(--bg-card);border-radius:var(--radius);padding:1rem;text-align:center;border:1px solid rgba(255,255,255,.06);}
+        .stat-val{font-size:1.8rem;font-weight:800;} .stat-lbl{font-size:.75rem;color:var(--text-muted);margin-top:4px;}
+        /* TABLES */
+        .section-title{font-size:1rem;font-weight:700;margin-bottom:.875rem;display:flex;align-items:center;gap:.5rem;}
+        .search-bar{background:var(--bg-card);border:1px solid rgba(255,255,255,.1);color:var(--text);padding:.6rem 1rem;border-radius:8px;width:100%;margin-bottom:1rem;font-size:.9rem;}
+        .search-bar:focus{outline:none;border-color:var(--primary);}
+        .data-table{width:100%;border-collapse:collapse;}
+        .data-table th{background:var(--bg-deep);padding:.6rem .75rem;font-size:.78rem;color:var(--text-muted);text-align:left;font-weight:600;}
+        .data-table td{padding:.7rem .75rem;border-bottom:1px solid rgba(255,255,255,.05);font-size:.82rem;vertical-align:middle;}
+        .data-table tr:hover td{background:rgba(255,255,255,.03);}
+        .badge{display:inline-block;padding:.2rem .5rem;border-radius:4px;font-size:.72rem;font-weight:700;}
+        .badge-free{background:rgba(148,163,184,.15);color:var(--text-muted);}
+        .badge-prem{background:rgba(16,185,129,.15);color:var(--success);}
+        .badge-exp{background:rgba(239,68,68,.15);color:var(--error);}
+        .badge-pending{background:rgba(245,158,11,.15);color:var(--warning);}
+        .badge-done{background:rgba(16,185,129,.15);color:var(--success);}
+        .badge-rejected{background:rgba(239,68,68,.15);color:var(--error);}
+        .btn-action{padding:.25rem .6rem;border-radius:5px;font-size:.75rem;cursor:pointer;border:1px solid transparent;margin:0 2px;}
+        .btn-activate{background:rgba(16,185,129,.1);border-color:var(--success);color:var(--success);}
+        .btn-revoke{background:rgba(239,68,68,.1);border-color:var(--error);color:var(--error);}
+        .btn-devices{background:rgba(56,189,248,.1);border-color:var(--primary);color:var(--primary);}
+        .btn-approve{background:rgba(16,185,129,.1);border-color:var(--success);color:var(--success);}
+        .btn-reject{background:rgba(239,68,68,.1);border-color:var(--error);color:var(--error);}
+        .loading{text-align:center;padding:2rem;color:var(--text-muted);}
+        /* NOTIF BADGE */
+        .notif-badge{background:var(--error);color:#fff;border-radius:50%;width:18px;height:18px;font-size:.65rem;font-weight:800;display:inline-flex;align-items:center;justify-content:center;margin-left:.3rem;}
+        /* MODAL */
+        .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:200;align-items:center;justify-content:center;padding:1rem;}
+        .modal-overlay.open{display:flex;}
+        .modal{background:var(--bg-card);border-radius:var(--radius);width:100%;max-width:480px;padding:1.5rem;}
+        .modal h3{margin-bottom:1rem;}
+        .modal-btn-row{display:flex;gap:.75rem;margin-top:1.25rem;}
+        .modal-btn-row button{flex:1;padding:.6rem;border-radius:8px;font-weight:600;cursor:pointer;font-size:.875rem;}
+        .device-list{margin:.75rem 0;}
+        .device-item{background:var(--bg-deep);padding:.5rem .75rem;border-radius:6px;margin-bottom:.4rem;font-size:.78rem;color:var(--text-muted);display:flex;justify-content:space-between;}
+        /* WAVE INFO BOX */
+        .wave-info{background:rgba(56,189,248,.08);border:1px solid rgba(56,189,248,.2);border-radius:10px;padding:1rem 1.25rem;margin-bottom:1.25rem;font-size:.875rem;}
+        .wave-info strong{color:var(--primary);}
+        #accessDenied{display:none;text-align:center;padding:4rem 1rem;}
+        #adminPanel{display:none;}
     </style>
 </head>
 <body>
 
 <div id="accessDenied">
     <div style="font-size:3rem;">🔒</div>
-    <h2 style="margin:1rem 0 0.5rem;">Accès refusé</h2>
+    <h2 style="margin:1rem 0 .5rem;">Accès refusé</h2>
     <p style="color:var(--text-muted);">Vous n'avez pas les droits administrateur.</p>
     <button onclick="window.location.href='index.html'"
-            style="margin-top:1.5rem;padding:0.6rem 1.5rem;background:var(--green);
-                   color:#fff;border:none;border-radius:8px;cursor:pointer;">Retour</button>
+        style="margin-top:1.5rem;padding:.6rem 1.5rem;background:var(--green);color:#fff;border:none;border-radius:8px;cursor:pointer;">Retour</button>
 </div>
 
 <div id="adminPanel">
     <header>
         <div>
             <h1>🛡️ Administration</h1>
-            <p style="font-size:0.75rem;color:var(--text-muted);">Code de la Route — Sénégal</p>
+            <p style="font-size:.75rem;color:var(--text-muted);">Code de la Route — Sénégal</p>
         </div>
-        <div style="display:flex;align-items:center;gap:0.75rem;">
+        <div style="display:flex;align-items:center;gap:.75rem;">
             <span class="badge-admin">ADMIN</span>
             <button class="btn-logout" onclick="logout()">Déconnexion</button>
         </div>
@@ -109,48 +98,60 @@
     <div class="container">
         <!-- STATS -->
         <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-val" id="statTotal" style="color:var(--primary);">—</div>
-                <div class="stat-lbl">Utilisateurs</div>
+            <div class="stat-card"><div class="stat-val" id="statTotal" style="color:var(--primary);">-</div><div class="stat-lbl">Utilisateurs</div></div>
+            <div class="stat-card"><div class="stat-val" id="statPremium" style="color:var(--success);">-</div><div class="stat-lbl">Abonnés actifs</div></div>
+            <div class="stat-card"><div class="stat-val" id="statExpired" style="color:var(--error);">-</div><div class="stat-lbl">Expirés</div></div>
+            <div class="stat-card"><div class="stat-val" id="statPending" style="color:var(--warning);">-</div><div class="stat-lbl">En attente</div></div>
+        </div>
+
+        <!-- TABS -->
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('tabPayments',this)">
+                💳 Paiements
+                <span class="notif-badge" id="pendingBadge" style="display:none;">0</span>
+            </button>
+            <button class="tab-btn" onclick="switchTab('tabUsers',this)">👥 Utilisateurs</button>
+        </div>
+
+        <!-- TAB PAIEMENTS -->
+        <div class="tab-pane active" id="tabPayments">
+            <div class="wave-info">
+                🌊 Votre numéro Wave : <strong>70 946 23 05</strong> —
+                Les clients vous envoient 2 500 FCFA puis soumettent leur référence ici.
+                Vous validez ci-dessous pour activer leur accès automatiquement.
             </div>
-            <div class="stat-card">
-                <div class="stat-val" id="statPremium" style="color:var(--success);">—</div>
-                <div class="stat-lbl">Abonnés actifs</div>
+            <div class="section-title">
+                ⏳ Demandes en attente
+                <button onclick="loadPayments()" style="background:none;border:1px solid var(--primary);color:var(--primary);padding:.2rem .5rem;border-radius:5px;font-size:.75rem;cursor:pointer;">↻</button>
             </div>
-            <div class="stat-card">
-                <div class="stat-val" id="statExpired" style="color:var(--error);">—</div>
-                <div class="stat-lbl">Expirés</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-val" id="statFree" style="color:var(--warning);">—</div>
-                <div class="stat-lbl">Gratuits</div>
+            <div style="overflow-x:auto;">
+                <table class="data-table">
+                    <thead><tr>
+                        <th>Email</th><th>Réf. Wave</th><th>Date</th><th>Statut</th><th>Actions</th>
+                    </tr></thead>
+                    <tbody id="paymentsTableBody">
+                        <tr><td colspan="5" class="loading">⏳ Chargement...</td></tr>
+                    </tbody>
+                </table>
             </div>
         </div>
 
-        <!-- LISTE UTILISATEURS -->
-        <div class="section-title">👥 Utilisateurs inscrits
-            <button onclick="loadUsers()" style="background:none;border:1px solid var(--primary);
-                color:var(--primary);padding:0.2rem 0.5rem;border-radius:5px;
-                font-size:0.75rem;cursor:pointer;">↻ Actualiser</button>
-        </div>
-        <input class="search-bar" type="text" id="searchInput"
-               placeholder="🔍 Rechercher par email..."
-               oninput="filterUsers(this.value)">
-        <div style="overflow-x:auto;">
-            <table class="user-table">
-                <thead>
-                    <tr>
-                        <th>Email</th>
-                        <th>Statut</th>
-                        <th>Expiration</th>
-                        <th>Appareils</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="usersTableBody">
-                    <tr><td colspan="5" class="loading">⏳ Chargement...</td></tr>
-                </tbody>
-            </table>
+        <!-- TAB UTILISATEURS -->
+        <div class="tab-pane" id="tabUsers">
+            <div class="section-title">👥 Utilisateurs inscrits
+                <button onclick="loadUsers()" style="background:none;border:1px solid var(--primary);color:var(--primary);padding:.2rem .5rem;border-radius:5px;font-size:.75rem;cursor:pointer;">↻</button>
+            </div>
+            <input class="search-bar" type="text" id="searchInput" placeholder="🔍 Rechercher par email..." oninput="filterUsers(this.value)">
+            <div style="overflow-x:auto;">
+                <table class="data-table">
+                    <thead><tr>
+                        <th>Email</th><th>Statut</th><th>Expiration</th><th>Appareils</th><th>Actions</th>
+                    </tr></thead>
+                    <tbody id="usersTableBody">
+                        <tr><td colspan="5" class="loading">⏳ Chargement...</td></tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
@@ -159,27 +160,21 @@
 <div class="modal-overlay" id="devicesModal">
     <div class="modal">
         <h3>📱 Appareils enregistrés</h3>
-        <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:0.5rem;">
-            Utilisateur : <strong id="devicesEmail"></strong></p>
+        <p style="font-size:.82rem;color:var(--text-muted);margin-bottom:.5rem;">Utilisateur : <strong id="devicesEmail"></strong></p>
         <div class="device-list" id="devicesList"></div>
         <div class="modal-btn-row">
-            <button onclick="clearDevices()" style="background:rgba(239,68,68,0.1);
-                border:1px solid var(--error);color:var(--error);">🗑️ Réinitialiser appareils</button>
-            <button onclick="closeDevicesModal()" style="background:var(--bg-deep);
-                border:1px solid rgba(255,255,255,0.1);color:var(--text);">Fermer</button>
+            <button onclick="clearDevices()" style="background:rgba(239,68,68,.1);border:1px solid var(--error);color:var(--error);">🗑️ Réinitialiser</button>
+            <button onclick="closeDevicesModal()" style="background:var(--bg-deep);border:1px solid rgba(255,255,255,.1);color:var(--text);">Fermer</button>
         </div>
     </div>
 </div>
 
 <script>
-    // UID administrateur — REMPLACER par votre propre UID Firebase
-    // Pour trouver votre UID : Firebase Console → Authentication → copier l'UID
-    const ADMIN_UIDS = ['MMRZK9Dpe4dDTnrU3cTmi32bWb82'];
+    // --- REMPLACEZ PAR VOTRE UID FIREBASE ---
+    const ADMIN_UIDS = ['VOTRE_UID_ADMIN_ICI'];
 
-    let allUsers = [];
-    let currentDevicesUid = null;
+    let allUsers = [], currentDevicesUid = null;
 
-    // ---- Auth check ----
     window.addEventListener('load', function() {
         auth.onAuthStateChanged(function(user) {
             if (!user) { window.location.href = 'login.html'; return; }
@@ -188,30 +183,99 @@
                 return;
             }
             document.getElementById('adminPanel').style.display = 'block';
+            loadPayments();
             loadUsers();
         });
     });
 
-    // ---- Charger utilisateurs ----
-    async function loadUsers() {
-        const tbody = document.getElementById('usersTableBody');
+    function switchTab(tabId, btn) {
+        document.querySelectorAll('.tab-pane').forEach(function(p){ p.classList.remove('active'); });
+        document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+        document.getElementById(tabId).classList.add('active');
+        btn.classList.add('active');
+    }
+
+    // ============ PAIEMENTS ============
+    async function loadPayments() {
+        var tbody = document.getElementById('paymentsTableBody');
         tbody.innerHTML = '<tr><td colspan="5" class="loading">⏳ Chargement...</td></tr>';
         try {
-            const snap = await db.collection('users').get();
-            allUsers = [];
+            var snap = await db.collection('payment_requests')
+                               .orderBy('createdAt', 'desc')
+                               .limit(50).get();
+            var rows = [], pending = 0;
             snap.forEach(function(doc) {
-                allUsers.push({ uid: doc.id, ...doc.data() });
+                var d = doc.data();
+                if (d.status === 'pending') pending++;
+                var date = d.createdAt ? d.createdAt.toDate().toLocaleDateString('fr-SN') : '-';
+                var statusBadge =
+                    d.status === 'pending'  ? '<span class="badge badge-pending">⏳ En attente</span>' :
+                    d.status === 'approved' ? '<span class="badge badge-done">✓ Approuvé</span>' :
+                                              '<span class="badge badge-rejected">✗ Rejeté</span>';
+                var actions = d.status === 'pending'
+                    ? '<button class="btn-action btn-approve" onclick="approvePayment(\'' + doc.id + '\',\'' + d.uid + '\')">✓ Valider</button>'
+                    + '<button class="btn-action btn-reject"  onclick="rejectPayment(\'' + doc.id + '\')">  ✕ Rejeter</button>'
+                    : '-';
+                rows.push('<tr><td>' + (d.email||'-') + '</td><td style="font-family:monospace;">'
+                    + d.ref + '</td><td>' + date + '</td><td>' + statusBadge + '</td><td>' + actions + '</td></tr>');
             });
+            tbody.innerHTML = rows.length ? rows.join('') : '<tr><td colspan="5" class="loading">Aucune demande.</td></tr>';
+            // Notif badge
+            var badge = document.getElementById('pendingBadge');
+            if (pending > 0) { badge.style.display = 'inline-flex'; badge.textContent = pending; }
+            else { badge.style.display = 'none'; }
+            document.getElementById('statPending').textContent = pending;
+        } catch(e) {
+            tbody.innerHTML = '<tr><td colspan="5" class="loading" style="color:var(--error)">❌ ' + e.message + '</td></tr>';
+        }
+    }
+
+    async function approvePayment(docId, uid) {
+        if (!confirm('Valider ce paiement et activer le compte Premium ?')) return;
+        var expires = new Date();
+        expires.setFullYear(expires.getFullYear() + 1);
+        try {
+            // Activer premium
+            await db.collection('users').doc(uid).set({
+                premium: {
+                    active: true,
+                    activatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+                    expiresAt: expires,
+                    plan: '2500fcfa_12mois',
+                    devices: [],
+                    paymentMethod: 'Wave'
+                }
+            }, { merge: true });
+            // Marquer paiement approuvé
+            await db.collection('payment_requests').doc(docId).update({ status: 'approved' });
+            loadPayments();
+            loadUsers();
+        } catch(e) { alert('Erreur : ' + e.message); }
+    }
+
+    async function rejectPayment(docId) {
+        if (!confirm('Rejeter cette demande de paiement ?')) return;
+        await db.collection('payment_requests').doc(docId).update({ status: 'rejected' });
+        loadPayments();
+    }
+
+    // ============ UTILISATEURS ============
+    async function loadUsers() {
+        var tbody = document.getElementById('usersTableBody');
+        tbody.innerHTML = '<tr><td colspan="5" class="loading">⏳ Chargement...</td></tr>';
+        try {
+            var snap = await db.collection('users').get();
+            allUsers = [];
+            snap.forEach(function(doc) { allUsers.push(Object.assign({ uid: doc.id }, doc.data())); });
             renderUsers(allUsers);
             updateStats(allUsers);
         } catch(e) {
-            tbody.innerHTML = '<tr><td colspan="5" class="loading" style="color:var(--error)">❌ Erreur : ' + e.message + '</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="5" class="loading" style="color:var(--error)">❌ ' + e.message + '</td></tr>';
         }
     }
 
     function updateStats(users) {
-        var total = users.length;
-        var premium = 0, expired = 0;
+        var total = users.length, premium = 0, expired = 0;
         users.forEach(function(u) {
             var p = u.premium;
             if (!p || !p.active) return;
@@ -221,101 +285,67 @@
         document.getElementById('statTotal').textContent   = total;
         document.getElementById('statPremium').textContent = premium;
         document.getElementById('statExpired').textContent = expired;
-        document.getElementById('statFree').textContent    = total - premium - expired;
     }
 
     function renderUsers(users) {
         var tbody = document.getElementById('usersTableBody');
-        if (!users.length) {
-            tbody.innerHTML = '<tr><td colspan="5" class="loading">Aucun utilisateur.</td></tr>';
-            return;
-        }
+        if (!users.length) { tbody.innerHTML = '<tr><td colspan="5" class="loading">Aucun utilisateur.</td></tr>'; return; }
         tbody.innerHTML = users.map(function(u) {
             var p = u.premium || {};
-            var isActive = p.active && p.expiresAt && p.expiresAt.toDate() >= new Date();
-            var isExpired = p.active && p.expiresAt && p.expiresAt.toDate() < new Date();
-            var badge = isActive  ? '<span class="badge badge-prem">✓ Premium</span>' :
-                        isExpired ? '<span class="badge badge-exp">⚠ Expiré</span>' :
-                                    '<span class="badge badge-free">Gratuit</span>';
-            var expDate = p.expiresAt ? p.expiresAt.toDate().toLocaleDateString('fr-SN') : '—';
+            var isActive  = p.active && p.expiresAt && p.expiresAt.toDate() >= new Date();
+            var isExpired = p.active && p.expiresAt && p.expiresAt.toDate()  < new Date();
+            var badge = isActive  ? '<span class="badge badge-prem">✓ Premium</span>'
+                      : isExpired ? '<span class="badge badge-exp">⚠ Expiré</span>'
+                                  : '<span class="badge badge-free">Gratuit</span>';
+            var expDate  = p.expiresAt ? p.expiresAt.toDate().toLocaleDateString('fr-SN') : '-';
             var devCount = (p.devices || []).length;
-            return '<tr>' +
-                '<td>' + (u.email || u.uid.substr(0,12)+'...') + '</td>' +
-                '<td>' + badge + '</td>' +
-                '<td>' + expDate + '</td>' +
-                '<td>' + devCount + ' / 3</td>' +
-                '<td>' +
-                    (isActive
-                        ? '<button class="btn-action btn-revoke" onclick="revokePremium(\'' + u.uid + '\')" >✕ Révoquer</button>'
-                        : '<button class="btn-action btn-activate" onclick="grantPremium(\'' + u.uid + '\')" >✓ Activer</button>') +
-                    '<button class="btn-action btn-devices" onclick="showDevices(\'' + u.uid + '\',\'' + (u.email||'') + '\')" >📱 Appareils</button>' +
-                '</td>' +
-            '</tr>';
+            return '<tr><td>' + (u.email || u.uid.substr(0,12)+'...') + '</td><td>' + badge + '</td><td>' + expDate + '</td><td>' + devCount + ' / 3</td><td>'
+                + (isActive
+                    ? '<button class="btn-action btn-revoke" onclick="revokePremium(\'' + u.uid + '\')">✕ Révoquer</button>'
+                    : '<button class="btn-action btn-activate" onclick="grantPremium(\'' + u.uid + '\')">✓ Activer</button>')
+                + '<button class="btn-action btn-devices" onclick="showDevices(\'' + u.uid + '\',\'' + (u.email||'') + '\')">📱 Appareils</button>'
+                + '</td></tr>';
         }).join('');
     }
 
     function filterUsers(q) {
-        var filtered = allUsers.filter(function(u) {
-            return (u.email || '').toLowerCase().includes(q.toLowerCase());
-        });
-        renderUsers(filtered);
+        renderUsers(allUsers.filter(function(u){ return (u.email||'').toLowerCase().includes(q.toLowerCase()); }));
     }
 
-    // ---- Activer premium manuellement ----
     async function grantPremium(uid) {
-        if (!confirm('Activer l\'abonnement premium pour cet utilisateur ?')) return;
-        var expires = new Date();
-        expires.setFullYear(expires.getFullYear() + 1);
+        if (!confirm('Activer le premium pour cet utilisateur ?')) return;
+        var expires = new Date(); expires.setFullYear(expires.getFullYear() + 1);
         await db.collection('users').doc(uid).set({
-            premium: {
-                active: true,
-                activatedAt: firebase.firestore.FieldValue.serverTimestamp(),
-                expiresAt: expires,
-                plan: 'admin_manual',
-                devices: []
-            }
-        }, { merge: true });
+            premium: { active:true, activatedAt:firebase.firestore.FieldValue.serverTimestamp(), expiresAt:expires, plan:'admin_manual', devices:[] }
+        }, { merge:true });
         loadUsers();
     }
 
-    // ---- Révoquer premium ----
     async function revokePremium(uid) {
-        if (!confirm('Révoquer l\'abonnement de cet utilisateur ?')) return;
+        if (!confirm('Révoquer l\'abonnement ?')) return;
         await db.collection('users').doc(uid).update({ 'premium.active': false });
         loadUsers();
     }
 
-    // ---- Gérer appareils ----
     async function showDevices(uid, email) {
         currentDevicesUid = uid;
         document.getElementById('devicesEmail').textContent = email || uid;
-        const doc = await db.collection('users').doc(uid).get();
-        const devices = (doc.exists && doc.data().premium) ? (doc.data().premium.devices || []) : [];
-        var list = document.getElementById('devicesList');
-        list.innerHTML = devices.length
-            ? devices.map(function(d, i) {
-                return '<div class="device-item"><span>📱 Appareil ' + (i+1) + '</span><span style="font-family:monospace;font-size:0.7rem;">' + d + '</span></div>';
-              }).join('')
-            : '<p style="color:var(--text-muted);font-size:0.82rem;">Aucun appareil enregistré.</p>';
+        var doc = await db.collection('users').doc(uid).get();
+        var devices = (doc.exists && doc.data().premium) ? (doc.data().premium.devices || []) : [];
+        document.getElementById('devicesList').innerHTML = devices.length
+            ? devices.map(function(d,i){ return '<div class="device-item"><span>📱 Appareil '+(i+1)+'</span><span style="font-family:monospace;font-size:.7rem;">'+d+'</span></div>'; }).join('')
+            : '<p style="color:var(--text-muted);font-size:.82rem;">Aucun appareil.</p>';
         document.getElementById('devicesModal').classList.add('open');
     }
 
     async function clearDevices() {
-        if (!currentDevicesUid) return;
-        if (!confirm('Réinitialiser les appareils ? L\'utilisateur devra se reconnecter.')) return;
+        if (!currentDevicesUid || !confirm('Réinitialiser les appareils ?')) return;
         await db.collection('users').doc(currentDevicesUid).update({ 'premium.devices': [] });
-        closeDevicesModal();
-        loadUsers();
+        closeDevicesModal(); loadUsers();
     }
 
-    function closeDevicesModal() {
-        document.getElementById('devicesModal').classList.remove('open');
-        currentDevicesUid = null;
-    }
-
-    function logout() {
-        auth.signOut().then(function() { window.location.href = 'login.html'; });
-    }
+    function closeDevicesModal() { document.getElementById('devicesModal').classList.remove('open'); currentDevicesUid = null; }
+    function logout() { auth.signOut().then(function(){ window.location.href = 'login.html'; }); }
 </script>
 </body>
 </html>
