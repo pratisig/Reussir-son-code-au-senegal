@@ -241,8 +241,27 @@
         try {
             var snap = await db.collection('users').get();
             allUsers = [];
-            snap.forEach(function(doc) { allUsers.push(Object.assign({ uid: doc.id }, doc.data())); });
-            renderUsers(allUsers); updateStats(allUsers);
+            
+            // Récupérer les emails depuis Firebase Auth
+            var users = [];
+            snap.forEach(function(doc) {
+                users.push({ uid: doc.id, data: doc.data() });
+            });
+            
+            // Pour chaque utilisateur, récupérer son email depuis Auth
+            var promises = users.map(async function(u) {
+                try {
+                    var userRecord = await auth.getUser ? auth.getUser(u.uid) : null;
+                    return Object.assign({ uid: u.uid, email: userRecord ? userRecord.email : null }, u.data);
+                } catch(e) {
+                    // Si getUser n'est pas disponible (côté client), utiliser l'email du doc Firestore
+                    return Object.assign({ uid: u.uid, email: u.data.email || null }, u.data);
+                }
+            });
+            
+            allUsers = await Promise.all(promises);
+            renderUsers(allUsers);
+            updateStats(allUsers);
         } catch(e) {
             tbody.innerHTML = '<tr><td colspan="5" class="loading" style="color:var(--error)">❌ ' + e.message + '</td></tr>';
         }
@@ -272,12 +291,14 @@
                       : isExpired ? '<span class="badge badge-exp">⚠ Expiré</span>'
                                   : '<span class="badge badge-free">Gratuit</span>';
             var expDate  = p.expiresAt ? p.expiresAt.toDate().toLocaleDateString('fr-SN') : '-';
-            var devCount = (p.devices||[]).length;
-            return '<tr><td>'+(u.email||u.uid.substr(0,12)+'...')+'</td><td>'+badge+'</td><td>'+expDate+'</td><td>'+devCount+' / 3</td><td>'
+            var devCount = (Array.isArray(p.devices) ? p.devices.length : 0);
+            var emailDisplay = u.email || '<span style="color:var(--text-muted);font-style:italic;">' + u.uid.substr(0,12) + '...</span>';
+            
+            return '<tr><td>'+emailDisplay+'</td><td>'+badge+'</td><td>'+expDate+'</td><td>'+devCount+' / 3</td><td>'
                 +(isActive
                     ? '<button class="btn-action btn-revoke" onclick="revokePremium(\''+ u.uid +'\')">✕ Révoquer</button>'
                     : '<button class="btn-action btn-activate" onclick="grantPremium(\''+ u.uid +'\')">✓ Activer</button>')
-                +'<button class="btn-action btn-devices" onclick="showDevices(\''+ u.uid +'\',\''+(u.email||'')+'\')">📱 Appareils</button>'
+                +'<button class="btn-action btn-devices" onclick="showDevices(\''+ u.uid +'\',\''+(u.email||u.uid)+'\')">📱 Appareils</button>'
                 +'</td></tr>';
         }).join('');
     }
@@ -305,7 +326,8 @@
         currentDevicesUid = uid;
         document.getElementById('devicesEmail').textContent = email||uid;
         var doc = await db.collection('users').doc(uid).get();
-        var devices = (doc.exists && doc.data().premium) ? (doc.data().premium.devices||[]) : [];
+        var premium = doc.exists ? (doc.data().premium || {}) : {};
+        var devices = Array.isArray(premium.devices) ? premium.devices : [];
         document.getElementById('devicesList').innerHTML = devices.length
             ? devices.map(function(d,i){ return '<div class="device-item"><span>📱 Appareil '+(i+1)+'</span><span style="font-family:monospace;font-size:.7rem;">'+d+'</span></div>'; }).join('')
             : '<p style="color:var(--text-muted);font-size:.82rem;">Aucun appareil enregistré.</p>';
