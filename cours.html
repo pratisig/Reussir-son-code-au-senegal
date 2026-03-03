@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cours - Code de la Route Sénégal</title>
+    <meta name="theme-color" content="#00853F">
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <script src="js/config.js"></script>
+    <style>
+        :root {
+            --green:#00853F; --green-dark:#006d33; --yellow:#FDEF42; --red:#E31B23;
+            --bg:#0f172a; --bg-card:#1e293b; --bg-deep:#020617;
+            --text:#f1f5f9; --text-muted:#94a3b8;
+            --primary:#38bdf8; --success:#10b981; --error:#ef4444; --warning:#f59e0b;
+            --gold:#f59e0b; --radius:12px;
+        }
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+        header{background:linear-gradient(135deg,var(--green),var(--green-dark));padding:1rem 1.25rem;display:flex;align-items:center;gap:.875rem;box-shadow:0 2px 12px rgba(0,133,63,.4);position:sticky;top:0;z-index:100;}
+        .flag{width:48px;height:32px;border-radius:3px;overflow:hidden;display:flex;flex-shrink:0;border:1px solid rgba(255,255,255,.3);}
+        .flag-g{flex:1;background:var(--green);} .flag-y{flex:1;background:var(--yellow);display:flex;align-items:center;justify-content:center;} .flag-r{flex:1;background:var(--red);} .flag-star{color:var(--green);font-size:14px;}
+        .header-text h1{font-size:1.1rem;font-weight:700;color:#fff;} .header-text p{font-size:.75rem;color:rgba(255,255,255,.8);}
+        .header-user{margin-left:auto;display:flex;align-items:center;gap:.5rem;}
+        .user-email{font-size:.72rem;color:rgba(255,255,255,.75);max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+        .btn-logout{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;padding:.3rem .6rem;border-radius:6px;font-size:.75rem;cursor:pointer;}
+        .badge-premium{background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;padding:.2rem .55rem;border-radius:5px;font-size:.7rem;font-weight:800;margin-left:.3rem;}
+        .container{padding:1rem;max-width:900px;margin:0 auto;}
+        .back-btn{background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:.875rem;margin-bottom:1rem;display:flex;align-items:center;gap:.4rem;padding:0;}
+        .back-btn:hover{color:var(--text);}
+        .page-title{font-size:1.5rem;font-weight:700;margin-bottom:.5rem;}
+        .page-subtitle{color:var(--text-muted);font-size:.9rem;margin-bottom:1.5rem;}
+        .modules-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;margin-bottom:2rem;}
+        .module-card{background:var(--bg-card);border-radius:var(--radius);padding:1.5rem;cursor:pointer;transition:all .2s;box-shadow:0 2px 8px rgba(0,0,0,.3);border:2px solid transparent;}
+        .module-card:hover{transform:translateY(-3px);border-color:var(--primary);box-shadow:0 4px 16px rgba(56,189,248,.2);}
+        .module-icon{font-size:2.5rem;margin-bottom:.75rem;}
+        .module-title{font-size:1.1rem;font-weight:700;margin-bottom:.5rem;}
+        .module-desc{color:var(--text-muted);font-size:.85rem;line-height:1.5;}
+        .module-meta{display:flex;align-items:center;gap:.75rem;margin-top:.75rem;font-size:.75rem;color:var(--text-muted);}
+        .module-meta span{display:flex;align-items:center;gap:.3rem;}
+        .lesson-screen{display:none;}
+        .lesson-screen.active{display:block;}
+        .lesson-header{background:var(--bg-card);border-radius:var(--radius);padding:1.5rem;margin-bottom:1rem;box-shadow:0 2px 8px rgba(0,0,0,.3);}
+        .lesson-title{font-size:1.3rem;font-weight:700;margin-bottom:.5rem;}
+        .lesson-subtitle{color:var(--text-muted);font-size:.85rem;}
+        .lesson-content{background:var(--bg-card);border-radius:var(--radius);padding:1.5rem;margin-bottom:1rem;box-shadow:0 2px 8px rgba(0,0,0,.3);line-height:1.8;}
+        .lesson-content h2{font-size:1.2rem;margin:1.5rem 0 .75rem 0;color:var(--primary);}
+        .lesson-content h3{font-size:1rem;margin:1.25rem 0 .5rem 0;color:var(--success);}
+        .lesson-content p{margin-bottom:1rem;}
+        .lesson-content ul,.lesson-content ol{margin-left:1.5rem;margin-bottom:1rem;}
+        .lesson-content li{margin-bottom:.5rem;}
+        .info-box{background:rgba(56,189,248,.08);border-left:3px solid var(--primary);padding:1rem;border-radius:6px;margin:1rem 0;font-size:.875rem;}
+        .warning-box{background:rgba(239,68,68,.08);border-left:3px solid var(--error);padding:1rem;border-radius:6px;margin:1rem 0;font-size:.875rem;}
+        .success-box{background:rgba(16,185,129,.08);border-left:3px solid var(--success);padding:1rem;border-radius:6px;margin:1rem 0;font-size:.875rem;}
+        .panneau-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:1rem;margin:1rem 0;}
+        .panneau-item{background:var(--bg-deep);border-radius:8px;padding:1rem;text-align:center;transition:all .2s;}
+        .panneau-item:hover{background:rgba(56,189,248,.1);}
+        .panneau-emoji{font-size:3rem;margin-bottom:.5rem;}
+        .panneau-name{font-size:.8rem;color:var(--text-muted);}
+        .btn{background:var(--green);color:#fff;border:none;padding:.875rem 1.5rem;border-radius:8px;font-size:.95rem;font-weight:600;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;justify-content:center;gap:.5rem;width:100%;}
+        .btn:hover{background:var(--green-dark);transform:translateY(-1px);}
+        .btn-outline{background:transparent;border:2px solid var(--primary);color:var(--primary);}
+        .btn-outline:hover{background:var(--primary);color:var(--bg);}
+        .progress-indicator{background:var(--bg-deep);height:4px;border-radius:2px;margin-bottom:1rem;}
+        .progress-fill{background:var(--primary);height:100%;border-radius:2px;transition:width .3s;}
+    </style>
+</head>
+<body>
+    <header>
+        <div class="flag"><div class="flag-g"></div><div class="flag-y"><span class="flag-star">★</span></div><div class="flag-r"></div></div>
+        <div class="header-text"><h1>Cours - Code de la Route</h1><p>Théorie • Panneaux • Règles</p></div>
+        <div class="header-user" id="headerUser" style="display:none">
+            <span class="user-email" id="userEmailDisplay"></span>
+            <span class="badge-premium" id="premiumBadge" style="display:none;">⭐ PREMIUM</span>
+            <button class="btn-logout" onclick="handleLogout()">Déco.</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- MODULE LIST -->
+        <div id="modules-view">
+            <button class="back-btn" onclick="window.location.href='index.html'">← Retour à l'accueil</button>
+            <div class="page-title">📚 Cours théoriques</div>
+            <div class="page-subtitle">Maîtrisez les panneaux, la signalisation et les règles de circulation au Sénégal</div>
+            <div class="modules-grid" id="modulesGrid"></div>
+        </div>
+
+        <!-- LESSON VIEW -->
+        <div id="lesson-view" class="lesson-screen">
+            <button class="back-btn" onclick="showModules()">← Retour aux modules</button>
+            <div class="progress-indicator"><div class="progress-fill" id="lessonProgress" style="width:0%"></div></div>
+            <div class="lesson-header">
+                <div class="lesson-title" id="lessonTitle"></div>
+                <div class="lesson-subtitle" id="lessonSubtitle"></div>
+            </div>
+            <div class="lesson-content" id="lessonContent"></div>
+            <button class="btn" onclick="completeLesson()">Marquer comme terminé ✓</button>
+        </div>
+    </div>
+
+    <script src="js/cours.js"></script>
+</body>
+</html>
