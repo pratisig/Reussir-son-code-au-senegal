@@ -97,6 +97,21 @@
         .modal-header h3{font-size:1rem;font-weight:700;}
         .modal-close{background:none;border:none;color:var(--text-muted);font-size:1.4rem;cursor:pointer;line-height:1;padding:.25rem;}
         .modal-img{width:100%;display:block;max-height:340px;object-fit:contain;background:#000;padding:.75rem;}
+        .modal-body{padding:1rem;}
+        .modal-correction-legend{display:flex;justify-content:center;gap:1rem;margin-bottom:1rem;font-size:.8rem;}
+        .modal-correction-legend span{display:flex;align-items:center;gap:.4rem;}
+        .legend-dot{width:12px;height:12px;border-radius:50%;}
+        .legend-dot.correct{background:var(--success);}
+        .legend-dot.incorrect{background:var(--error);}
+        .legend-dot.selected{background:var(--primary);}
+        .modal-options-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1rem;}
+        .modal-option{background:var(--bg-deep);border:2px solid transparent;padding:.875rem;border-radius:8px;display:flex;align-items:center;gap:.5rem;font-size:.875rem;}
+        .modal-option.correct{border-color:var(--success);background:rgba(16,185,129,.1);}
+        .modal-option.incorrect{border-color:var(--error);background:rgba(239,68,68,.1);}
+        .modal-option.user-selected{border-color:var(--primary);background:rgba(56,189,248,.08);}
+        .modal-opt-letter{width:32px;height:32px;border-radius:50%;background:var(--bg-card);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1rem;flex-shrink:0;}
+        .modal-option.correct .modal-opt-letter{background:var(--success);color:#fff;}
+        .modal-option.incorrect .modal-opt-letter{background:var(--error);color:#fff;}
         .modal-correction-hint{background:rgba(56,189,248,.08);border-left:3px solid var(--primary);padding:.75rem 1rem;font-size:.82rem;color:var(--text);}
         #premiumModal .modal{max-width:420px;}
         .premium-hero{text-align:center;padding:1.5rem 1rem 1rem;}
@@ -286,7 +301,14 @@
         <div class="modal" id="modalContent">
             <div class="modal-header"><h3 id="modalTitle">Correction Q1</h3><button class="modal-close" onclick="closeModalDirect()">×</button></div>
             <img class="modal-img" id="modalImg" src="" alt="">
-            <div class="modal-correction-hint">💡 <strong>Astuce :</strong> Comparez l'image ci-dessus avec vos réponses sélectionnées (A/B/C/D). Les réponses correctes sont indiquées en vert dans la grille ci-dessous.</div>
+            <div class="modal-body">
+                <div class="modal-correction-legend">
+                    <span><div class="legend-dot correct"></div>✔️ Réponse correcte</span>
+                    <span><div class="legend-dot incorrect"></div>❌ Votre erreur</span>
+                </div>
+                <div class="modal-options-grid" id="modalOptionsGrid"></div>
+                <div class="modal-correction-hint">💡 <strong>Astuce :</strong> Les bonnes réponses sont indiquées en vert. Comparez avec l'image ci-dessus pour mieux comprendre.</div>
+            </div>
         </div>
     </div>
 
@@ -370,7 +392,7 @@ function prevQuestion(){if(state.qIndex>0){state.qIndex--;renderQuestion();}}
 
 function finishQuiz(){clearInterval(state.timerInterval);var total=Math.floor((Date.now()-state.startTime)/1000);var m=Math.floor(total/60),s=total%60;var correct=0;var series=quizData[state.series];for(var i=0;i<series.length;i++){var ua=state.answers[i].slice().sort(function(a,b){return a-b;});var ca=series[i].a.slice().sort(function(a,b){return a-b;});if(JSON.stringify(ua)===JSON.stringify(ca))correct++;}var errors=25-correct,admis=errors<=6;state.progress[state.series]={score:correct,admis:admis};saveProgress();var historyEntry={series:state.series,score:correct,errors:errors,admis:admis,time:total,date:new Date()};state.history.push(historyEntry);saveHistory();document.getElementById('resultBadge').textContent=admis?'🎉':'📝';document.getElementById('resultVerdict').textContent=admis?'ADMIS !':'AJOURNÉ';document.getElementById('resultVerdict').className='result-verdict '+(admis?'admis':'ajourn');document.getElementById('resultSerie').textContent='Série '+state.series+' : '+correct+'/25 ('+errors+' erreurs)';document.getElementById('statCorrect').textContent=correct;document.getElementById('statWrong').textContent=errors;document.getElementById('statTime').textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');var grid=document.getElementById('questionsGrid');grid.innerHTML='';for(var j=0;j<series.length;j++){var ua2=state.answers[j].slice().sort(function(a,b){return a-b;});var ca2=series[j].a.slice().sort(function(a,b){return a-b;});var ok=JSON.stringify(ua2)===JSON.stringify(ca2);var cell=document.createElement('div');cell.className='q-cell '+(ok?'ok':'ko');cell.textContent=j+1;(function(qi){cell.onclick=function(){openModal(qi);};})(j);grid.appendChild(cell);}renderSeriesGrid();showScreen('screen-results');}
 
-function openModal(qIndex){var q=quizData[state.series][qIndex];var ua=state.answers[qIndex],ca=q.a;var labels=['A','B','C','D'];document.getElementById('modalTitle').textContent='Correction '+state.series+' • Q'+(qIndex+1);var mi=document.getElementById('modalImg');mi.src='images/'+state.series+'_Q'+(qIndex+1)+'.jpg';mi.onerror=function(){this.style.display='none';};mi.style.display='block';document.getElementById('modalOverlay').classList.add('open');}
+function openModal(qIndex){var q=quizData[state.series][qIndex];var ua=state.answers[qIndex],ca=q.a;var labels=['A','B','C','D'];document.getElementById('modalTitle').textContent='Correction '+state.series+' • Q'+(qIndex+1);var mi=document.getElementById('modalImg');mi.src='images/'+state.series+'_Q'+(qIndex+1)+'.jpg';mi.onerror=function(){this.style.display='none';};mi.style.display='block';var grid=document.getElementById('modalOptionsGrid');grid.innerHTML='';for(var i=0;i<q.n;i++){var opt=document.createElement('div');opt.className='modal-option';var isCorrect=ca.indexOf(i)>-1;var wasSelected=ua.indexOf(i)>-1;if(isCorrect){opt.classList.add('correct');}if(wasSelected&&!isCorrect){opt.classList.add('incorrect');}if(wasSelected&&isCorrect){opt.classList.add('user-selected');}opt.innerHTML='<div class="modal-opt-letter">'+labels[i]+'</div><span>'+(isCorrect?'✔️ Correct':(wasSelected?'❌ Incorrect':''))+'</span>';grid.appendChild(opt);}document.getElementById('modalOverlay').classList.add('open');}
 
 function closeModal(e){if(e.target===document.getElementById('modalOverlay'))closeModalDirect();}
 function closeModalDirect(){document.getElementById('modalOverlay').classList.remove('open');}
