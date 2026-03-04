@@ -1,4 +1,4 @@
-// Données des modules de cours — Version complète avec images vérifiées
+// Données des modules de cours — mapping images corrigé
 const BASE = 'https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/';
 
 function img(fichier, alt) {
@@ -30,8 +30,8 @@ const modules = [
             ${grille(
                 img('France_road_sign_A1a.svg.png', 'Virage dangereux à droite'),
                 img('France_road_sign_A1b.svg.png', 'Virage dangereux à gauche'),
-                img('France_road_sign_A1c.svg.png', 'Succession de virages (droite d\'abord)'),
-                img('France_road_sign_A1d.svg.png', 'Succession de virages (gauche d\'abord)')
+                img('France_road_sign_A1c.svg.png', 'Succession de virages — premier à droite'),
+                img('France_road_sign_A1d.svg.png', 'Succession de virages — premier à gauche')
             )}
             <ul>
                 <li><strong>Virage simple :</strong> Un seul virage serré — ralentir AVANT</li>
@@ -42,13 +42,13 @@ const modules = [
             <h3>2. État et relief de la chaussée</h3>
             ${grille(
                 img('France_road_sign_A2a.svg.png', 'Chaussée déformée'),
-                img('France_road_sign_A2b.svg.png', 'Dos d\'âne / ralentisseur'),
+                img('France_road_sign_A2b.svg.png', 'Dos d\'âne'),
                 img('France_road_sign_A3.svg.png', 'Chaussée rétrécie'),
-                img('France_road_sign_A3a.svg.png', 'Rétrécie par la droite'),
-                img('France_road_sign_A3b.svg.png', 'Rétrécie par la gauche'),
+                img('France_road_sign_A3a.svg.png', 'Rétrécissement par la droite'),
+                img('France_road_sign_A3b.svg.png', 'Rétrécissement par la gauche'),
                 img('France_road_sign_A4.svg.png', 'Chaussée glissante'),
                 img('France_road_sign_A16.svg.png', 'Descente dangereuse'),
-                img('France_road_sign_A19.svg.png', 'Chutes de pierres'),
+                img('France_road_sign_A19.svg.png', 'Chute de pierres'),
                 img('France_road_sign_A20.svg.png', 'Quai ou berge')
             )}
             <ul>
@@ -56,7 +56,7 @@ const modules = [
                 <li><strong>Chaussée rétrécie :</strong> Route plus étroite, côté précisé par le panneau</li>
                 <li><strong>Chaussée glissante :</strong> Route huileuse, mouillée ou sablonneuse</li>
                 <li><strong>Descente dangereuse :</strong> Utiliser le frein moteur, jamais au point mort</li>
-                <li><strong>Chutes de pierres :</strong> Risque d'éboulement (zones rocheuses)</li>
+                <li><strong>Chute de pierres :</strong> Risque d'éboulement (zones rocheuses)</li>
             </ul>
             <div class="warning-box">
                 <strong>⚠️ En descente :</strong> Rétrograder et utiliser le frein moteur. Ne JAMAIS rester au point mort !
@@ -65,12 +65,14 @@ const modules = [
             <h3>3. Passages à niveau et ponts</h3>
             ${grille(
                 img('France_road_sign_A7.svg.png', 'Passage à niveau avec barrières'),
-                img('France_road_sign_A8.svg.png', 'Passage à niveau sans barrières'),
+                img('France_road_sign_A8.svg.png', 'Passage d\'un train'),
+                img('France_Road_Sign_A9a.png', 'Passage d\'un tramway'),
                 img('France_Road_Sign_A6.svg.png', 'Pont mobile')
             )}
             <ul>
                 <li><strong>Passage à niveau avec barrières :</strong> Voie ferrée protégée — attention aux trains !</li>
-                <li><strong>Passage à niveau sans barrières :</strong> Danger maximal — ralentir impérativement, regarder des deux côtés</li>
+                <li><strong>Passage d'un train :</strong> Danger maximal — ralentir impérativement, regarder des deux côtés</li>
+                <li><strong>Passage d'un tramway :</strong> Voie de tramway traversant la route</li>
                 <li><strong>Pont mobile :</strong> Pont pouvant être levé — possible coupure de route</li>
             </ul>
 
@@ -79,9 +81,8 @@ const modules = [
                 img('France_road_sign_A13b.svg.png', 'Passage pour piétons'),
                 img('France_road_sign_A13a.svg.png', 'Passage d\'enfants'),
                 img('France_road_sign_A21.svg.png', 'Passage de cyclistes'),
-                img('France_Road_Sign_A9a.png', 'Débouché transport en commun'),
-                img('France_road_sign_A15a1.svg.png', 'Passage d\'animaux domestiques'),
-                img('France_road_sign_A15b.svg.png', 'Passage d\'animaux sauvages'),
+                img('France_road_sign_A15a1.svg.png', 'Animaux domestiques'),
+                img('France_road_sign_A15b.svg.png', 'Animaux sauvages'),
                 img('France_road_sign_A15c.svg.png', 'Passage de cavaliers')
             )}
             <ul>
@@ -96,17 +97,18 @@ const modules = [
 
             <h3>5. Autres dangers</h3>
             ${grille(
-                img('France_road_sign_A17.svg.png', 'Feux de signalisation'),
-                img('France_road_sign_A18.svg.png', 'Circulation dans les deux sens'),
-                img('France_road_sign_A23.svg.png', 'Survol d\'avions'),
-                img('France_road_sign_A24.svg.png', 'Autre danger'),
-                img('France_road_sign_A14.svg.png', 'Danger non spécifié')
+                img('France_road_sign_A17.svg.png', 'Feux tricolores'),
+                img('France_road_sign_A18.svg.png', 'Circulation en double sens'),
+                img('France_road_sign_A23.svg.png', 'Avions à basse altitude'),
+                img('France_road_sign_A24.svg.png', 'Vent latéral'),
+                img('France_road_sign_A14.svg.png', 'Autres dangers')
             )}
             <ul>
-                <li><strong>Feux de signalisation :</strong> Feux tricolores à venir</li>
-                <li><strong>Deux sens :</strong> Fin de route à sens unique</li>
-                <li><strong>Survol d'avions :</strong> Proximité d'un aéroport (Dakar-Yoff, Ziguinchor)</li>
-                <li><strong>Danger non spécifié :</strong> Point d'exclamation = danger variable</li>
+                <li><strong>Feux tricolores :</strong> Carrefour à feux à venir</li>
+                <li><strong>Circulation en double sens :</strong> Fin de route à sens unique</li>
+                <li><strong>Avions à basse altitude :</strong> Proximité d'un aéroport (Dakar-Yoff, Ziguinchor)</li>
+                <li><strong>Vent latéral :</strong> Risque de déport du véhicule</li>
+                <li><strong>Autres dangers :</strong> Point d'exclamation = danger variable non spécifié</li>
             </ul>
 
             <h2>🚦 Conduite à adopter face à un panneau de danger</h2>
@@ -131,10 +133,10 @@ const modules = [
                 <strong>💡 Principe clé :</strong> La priorité est LA règle la plus importante pour éviter les accidents aux intersections. Au Sénégal, le non-respect de la priorité est une cause majeure d'accidents.
             </div>
 
-            <h3>1. Intersections sans signalisation — Priorité à droite</h3>
+            <h3>1. Intersections</h3>
             ${grille(
                 img('France_road_sign_AB1.svg.png', 'Intersection — priorité à droite'),
-                img('France_road_sign_AB2.svg.png', 'Priorité sur route étroite')
+                img('France_road_sign_AB2.svg.png', 'Intersection — route prioritaire')
             )}
             <p>En l'absence de signalisation, vous devez <strong>céder le passage aux véhicules venant de votre droite</strong>.</p>
             <div class="warning-box">
@@ -145,11 +147,11 @@ const modules = [
             ${grille(
                 img('France_road_sign_AB3a.svg.png', 'Cédez le passage'),
                 img('France_road_sign_AB3b.svg.png', 'Cédez le passage à 150 m'),
-                img('France_road_sign_AB4.svg.png', 'Stop — Arrêt absolu obligatoire'),
+                img('France_road_sign_AB4.svg.png', 'Stop'),
                 img('France_road_sign_AB5.svg.png', 'Stop à 150 m')
             )}
             <ul>
-                <li><strong>STOP :</strong> Arrêt TOTAL et COMPLET obligatoire, même si la voie semble libre</li>
+                <li><strong>Stop :</strong> Arrêt TOTAL et COMPLET obligatoire, même si la voie semble libre</li>
                 <li><strong>Stop à 150 m :</strong> Panneau avancé — préparez-vous à vous arrêter</li>
                 <li><strong>Cédez le passage :</strong> Triangle inversé — ralentir et laisser passer</li>
                 <li><strong>Cédez à 150 m :</strong> Panneau avancé du cédez le passage</li>
@@ -160,13 +162,13 @@ const modules = [
 
             <h3>3. Route prioritaire</h3>
             ${grille(
-                img('France_road_sign_AB6.svg.png', 'Route prioritaire (losange jaune)'),
+                img('France_road_sign_AB6.svg.png', 'Route prioritaire'),
                 img('France_road_sign_AB7.svg.png', 'Fin de route prioritaire'),
-                img('France_Road_Sign_AB25.svg.png', 'Carrefour giratoire (rond-point)')
+                img('France_Road_Sign_AB25.svg.png', 'Carrefour à sens giratoire')
             )}
             <ul>
                 <li><strong>Route prioritaire :</strong> Losange jaune — vous êtes prioritaire sur les routes qui croisent</li>
-                <li><strong>Fin de priorité :</strong> Losange barré — vous redevenez comme les autres</li>
+                <li><strong>Fin de route prioritaire :</strong> Losange barré — vous redevenez comme les autres</li>
                 <li><strong>Carrefour giratoire :</strong> Les véhicules déjà dans le rond-point sont prioritaires</li>
             </ul>
 
@@ -208,9 +210,9 @@ const modules = [
 
             <h3>1. Interdictions d'accès</h3>
             ${grille(
-                img('France_road_sign_B0.svg.png', 'Circulation interdite (tous véhicules)'),
+                img('France_road_sign_B0.svg.png', 'Circulation interdite'),
                 img('France_road_sign_B1.svg.png', 'Sens interdit'),
-                img('France_road_sign_B1j.svg.png', 'Sens interdit (zone)')
+                img('France_road_sign_B1j.svg.png', 'Zone sens interdit')
             )}
             <ul>
                 <li><strong>Circulation interdite :</strong> Accès interdit à TOUS les véhicules</li>
@@ -220,16 +222,16 @@ const modules = [
 
             <h3>2. Interdictions par catégorie de véhicules</h3>
             ${grille(
-                img('France_road_sign_B10a.svg.png', 'Interdit aux cavaliers'),
-                img('France_road_sign_B11.svg.png', 'Largeur maximale'),
-                img('France_road_sign_B12.svg.png', 'Hauteur maximale'),
-                img('France_road_sign_B13.svg.png', 'Poids maximal'),
-                img('France_road_sign_B13a.svg.png', 'Charge par essieu maximale')
+                img('France_road_sign_B7a.svg.png', 'Interdit aux motos et voitures'),
+                img('France_road_sign_B7b.svg.png', 'Interdit aux motos'),
+                img('France_road_sign_B8.svg.png', 'Interdit aux camions'),
+                img('France_road_sign_B9a.svg.png', 'Interdit aux piétons'),
+                img('France_road_sign_B9b.svg.png', 'Interdit aux vélos'),
+                img('France_road_sign_B9d.svg.png', 'Interdit aux tracteurs'),
+                img('France_road_sign_B9f.svg.png', 'Interdit aux bus'),
+                img('France_road_sign_B9g.svg.png', 'Interdit aux motos (autre)'),
+                img('France_road_sign_B9h.svg.png', 'Interdit aux vélomoteurs')
             )}
-            <ul>
-                <li>Ces panneaux protègent tunnels, ponts et voiries fragiles</li>
-                <li>Fréquents sur les ponts de Dakar et en zones urbaines</li>
-            </ul>
 
             <h3>3. Interdictions de manœuvre</h3>
             ${grille(
@@ -249,35 +251,55 @@ const modules = [
             )}
             <ul>
                 <li><strong>Dépassement interdit :</strong> Interdit de dépasser tout véhicule à moteur</li>
-                <li><strong>Interdit aux PL :</strong> Interdit uniquement pour camions et poids lourds</li>
+                <li><strong>Interdit aux poids lourds :</strong> Interdit uniquement pour camions et poids lourds</li>
             </ul>
 
-            <h3>5. Stationnement et arrêt</h3>
+            <h3>5. Contrôles obligatoires</h3>
+            ${grille(
+                img('France_road_sign_B4.svg.png', 'Douane'),
+                img('France_road_sign_B5.svg.png', 'Halte gendarmerie')
+            )}
+            <ul>
+                <li><strong>Douane :</strong> Arrêt obligatoire au poste frontière (Sénégal–Gambie, Sénégal–Mali...)</li>
+                <li><strong>Halte gendarmerie :</strong> Contrôle — s'arrêter impérativement</li>
+            </ul>
+
+            <h3>6. Stationnement et arrêt</h3>
             ${grille(
                 img('France_road_sign_B6a1.svg.png', 'Stationnement interdit'),
-                img('France_road_sign_B6a2.svg.png', 'Stationnement interdit (zone)'),
-                img('France_road_sign_B6a3.svg.png', 'Stationnement interdit (alterné)'),
+                img('France_road_sign_B6a2.svg.png', 'Stationnement interdit en alternance'),
+                img('France_road_sign_B6a3.svg.png', 'Stationnement interdit du 1 au 15'),
                 img('France_road_sign_B6d.svg.png', 'Arrêt et stationnement interdits')
             )}
             <ul>
                 <li><strong>1 barre :</strong> Stationnement interdit (arrêt bref OK)</li>
-                <li><strong>Zone :</strong> Zone entière concernée</li>
-                <li><strong>Alterné :</strong> Interdit selon les jours (1–15 ou 16–31 du mois)</li>
+                <li><strong>Alternance :</strong> Interdit selon les côtés en alternance</li>
+                <li><strong>1 au 15 :</strong> Interdit du 1er au 15 du mois</li>
                 <li><strong>2 barres en X :</strong> Arrêt ET stationnement totalement interdits</li>
             </ul>
             <div class="warning-box">
                 <strong>⚠️ À Dakar :</strong> Stationnement interdit = risque de mise en fourrière + amende (Corniche, Plateau, Almadies).
             </div>
 
-            <h3>6. Vitesse et distance</h3>
+            <h3>7. Limitations physiques</h3>
+            ${grille(
+                img('France_road_sign_B11.svg.png', 'Largeur maximale'),
+                img('France_road_sign_B12.svg.png', 'Hauteur maximale'),
+                img('France_road_sign_B13.svg.png', 'Poids total autorisé'),
+                img('France_road_sign_B13a.svg.png', 'Poids par essieu')
+            )}
+            <ul>
+                <li>Ces panneaux protègent tunnels, ponts et voiries fragiles</li>
+                <li>Fréquents sur les ponts de Dakar et en zones urbaines</li>
+            </ul>
+
+            <h3>8. Vitesse, distance et klaxon</h3>
             ${grille(
                 img('France_road_sign_B14_(80).svg.png', 'Limitation de vitesse 80 km/h'),
                 img('France_road_sign_B15.svg.png', 'Priorité au sens inverse'),
                 img('France_road_sign_B16.svg.png', 'Klaxon interdit'),
-                img('France_road_sign_B17.svg.png', 'Distance minimale'),
-                img('France_road_sign_B18b.svg.png', 'Fin d\'interdiction de dépasser'),
-                img('France_road_sign_B18c.svg.png', 'Fin de limitation de vitesse'),
-                img('France_road_sign_B19.svg.png', 'Fin de toutes interdictions')
+                img('France_road_sign_B17.svg.png', 'Distance de sécurité'),
+                img('France_road_sign_B10a.svg.png', 'Distance minimale')
             )}
             <div class="warning-box">
                 <strong>⚠️ Vitesses légales au Sénégal :</strong>
@@ -288,15 +310,32 @@ const modules = [
                 </ul>
             </div>
 
-            <h3>7. Zones réglementées</h3>
+            <h3>9. Fins d'interdiction</h3>
             ${grille(
-                img('France_road_sign_B25_(30).svg.png', 'Zone 30'),
-                img('France_road_sign_B27a.svg.png', 'Zone de rencontre'),
-                img('France_road_sign_B29.svg.png', 'Zone résidentielle'),
-                img('France_road_sign_B31.svg.png', 'Fin de zone 30'),
-                img('France_road_sign_B33_(50).svg.png', 'Fin de zone 50'),
-                img('France_road_sign_B34.svg.png', 'Fin de zone de rencontre'),
-                img('France_road_sign_B34a.svg.png', 'Fin de zone résidentielle')
+                img('France_road_sign_B18b.svg.png', 'Interdiction de transport de marchandises'),
+                img('France_road_sign_B18c.svg.png', 'Interdiction transport de matières dangereuses'),
+                img('France_road_sign_B19.svg.png', 'Interdit aux motocyclistes'),
+                img('France_road_sign_B31.svg.png', 'Fin d\'interdiction'),
+                img('France_road_sign_B34.svg.png', 'Fin d\'interdiction de dépassement'),
+                img('France_road_sign_B34a.svg.png', 'Fin d\'interdiction de dépassement pour camions'),
+                img('France_road_sign_B35.svg.png', 'Fin d\'interdiction de klaxonner')
+            )}
+
+            <h3>10. Zones réglementées</h3>
+            ${grille(
+                img('France_road_sign_B25_(30).svg.png', 'Vitesse minimale 30 km/h'),
+                img('France_road_sign_B27a.svg.png', 'Voie bus'),
+                img('France_road_sign_B29.svg.png', 'Allumez les feux'),
+                img('France_road_sign_B33_(50).svg.png', 'Fin de limitation 50 km/h'),
+                img('France_road_sign_B40.svg.png', 'Fin de piste cyclable'),
+                img('France_road_sign_B41.svg.png', 'Fin de voie piétonne'),
+                img('France_road_sign_B42.svg.png', 'Fin de voie cavaliers'),
+                img('France_road_sign_B43_(30).svg.png', 'Fin de vitesse minimale 30'),
+                img('France_road_sign_B45a.svg.png', 'Fin de voie bus'),
+                img('France_road_sign_B51_(30).svg.png', 'Fin de zone 30'),
+                img('France_road_sign_B53.svg.png', 'Fin de zone 20'),
+                img('France_road_sign_B55.svg.png', 'Fin de zone piétonne'),
+                img('France_road_sign_B57.svg.png', 'Fin de zone restriction')
             )}
         `
     },
@@ -315,14 +354,14 @@ const modules = [
 
             <h3>1. Directions obligatoires</h3>
             ${grille(
-                img('France_road_sign_B21-1.svg.png', 'Aller à droite obligatoire'),
-                img('France_road_sign_B21-2.svg.png', 'Aller à gauche obligatoire'),
+                img('France_road_sign_B21-1.svg.png', 'Direction obligatoire à droite'),
+                img('France_road_sign_B21-2.svg.png', 'Direction obligatoire à gauche'),
                 img('France_road_sign_B21b.svg.png', 'Tout droit obligatoire'),
                 img('France_road_sign_B21c1.svg.png', 'Tout droit ou à droite'),
                 img('France_road_sign_B21c2.svg.png', 'Tout droit ou à gauche'),
-                img('France_road_sign_B21d1.svg.png', 'Tout droit ou droite (avant)'),
-                img('France_road_sign_B21d2.svg.png', 'Tout droit ou gauche (avant)'),
-                img('France_road_sign_B21e.svg.png', 'À droite ou à gauche')
+                img('France_road_sign_B21d1.svg.png', 'Gauche ou droite'),
+                img('France_road_sign_B21d2.svg.png', 'Tout droit ou gauche'),
+                img('France_road_sign_B21e.svg.png', 'Double sens obligatoire')
             )}
             <div class="warning-box">
                 <strong>⚠️ Attention :</strong> Ces panneaux imposent une direction. Ne pas les respecter = infraction + danger !
@@ -339,14 +378,14 @@ const modules = [
 
             <h3>3. Pistes et voies réservées</h3>
             ${grille(
-                img('France_road_sign_B22a.svg.png', 'Piste cyclable obligatoire'),
-                img('France_road_sign_B22b.svg.png', 'Voie piétonne obligatoire'),
-                img('France_road_sign_B22c.svg.png', 'Voie mixte piétons-cycles')
+                img('France_road_sign_B22a.svg.png', 'Piste cyclable'),
+                img('France_road_sign_B22b.svg.png', 'Voie piétonne'),
+                img('France_road_sign_B22c.svg.png', 'Voie cavaliers')
             )}
             <ul>
                 <li><strong>Piste cyclable :</strong> Réservée aux vélos — les autres véhicules interdits</li>
                 <li><strong>Voie piétonne :</strong> Réservée aux piétons</li>
-                <li><strong>Voie mixte :</strong> Partagée piétons + cyclistes</li>
+                <li><strong>Voie cavaliers :</strong> Réservée aux chevaux</li>
             </ul>
             <div class="success-box">
                 <strong>✅ Au Sénégal :</strong> Les pistes cyclables sont en développement à Dakar (Corniche, VDN). Respectez ces espaces réservés !
@@ -368,9 +407,11 @@ const modules = [
 
             <h3>1. Types de voies</h3>
             ${grille(
-                img('Autoroute_F.svg.png', 'Début d\'autoroute'),
+                img('Autoroute_F.svg.png', 'Autoroute'),
                 img('Autoroute_F_(fin).svg.png', 'Fin d\'autoroute'),
-                img('C18.svg.png', 'Circulation alternée')
+                img('Voie_express_F.svg.png', 'Voie express'),
+                img('Voie_express_F_(fin).svg.png', 'Fin de voie express'),
+                img('C18.svg.png', 'Circulation en double sens')
             )}
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin:1rem 0;">
                 <div style="background:#00aa00;color:white;padding:1rem;border-radius:8px;">
@@ -391,14 +432,55 @@ const modules = [
                 </div>
             </div>
 
-            <h3>2. Panneau de passage piétons</h3>
+            <h3>2. Stationnement et services</h3>
             ${grille(
-                img('France_Road_Sign_C20b.png', 'Passage piétons')
+                img('France_road_sign_C1a.svg.png', 'Parking'),
+                img('France_road_sign_C1b.svg.png', 'Parking payant'),
+                img('France_road_sign_C1c.svg.png', 'Parking horodateur'),
+                img('France_road_sign_C4a_(50).svg.png', 'Vitesse recommandée 50 km/h'),
+                img('France_road_sign_C4b_(50).svg.png', 'Fin de vitesse recommandée'),
+                img('France_road_sign_C5.svg.png', 'Station de taxi'),
+                img('France_road_sign_C6.svg.png', 'Arrêt de bus'),
+                img('France_road_sign_CE1.svg.png', 'Hôpital'),
+                img('France_road_sign_C62.svg.png', 'Péage'),
+                img('France_road_sign_C64a.svg.png', 'Contrôle de police'),
+                img('France_road_sign_C64d2.svg.png', 'Télépéage')
             )}
+            <div class="warning-box">
+                <strong>⚠️ À Dakar :</strong> Stationnement payant obligatoire au Plateau, Corniche. Sanctions : amende + mise en fourrière.
+            </div>
 
-            <h3>3. Giratoire</h3>
+            <h3>3. Circulation et voies</h3>
             ${grille(
-                img('France_Road_Sign_AB25.svg.png', 'Carrefour giratoire (rond-point)')
+                img('France_road_sign_C12.svg.png', 'Sens unique'),
+                img('France_road_sign_C8.svg.png', 'Voie d\'évitement'),
+                img('France_road_sign_C9.svg.png', 'Covoiturage'),
+                img('France_road_sign_C13a.svg.png', 'Impasse'),
+                img('France_road_sign_C13b.svg.png', 'Impasse — sortie à droite'),
+                img('France_road_sign_C13c.svg.png', 'Impasse — passage piétons'),
+                img('France_road_sign_C13d.svg.png', 'Impasse — passage vélos'),
+                img('France_road_sign_C20a.svg.png', 'Passage piéton'),
+                img('France_Road_Sign_C20b.png', 'Passage bus'),
+                img('France_road_sign_C24a.svg.png', 'Voie affectée'),
+                img('France_road_sign_C24a-1.svg.png', 'Voie affectée avec interdiction'),
+                img('France_road_sign_C24a-2.svg.png', 'Voie vélos'),
+                img('France_road_sign_C24a-3.svg.png', 'Voie bus'),
+                img('France_road_sign_C24a-4.svg.png', 'Voie motos'),
+                img('France_road_sign_C24b.svg.png', 'Voie directionnelle'),
+                img('France_road_sign_C24b-2.svg.png', 'Voie directionnelle multiple'),
+                img('France_road_sign_C24c.svg.png', 'Obstacle à droite'),
+                img('France_road_sign_C26a.svg.png', 'Balise obstacle à droite'),
+                img('France_road_sign_C26b.svg.png', 'Balise obstacle à gauche'),
+                img('France_road_sign_C27.svg.png', 'Ralentisseur'),
+                img('France_road_sign_C28-3.svg.png', 'Voie d\'insertion'),
+                img('France_road_sign_C111.svg.png', 'Tunnel'),
+                img('France_road_sign_C112.svg.png', 'Fin de tunnel'),
+                img('France_road_sign_C113.svg.png', 'Piste cyclable'),
+                img('France_road_sign_C114.svg.png', 'Fin de piste cyclable'),
+                img('France_road_sign_C117-B21b.svg.png', 'Direction obligatoire'),
+                img('France_road_sign_D52a.svg.png', 'Direction autoroute'),
+                img('France_road_sign_M1.svg.png', 'Distance 50 m'),
+                img('Signal_B29_VL.svg.png', 'Véhicules lents')
             )}
             <div class="success-box">
                 <strong>✅ Péage au Sénégal :</strong> Tarifs selon la distance et le type de véhicule. Paiement en espèces ou badge. Postes principaux : Diamniadio, Sindia, Thiès.
