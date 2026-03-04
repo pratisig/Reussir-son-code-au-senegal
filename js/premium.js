@@ -4,7 +4,7 @@
 // ============================================================
 
 const FREE_SERIES  = ['B1', 'B2'];
-const MAX_DEVICES  = 3;
+const MAX_DEVICES  = 2;   // ← max 2 appareils simultanés
 const WAVE_NUMBER  = '70 946 23 05';
 const WAVE_AMOUNT  = 2500;
 
@@ -19,6 +19,11 @@ function getDeviceId() {
 }
 
 // ---- Vérifier et enregistrer l'appareil ---------------------
+// Logique :
+//  1. Si l'appareil est déjà enregistré → OK
+//  2. Si la liste est pleine → on ÉVINCE le plus ancien (devices[0])
+//     et on écrit un signal de déconnexion forcée dans Firestore
+//  3. On ajoute le nouvel appareil
 async function checkAndRegisterDevice(uid) {
     const deviceId = getDeviceId();
     const userRef  = db.collection('users').doc(uid);
@@ -27,27 +32,75 @@ async function checkAndRegisterDevice(uid) {
         const data    = doc.exists ? doc.data() : {};
         const premium = data.premium || {};
 
+        // Pas premium → accès libre sans limite d'appareils
         if (!premium.active) return { ok: true, premium: false };
 
+        // Premium expiré
         if (premium.expiresAt && premium.expiresAt.toDate() < new Date()) {
             await userRef.update({ 'premium.active': false });
             return { ok: true, premium: false, expired: true };
         }
 
-        const devices = premium.devices || [];
-        if (!devices.includes(deviceId)) {
-            if (devices.length >= MAX_DEVICES) {
-                return { ok: false, premium: true, reason: 'max_devices' };
-            }
+        let devices = Array.isArray(premium.devices) ? [...premium.devices] : [];
+
+        // Appareil déjà connu → rien à faire
+        if (devices.includes(deviceId)) {
+            return { ok: true, premium: true, expiresAt: premium.expiresAt };
+        }
+
+        // Nouvel appareil : si on dépasse MAX_DEVICES, on évince le plus ancien
+        if (devices.length >= MAX_DEVICES) {
+            const evictedDeviceId = devices[0]; // le plus ancien
+            devices.shift();                    // retirer le plus ancien
+
+            // Écrire le signal de force-déconnexion pour l'appareil évincé
             await userRef.update({
-                'premium.devices': firebase.firestore.FieldValue.arrayUnion(deviceId)
+                'premium.devices': firebase.firestore.FieldValue.arrayRemove(evictedDeviceId),
+                [`premium.forceLogout.${evictedDeviceId}`]: firebase.firestore.FieldValue.serverTimestamp()
             });
         }
+
+        // Enregistrer le nouvel appareil
+        await userRef.update({
+            'premium.devices': firebase.firestore.FieldValue.arrayUnion(deviceId)
+        });
+
         return { ok: true, premium: true, expiresAt: premium.expiresAt };
     } catch (e) {
         console.warn('checkAndRegisterDevice error:', e);
         return { ok: true, premium: false };
     }
+}
+
+// ---- Écouter en temps réel si cet appareil doit être déconnecté ----
+// À appeler après checkAndRegisterDevice, une seule fois par session
+function watchForceLogout(uid) {
+    const deviceId = getDeviceId();
+    const userRef  = db.collection('users').doc(uid);
+
+    return userRef.onSnapshot(function(doc) {
+        if (!doc.exists) return;
+        const data    = doc.data();
+        const premium = data.premium || {};
+        const forceLogout = premium.forceLogout || {};
+
+        // Si notre deviceId est dans les signaux de déconnexion forcée
+        if (forceLogout[deviceId]) {
+            // Nettoyage : retirer le signal pour éviter une boucle
+            userRef.update({
+                [`premium.forceLogout.${deviceId}`]: firebase.firestore.FieldValue.delete()
+            }).catch(() => {});
+
+            // Déconnexion forcée avec message à l'utilisateur
+            alert('⚠️ Votre session a été terminée car votre compte vient de se connecter sur un autre appareil. Vous êtes limité à ' + MAX_DEVICES + ' appareils simultanés.');
+            auth.signOut().then(function() {
+                localStorage.removeItem('deviceId'); // Réinitialiser l'ID appareil
+                window.location.replace('login.html');
+            });
+        }
+    }, function(err) {
+        console.warn('watchForceLogout error:', err);
+    });
 }
 
 // ---- Vérifier si une série est accessible -------------------
@@ -162,6 +215,7 @@ async function activatePremium() {
                 expiresAt:   expiresAt,
                 plan:        '2500fcfa_12mois',
                 devices:     [deviceId],
+                forceLogout: {},
                 paymentMethod: 'Wave'
             }
         }, { merge: true });

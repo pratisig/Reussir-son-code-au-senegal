@@ -18,7 +18,7 @@ const quizData = {
 let state = {
     series: null,
     qIndex: 0,
-    questions: [], // [{series, qNum, data}]
+    questions: [],
     answers: [],
     locked: [],
     startTime: null,
@@ -27,7 +27,8 @@ let state = {
     premiumExpiry: null,
     progress: JSON.parse(localStorage.getItem('quizProgress') || '{}'),
     history: [],
-    mode: 'normal' // 'normal', 'revision', 'exam'
+    mode: 'normal',
+    forceLogoutUnsubscribe: null  // ← listener de déconnexion forcée
 };
 
 // ========== INIT ==========
@@ -66,16 +67,22 @@ async function loadUserData(uid) {
             }
         }
         const result = await checkAndRegisterDevice(uid);
-        if (!result.ok && result.reason === 'max_devices') {
-            document.getElementById('maxDevicesModal').classList.add('open');
-            state.isPremium = false;
-        } else {
+
+        if (result.ok) {
             state.isPremium = result.premium === true;
             state.premiumExpiry = result.expiresAt || null;
             if (result.expired) {
                 alert('⚠️ Votre abonnement Premium a expiré. Vous avez accès à B1 et B2 uniquement.');
             }
+            // Démarrer l'écoute de déconnexion forcée
+            if (state.forceLogoutUnsubscribe) state.forceLogoutUnsubscribe();
+            state.forceLogoutUnsubscribe = watchForceLogout(uid);
+        } else {
+            // Ne devrait plus arriver (on évince le plus ancien),
+            // mais on garde en fallback pour les comptes non-premium
+            state.isPremium = false;
         }
+
         if (state.isPremium) {
             document.getElementById('premiumBadge').style.display = 'inline-block';
         }
@@ -101,8 +108,22 @@ function saveHistory() {
 }
 
 function handleLogout() {
+    if (state.forceLogoutUnsubscribe) {
+        state.forceLogoutUnsubscribe();
+        state.forceLogoutUnsubscribe = null;
+    }
     if (typeof auth !== 'undefined') {
-        auth.signOut().then(() => window.location.href = 'login.html');
+        // Retirer cet appareil de la liste au moment de la déconnexion volontaire
+        const uid = auth.currentUser ? auth.currentUser.uid : null;
+        const deviceId = getDeviceId();
+        const cleanup = uid
+            ? db.collection('users').doc(uid).update({
+                'premium.devices': firebase.firestore.FieldValue.arrayRemove(deviceId)
+              }).catch(() => {})
+            : Promise.resolve();
+        cleanup.then(() => {
+            auth.signOut().then(() => window.location.href = 'login.html');
+        });
     }
 }
 
@@ -259,7 +280,6 @@ function startExamBlanc() {
         return;
     }
 
-    // Mélanger et prendre 25
     const shuffled = allQuestions.sort(() => Math.random() - 0.5).slice(0, 25);
 
     state.mode = 'exam';
@@ -453,7 +473,6 @@ function finishQuiz() {
     const errors = state.questions.length - correct;
     const admis = errors <= 6;
 
-    // Sauvegarder si mode normal
     if (state.mode === 'normal') {
         state.progress[state.series] = { score: correct, admis };
         saveProgress();
