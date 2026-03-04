@@ -212,6 +212,18 @@
         .history-chart-label{font-size:.7rem;color:var(--text-muted);text-align:center;flex:1;}
         .history-empty{text-align:center;padding:2rem 1rem;color:var(--text-muted);}
         .history-empty-icon{font-size:3rem;margin-bottom:.75rem;opacity:.5;}
+
+        /* ===== SECTION CONTACT ===== */
+        .contact-card{background:linear-gradient(135deg,rgba(0,133,63,.12),rgba(56,189,248,.08));border:1px solid rgba(0,133,63,.3);border-radius:var(--radius);padding:1.5rem;margin-top:1rem;}
+        .contact-title{font-size:1rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem;}
+        .contact-links{display:flex;flex-direction:column;gap:.75rem;}
+        .contact-link{display:flex;align-items:center;gap:.875rem;background:var(--bg-deep);border-radius:10px;padding:.875rem 1rem;text-decoration:none;color:var(--text);border:1px solid rgba(255,255,255,.07);transition:all .2s;}
+        .contact-link:hover{border-color:var(--green);background:rgba(0,133,63,.1);transform:translateX(3px);}
+        .contact-link-icon{font-size:1.6rem;flex-shrink:0;}
+        .contact-link-info{display:flex;flex-direction:column;}
+        .contact-link-label{font-size:.72rem;color:var(--text-muted);margin-bottom:.1rem;}
+        .contact-link-value{font-size:.9rem;font-weight:600;}
+        .contact-link-arrow{margin-left:auto;color:var(--text-muted);font-size:1rem;}
     </style>
 </head>
 <body>
@@ -256,6 +268,29 @@
             </div>
             <button class="btn btn-outline" onclick="showScreen('screen-stats')" style="margin-top:.75rem;">📊 Statistiques avancées</button>
             <button class="btn btn-outline" onclick="showScreen('screen-history')" style="margin-top:.75rem;">📅 Mon historique</button>
+        </div>
+
+        <!-- SECTION CONTACT -->
+        <div class="contact-card">
+            <div class="contact-title">📞 Nous contacter</div>
+            <div class="contact-links">
+                <a class="contact-link" href="https://wa.me/221709462305" target="_blank" rel="noopener">
+                    <span class="contact-link-icon">💬</span>
+                    <div class="contact-link-info">
+                        <span class="contact-link-label">WhatsApp</span>
+                        <span class="contact-link-value">+221 70 946 23 05</span>
+                    </div>
+                    <span class="contact-link-arrow">↗</span>
+                </a>
+                <a class="contact-link" href="mailto:pratisigconsulting@gmail.com">
+                    <span class="contact-link-icon">✉️</span>
+                    <div class="contact-link-info">
+                        <span class="contact-link-label">Email</span>
+                        <span class="contact-link-value">pratisigconsulting@gmail.com</span>
+                    </div>
+                    <span class="contact-link-arrow">↗</span>
+                </a>
+            </div>
         </div>
     </div>
 
@@ -394,8 +429,8 @@
             <div class="modal-header"><h3>🔓 Débloquer l'accès complet</h3><button class="modal-close" onclick="closePremiumModal()">×</button></div>
             <div class="pay-step" id="step1" style="display:block;">
                 <div class="premium-hero"><div class="icon">⭐</div><h2>Passez en Premium</h2><p>Série <strong id="premiumModalSeries"></strong> et toutes les séries B3–B12 débloquées</p></div>
-                <div class="premium-price"><div class="amount">2 500 FCFA</div><div class="period">Accès complet • 12 mois • 3 appareils</div></div>
-                <ul class="premium-features"><li>Toutes les séries B1 à B12 (300 questions)</li><li>Correction détaillée pour chaque question</li><li>Suivi de progression sauvegardé</li><li>Accès sur 3 appareils simultanément</li><li>Valide 12 mois à partir de l'activation</li></ul>
+                <div class="premium-price"><div class="amount">2 500 FCFA</div><div class="period">Accès complet • 12 mois • 2 appareils</div></div>
+                <ul class="premium-features"><li>Toutes les séries B1 à B12 (300 questions)</li><li>Correction détaillée pour chaque question</li><li>Suivi de progression sauvegardé</li><li>Accès sur 2 appareils simultanément</li><li>Valide 12 mois à partir de l'activation</li></ul>
                 <p style="text-align:center;font-size:.8rem;color:var(--text-muted);margin:.5rem 0 .25rem;">Mode de paiement :</p>
                 <div class="pay-methods"><div class="pay-method-btn" style="grid-column:1/-1;max-width:200px;margin:0 auto;" id="pm-wave" onclick="showStep('step2')"><span class="pm-icon">🌊</span>Wave</div></div>
             </div>
@@ -419,10 +454,24 @@
         </div>
     </div>
 
+    <!-- Modal limite appareils (2 max) -->
     <div class="modal-overlay" id="maxDevicesModal">
         <div class="modal" style="max-width:380px;">
             <div class="modal-header"><h3>📱 Limite d'appareils atteinte</h3><button class="modal-close" onclick="document.getElementById('maxDevicesModal').classList.remove('open')">×</button></div>
-            <div style="padding:1.5rem;text-align:center;"><div style="font-size:2.5rem;margin-bottom:1rem;">⚠️</div><p style="margin-bottom:1rem;font-size:.9rem;">Votre compte est déjà connecté sur <strong>3 appareils</strong>. Limite maximale atteinte.</p><p style="color:var(--text-muted);font-size:.82rem;">Pour ajouter cet appareil, contactez le support pour réinitialiser vos appareils.</p><button class="btn" style="margin-top:1.25rem;" onclick="document.getElementById('maxDevicesModal').classList.remove('open');">Compris</button></div>
+            <div style="padding:1.5rem;text-align:center;">
+                <div style="font-size:2.5rem;margin-bottom:1rem;">⚠️</div>
+                <p style="margin-bottom:1rem;font-size:.9rem;">Votre compte est déjà connecté sur <strong>2 appareils</strong>. Limite maximale atteinte.</p>
+                <p style="color:var(--text-muted);font-size:.82rem;margin-bottom:1.25rem;">Pour ajouter cet appareil, contactez-nous pour réinitialiser vos appareils.</p>
+                <a href="https://wa.me/221709462305" target="_blank" rel="noopener"
+                   style="display:flex;align-items:center;justify-content:center;gap:.5rem;background:rgba(37,211,102,.12);border:1px solid rgba(37,211,102,.3);border-radius:8px;padding:.75rem 1rem;color:#25d366;font-weight:600;font-size:.875rem;text-decoration:none;margin-bottom:.75rem;">
+                    💬 Contacter sur WhatsApp
+                </a>
+                <a href="mailto:pratisigconsulting@gmail.com"
+                   style="display:flex;align-items:center;justify-content:center;gap:.5rem;background:rgba(56,189,248,.08);border:1px solid rgba(56,189,248,.2);border-radius:8px;padding:.75rem 1rem;color:var(--primary);font-weight:600;font-size:.875rem;text-decoration:none;margin-bottom:1.25rem;">
+                    ✉️ pratisigconsulting@gmail.com
+                </a>
+                <button class="btn btn-secondary" onclick="document.getElementById('maxDevicesModal').classList.remove('open')">Fermer</button>
+            </div>
         </div>
     </div>
 
