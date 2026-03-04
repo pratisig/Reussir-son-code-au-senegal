@@ -68,6 +68,8 @@ service cloud.firestore {
     // FONCTIONS DE VALIDATION
     // ====================================================
     function isValidUpdate(incoming, existing) {
+      // Soit la mise à jour ne touche pas au champ premium
+      // Soit elle respecte les règles premium
       return !incoming.diff(existing).affectedKeys().hasAny(['premium'])
           || isPremiumUpdateValid(incoming, existing);
     }
@@ -76,20 +78,25 @@ service cloud.firestore {
       return !isSelfActivating(incoming, existing)
           && !isChangingExpiry(incoming, existing)
           && !isTooManyDevices(incoming);
+      // Note : forceLogout et devices sont autorisés à changer librement
+      // (utilisés pour l'éviction automatique d'appareils)
     }
 
     function isSelfActivating(incoming, existing) {
+      // Empêche un utilisateur de s'activer lui-même le premium
       return incoming.premium.get('active', false) == true
           && existing.get('premium', {}).get('active', false) == false;
     }
 
     function isChangingExpiry(incoming, existing) {
+      // Empêche de modifier la date d'expiration
       return incoming.premium.get('expiresAt', null)
           != existing.get('premium', {}).get('expiresAt', null);
     }
 
     function isTooManyDevices(incoming) {
-      return incoming.premium.get('devices', []).size() > 3;
+      // Limite stricte : max 2 appareils simultanés
+      return incoming.premium.get('devices', []).size() > 2;
     }
   }
 }
