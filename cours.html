@@ -28,8 +28,6 @@
         .btn:hover{background:var(--green-dark);transform:translateY(-1px);}
         .btn-outline{background:transparent;border:2px solid var(--primary);color:var(--primary);}
         .btn-outline:hover{background:var(--primary);color:var(--bg);}
-
-        /* LISTE DES MODULES */
         #screen-list{display:block;}
         #screen-detail{display:none;}
         .page-title{font-size:1.3rem;font-weight:800;margin-bottom:.25rem;}
@@ -42,13 +40,11 @@
         .module-desc{font-size:.8rem;color:var(--text-muted);line-height:1.4;}
         .module-meta{font-size:.72rem;color:var(--primary);margin-top:.3rem;}
         .module-arrow{color:var(--text-muted);font-size:1.2rem;}
-
-        /* CONTENU DU COURS */
         #coursDetailContent h2{font-size:1.2rem;font-weight:800;margin:1.5rem 0 .75rem;color:var(--primary);}
         #coursDetailContent h2:first-child{margin-top:0;}
         #coursDetailContent h3{font-size:1rem;font-weight:700;margin:1.25rem 0 .5rem;color:var(--text);}
         #coursDetailContent p{font-size:.875rem;line-height:1.7;margin-bottom:.75rem;color:var(--text);}
-        #coursDetailContent ul, #coursDetailContent ol{margin-left:1.25rem;margin-bottom:.75rem;font-size:.875rem;line-height:1.8;}
+        #coursDetailContent ul,#coursDetailContent ol{margin-left:1.25rem;margin-bottom:.75rem;font-size:.875rem;line-height:1.8;}
         #coursDetailContent li{color:var(--text);}
         #coursDetailContent strong{color:var(--primary);}
         #coursDetailContent .info-box{background:rgba(56,189,248,.08);border-left:3px solid var(--primary);padding:.875rem 1rem;border-radius:6px;margin-bottom:1rem;font-size:.85rem;line-height:1.6;}
@@ -64,15 +60,12 @@
     </header>
 
     <div class="container">
-        <!-- LISTE DES MODULES -->
         <div id="screen-list">
             <button class="back-btn" onclick="window.location.href='index.html'">← Accueil</button>
             <div class="page-title">📚 Cours théoriques</div>
             <div class="page-sub">Choisissez un chapitre pour commencer</div>
             <div id="modulesGrid"></div>
         </div>
-
-        <!-- DÉTAIL DU COURS -->
         <div id="screen-detail">
             <button class="back-btn" onclick="showList()">← Retour aux cours</button>
             <div class="card">
@@ -82,29 +75,32 @@
         </div>
     </div>
 
+    <!-- cours.js définit : const modules = [...] -->
     <script src="js/cours.js"></script>
+
     <script>
+        // À ce stade, cours.js est déjà exécuté, modules est accessible dans le scope global
         function renderModules() {
             const grid = document.getElementById('modulesGrid');
-            if (!grid || !window.modules) {
-                grid.innerHTML = '<p style="color:var(--error);text-align:center;">Erreur : modules non chargés.</p>';
-                return;
+            try {
+                grid.innerHTML = modules.map(function(m) {
+                    return '<div class="module-card" onclick="openCours(\'' + m.id + '\')">' +
+                        '<span class="module-icon">' + m.icon + '</span>' +
+                        '<div class="module-info">' +
+                            '<div class="module-title">' + m.title + '</div>' +
+                            '<div class="module-desc">' + m.desc + '</div>' +
+                            '<div class="module-meta">' + m.lessons + ' leçons · ' + m.duration + '</div>' +
+                        '</div>' +
+                        '<span class="module-arrow">›</span>' +
+                        '</div>';
+                }).join('');
+            } catch(e) {
+                grid.innerHTML = '<p style="color:var(--error);text-align:center;padding:2rem;">Erreur de chargement : ' + e.message + '</p>';
             }
-            grid.innerHTML = modules.map(m => `
-                <div class="module-card" onclick="openCours('${m.id}')">
-                    <span class="module-icon">${m.icon}</span>
-                    <div class="module-info">
-                        <div class="module-title">${m.title}</div>
-                        <div class="module-desc">${m.desc}</div>
-                        <div class="module-meta">${m.lessons} leçons · ${m.duration}</div>
-                    </div>
-                    <span class="module-arrow">›</span>
-                </div>
-            `).join('');
         }
 
         function openCours(id) {
-            const m = modules.find(x => x.id === id);
+            var m = modules.find(function(x){ return x.id === id; });
             if (!m) return;
             document.getElementById('coursDetailContent').innerHTML = m.content;
             document.getElementById('screen-list').style.display = 'none';
