@@ -1,4 +1,18 @@
-// Données des modules de cours — Version complète avec toutes les images
+// Données des modules de cours — Version complète avec images vérifiées
+const BASE = 'https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/';
+
+function img(fichier, alt, code) {
+    return `<div style="text-align:center;min-width:110px;">
+        <img src="${BASE}${fichier}" alt="${alt}" style="width:110px;height:110px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
+        <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>${code}</strong></div>
+        <div style="font-size:0.8rem;margin-top:0.25rem;">${alt}</div>
+    </div>`;
+}
+
+function grille(...items) {
+    return `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:1.5rem;margin:1.5rem 0;">${items.join('')}</div>`;
+}
+
 const modules = [
     {
         id: 'panneaux-danger',
@@ -14,174 +28,94 @@ const modules = [
             </div>
 
             <h3>1. Virages et courbes</h3>
-            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:1.5rem;margin:1.5rem 0;"><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_A1a.svg.png" alt="Virage dangereux à droite" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>A1a</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Virage dangereux à droite</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_A1b.svg.png" alt="Virage dangereux à gauche" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>A1b</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Virage dangereux à gauche</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_A1c.svg.png" alt="Succession de virages (d'abord à droite)" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>A1c</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Succession de virages (d'abord à droite)</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_A1d.svg.png" alt="Succession de virages (d'abord à gauche)" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>A1d</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Succession de virages (d'abord à gauche)</div>
-            </div></div>
+            ${grille(
+                img('France_road_sign_A1a.svg.png', 'Virage dangereux à droite', 'A1a'),
+                img('France_road_sign_A1b.svg.png', 'Virage dangereux à gauche', 'A1b'),
+                img('France_road_sign_A1c.svg.png', 'Succession de virages (droite d\'abord)', 'A1c'),
+                img('France_road_sign_A1d.svg.png', 'Succession de virages (gauche d\'abord)', 'A1d')
+            )}
             <ul>
-                <li><strong>Virage dangereux à droite / gauche</strong> : Un seul virage serré</li>
-                <li><strong>Succession de virages</strong> : Plusieurs virages successifs en S</li>
-                <li><strong>Conduite :</strong> Ralentir AVANT le virage, ne jamais freiner dans le virage</li>
+                <li><strong>A1a / A1b</strong> : Un seul virage serré — ralentir AVANT</li>
+                <li><strong>A1c / A1d</strong> : Plusieurs virages successifs en S</li>
+                <li><strong>Conduite :</strong> Freiner avant le virage, jamais dedans</li>
             </ul>
 
             <h3>2. État et relief de la chaussée</h3>
-            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:1.5rem;margin:1.5rem 0;"><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_A2a.svg.png" alt="Chaussée déformée" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>A2a</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Chaussée déformée</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_A2b.svg.png" alt="Dos d'âne / ralentisseur" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>A2b</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Dos d'âne / ralentisseur</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_A3.svg.png" alt="Chaussée rétrécie" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>A3</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Chaussée rétrécie</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_A3a.svg.png" alt="Chaussée rétrécie par la droite" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>A3a</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Chaussée rétrécie par la droite</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_A3b.svg.png" alt="Chaussée rétrécie par la gauche" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>A3b</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Chaussée rétrécie par la gauche</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_A4.svg.png" alt="Chaussée glissante" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>A4</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Chaussée glissante</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_A16.svg.png" alt="Descente dangereuse" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>A16</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Descente dangereuse</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_A19.svg.png" alt="Chutes de pierres" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>A19</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Chutes de pierres</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_A20.svg.png" alt="Quai ou berge (chute à l'eau)" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>A20</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Quai ou berge (chute à l'eau)</div>
-            </div></div>
+            ${grille(
+                img('France_road_sign_A2a.svg.png', 'Chaussée déformée', 'A2a'),
+                img('France_road_sign_A2b.svg.png', 'Dos d\'âne / ralentisseur', 'A2b'),
+                img('France_road_sign_A3.svg.png', 'Chaussée rétrécie', 'A3'),
+                img('France_road_sign_A3a.svg.png', 'Rétrécie par la droite', 'A3a'),
+                img('France_road_sign_A3b.svg.png', 'Rétrécie par la gauche', 'A3b'),
+                img('France_road_sign_A4.svg.png', 'Chaussée glissante', 'A4'),
+                img('France_road_sign_A16.svg.png', 'Descente dangereuse', 'A16'),
+                img('France_road_sign_A19.svg.png', 'Chutes de pierres', 'A19'),
+                img('France_road_sign_A20.svg.png', 'Quai ou berge', 'A20')
+            )}
             <ul>
-                <li><strong>Dos d'âne (A2b)</strong> : Bosse sur la chaussée, ralentisseur naturel</li>
-                <li><strong>Chaussée déformée (A2a)</strong> : Nids-de-poule, route dégradée</li>
-                <li><strong>Chaussée rétrécie (A3/A3a/A3b)</strong> : La route devient plus étroite, côté précisé</li>
-                <li><strong>Chaussée glissante (A4)</strong> : Route huileuse, mouillée ou sablonneuse</li>
-                <li><strong>Descente dangereuse (A16)</strong> : Pente importante (pourcentage indiqué)</li>
-                <li><strong>Chutes de pierres (A19)</strong> : Risque d'éboulement</li>
-                <li><strong>Quai ou berge (A20)</strong> : Risque de chute dans l'eau</li>
+                <li><strong>A2b</strong> : Dos d'âne — ralentir fortement</li>
+                <li><strong>A3/A3a/A3b</strong> : Route plus étroite, côté précisé</li>
+                <li><strong>A4</strong> : Route huileuse, mouillée ou sablonneuse</li>
+                <li><strong>A16</strong> : Descente — utiliser le frein moteur, jamais au point mort</li>
+                <li><strong>A19</strong> : Risque d'éboulement (zones rocheuses)</li>
             </ul>
             <div class="warning-box">
-                <strong>⚠️ En descente :</strong> Utilisez le frein moteur (rétrograder). Ne restez JAMAIS au point mort !
+                <strong>⚠️ En descente :</strong> Rétrograder et utiliser le frein moteur. Ne JAMAIS rester au point mort !
             </div>
 
             <h3>3. Passages à niveau et ponts</h3>
-            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:1.5rem;margin:1.5rem 0;"><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_A7.svg.png" alt="Passage à niveau avec barrières" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>A7</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Passage à niveau avec barrières</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_A8.svg.png" alt="Passage à niveau sans barrières" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>A8</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Passage à niveau sans barrières</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_Road_Sign_A6.svg.png" alt="Pont mobile" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>A6</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Pont mobile</div>
-            </div></div>
+            ${grille(
+                img('France_road_sign_A7.svg.png', 'Passage à niveau avec barrières', 'A7'),
+                img('France_road_sign_A8.svg.png', 'Passage à niveau sans barrières', 'A8'),
+                img('France_Road_Sign_A6.svg.png', 'Pont mobile', 'A6')
+            )}
             <ul>
-                <li><strong>Passage à niveau avec barrières (A7)</strong> : Voie ferrée protégée — attention aux trains !</li>
-                <li><strong>Passage à niveau sans barrières (A8)</strong> : Danger maximal — ralentir impérativement</li>
-                <li><strong>Pont mobile (A6)</strong> : Pont pouvant être levé — risque de coupure de route</li>
+                <li><strong>A7</strong> : Voie ferrée protégée — attention aux trains !</li>
+                <li><strong>A8</strong> : Danger maximal — ralentir impérativement, regarder des deux côtés</li>
+                <li><strong>A6</strong> : Pont pouvant être levé — possible coupure de route</li>
             </ul>
 
-            <h3>4. Passages et usagers vulnérables</h3>
-            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:1.5rem;margin:1.5rem 0;"><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_A13b.svg.png" alt="Passage pour piétons" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>A13b</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Passage pour piétons</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_A13a.svg.png" alt="Passage d'enfants" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>A13a</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Passage d'enfants</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_A21.svg.png" alt="Passage de cyclistes" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>A21</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Passage de cyclistes</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_Road_Sign_A9a.png" alt="Débouché de transport en commun" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>A9a</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Débouché de transport en commun</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_A15a.svg.png" alt="Passage d'animaux domestiques" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>A15a</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Passage d'animaux domestiques</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_A15b.svg.png" alt="Passage d'animaux sauvages" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>A15b</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Passage d'animaux sauvages</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_A15c.svg.png" alt="Passage de cavaliers" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>A15c</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Passage de cavaliers</div>
-            </div></div>
-            <p>Zones à forte vigilance au Sénégal :</p>
+            <h3>4. Usagers vulnérables</h3>
+            ${grille(
+                img('France_road_sign_A13b.svg.png', 'Passage pour piétons', 'A13b'),
+                img('France_road_sign_A13a.svg.png', 'Passage d\'enfants', 'A13a'),
+                img('France_road_sign_A21.svg.png', 'Passage de cyclistes', 'A21'),
+                img('France_Road_Sign_A9a.png', 'Débouché transport en commun', 'A9a'),
+                img('France_road_sign_A15a1.svg.png', 'Passage d\'animaux domestiques', 'A15a'),
+                img('France_road_sign_A15b.svg.png', 'Passage d\'animaux sauvages', 'A15b'),
+                img('France_road_sign_A15c.svg.png', 'Passage de cavaliers', 'A15c')
+            )}
             <ul>
-                <li><strong>Passage piétons (A13b)</strong> : Très fréquent en ville (Dakar, Thiès, Saint-Louis)</li>
-                <li><strong>Passage d'enfants (A13a)</strong> : Près des écoles — RALENTIR IMPÉRATIVEMENT</li>
-                <li><strong>Passage de cyclistes (A21)</strong> : Débouché de vélos depuis une piste</li>
-                <li><strong>Passage d'animaux domestiques (A15a)</strong> : Vaches, chèvres, moutons (zones rurales)</li>
-                <li><strong>Passage d'animaux sauvages (A15b)</strong> : Zones forestières (Casamance, Niokolo-Koba)</li>
-                <li><strong>Passage de cavaliers (A15c)</strong> : Zones rurales et périurbaines</li>
+                <li><strong>A13b</strong> : Passage piétons — très fréquent en ville (Dakar, Thiès, Saint-Louis)</li>
+                <li><strong>A13a</strong> : Passage d'enfants — RALENTIR IMPÉRATIVEMENT près des écoles</li>
+                <li><strong>A15a</strong> : Vaches, chèvres, moutons (zones rurales sénégalaises)</li>
+                <li><strong>A15b</strong> : Animaux sauvages (Casamance, Niokolo-Koba)</li>
             </ul>
             <div class="success-box">
-                <strong>✅ Conseil Sénégal :</strong> Sur les routes nationales (N1, N2, N3), soyez particulièrement vigilant aux animaux qui traversent, surtout tôt le matin et en fin de journée.
+                <strong>✅ Conseil Sénégal :</strong> Sur les N1, N2, N3, soyez particulièrement vigilant aux animaux, surtout tôt le matin et en fin de journée.
             </div>
 
             <h3>5. Autres dangers</h3>
-            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:1.5rem;margin:1.5rem 0;"><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_A17.svg.png" alt="Feux de signalisation" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>A17</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Feux de signalisation</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_A18.svg.png" alt="Circulation dans les deux sens" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>A18</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Circulation dans les deux sens</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_A23.svg.png" alt="Survol d'avions à basse altitude" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>A23</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Survol d'avions à basse altitude</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_A14.svg.png" alt="Autre danger non spécifié" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>A14</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Autre danger non spécifié</div>
-            </div></div>
+            ${grille(
+                img('France_road_sign_A17.svg.png', 'Feux de signalisation', 'A17'),
+                img('France_road_sign_A18.svg.png', 'Circulation dans les deux sens', 'A18'),
+                img('France_road_sign_A23.svg.png', 'Survol d\'avions', 'A23'),
+                img('France_road_sign_A24.svg.png', 'Autre danger', 'A24'),
+                img('France_road_sign_A14.svg.png', 'Danger non spécifié (!)', 'A14')
+            )}
             <ul>
-                <li><strong>Feux tricolores (A17)</strong> : Intersection avec feux à venir</li>
-                <li><strong>Circulation double sens (A18)</strong> : Fin de route à sens unique</li>
-                <li><strong>Avions bas (A23)</strong> : Proximité d'un aéroport (Dakar-Yoff, Ziguinchor)</li>
-                <li><strong>Autre danger (A14)</strong> : Point d'exclamation = danger variable non spécifié</li>
+                <li><strong>A17</strong> : Feux tricolores à venir</li>
+                <li><strong>A18</strong> : Fin de route à sens unique</li>
+                <li><strong>A23</strong> : Proximité d'un aéroport (Dakar-Yoff, Ziguinchor)</li>
+                <li><strong>A14</strong> : Point d'exclamation = danger variable non spécifié</li>
             </ul>
 
-            <h2>🚦 Conduite à adopter</h2>
+            <h2>🚦 Conduite à adopter face à un panneau de danger</h2>
             <ol>
                 <li><strong>RALENTIR</strong> dès que vous voyez le panneau</li>
                 <li><strong>SCANNER</strong> la zone : regardez loin devant</li>
                 <li><strong>ANTICIPER</strong> : préparez-vous à freiner ou éviter</li>
-                <li><strong>ADAPTER</strong> votre vitesse aux conditions (pluie, nuit)</li>
+                <li><strong>ADAPTER</strong> votre vitesse aux conditions (pluie, nuit, saison sèche)</li>
             </ol>
         `
     },
@@ -198,72 +132,48 @@ const modules = [
                 <strong>💡 Principe clé :</strong> La priorité est LA règle la plus importante pour éviter les accidents aux intersections. Au Sénégal, le non-respect de la priorité est une cause majeure d'accidents.
             </div>
 
-            <h3>1. Priorité à droite — règle générale</h3>
-            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:1.5rem;margin:1.5rem 0;"><div style="text-align:center;min-width:140px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_AB1.svg.png" alt="Intersection — priorité à droite" style="width:140px;height:140px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>AB1</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Intersection — priorité à droite</div>
-            </div><div style="text-align:center;min-width:140px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_AB2.svg.png" alt="Priorité sur route étroite" style="width:140px;height:140px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>AB2</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Priorité sur route étroite</div>
-            </div></div>
+            <h3>1. Intersections sans signalisation — Priorité à droite</h3>
+            ${grille(
+                img('France_road_sign_AB1.svg.png', 'Intersection — priorité à droite', 'AB1'),
+                img('France_road_sign_AB2.svg.png', 'Priorité sur route étroite', 'AB2')
+            )}
             <p>En l'absence de signalisation, vous devez <strong>céder le passage aux véhicules venant de votre droite</strong>.</p>
             <div class="warning-box">
-                <strong>⚠️ Important :</strong> Cette règle s'applique à TOUS les croisements sans signalisation, même dans les petites rues de quartier à Dakar, Rufisque, ou Mbour.
+                <strong>⚠️ Important :</strong> Cette règle s'applique à TOUS les croisements sans signalisation, même dans les petites rues de Dakar, Rufisque ou Mbour.
             </div>
 
             <h3>2. Cédez le passage et Stop</h3>
-            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:1.5rem;margin:1.5rem 0;"><div style="text-align:center;min-width:140px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_AB3a.svg.png" alt="Cédez le passage" style="width:140px;height:140px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>AB3a</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Cédez le passage</div>
-            </div><div style="text-align:center;min-width:140px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_AB3b.svg.png" alt="Cédez le passage à 150 m" style="width:140px;height:140px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>AB3b</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Cédez le passage à 150 m</div>
-            </div><div style="text-align:center;min-width:140px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_AB4.svg.png" alt="Stop — Arrêt absolu obligatoire" style="width:140px;height:140px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>AB4</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Stop — Arrêt absolu obligatoire</div>
-            </div><div style="text-align:center;min-width:140px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_AB5.svg.png" alt="Stop à 150 m" style="width:140px;height:140px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>AB5</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Stop à 150 m</div>
-            </div></div>
+            ${grille(
+                img('France_road_sign_AB3a.svg.png', 'Cédez le passage', 'AB3a'),
+                img('France_road_sign_AB3b.svg.png', 'Cédez le passage à 150 m', 'AB3b'),
+                img('France_road_sign_AB4.svg.png', 'Stop — Arrêt absolu obligatoire', 'AB4'),
+                img('France_road_sign_AB5.svg.png', 'Stop à 150 m', 'AB5')
+            )}
             <ul>
                 <li><strong>STOP (AB4)</strong> : Arrêt TOTAL et COMPLET obligatoire, même si la voie semble libre</li>
-                <li><strong>Stop à 150 m (AB5)</strong> : Panneau avancé, préparez-vous à vous arrêter</li>
+                <li><strong>Stop à 150 m (AB5)</strong> : Panneau avancé — préparez-vous à vous arrêter</li>
                 <li><strong>Cédez le passage (AB3a)</strong> : Triangle inversé — ralentir et laisser passer</li>
-                <li><strong>Cédez le passage à 150 m (AB3b)</strong> : Panneau avancé du cédez le passage</li>
+                <li><strong>Cédez à 150 m (AB3b)</strong> : Panneau avancé du cédez le passage</li>
             </ul>
             <div class="warning-box">
-                <strong>⚠️ Grillage de stop au Sénégal :</strong> Très dangereux et sanctionné ! Nombreux accidents mortels aux stops de Pikine, Guédiawaye, et sur les routes nationales.
+                <strong>⚠️ Grillage de stop au Sénégal :</strong> Infraction très grave ! Nombreux accidents mortels aux stops de Pikine, Guédiawaye et sur les routes nationales.
             </div>
 
             <h3>3. Route prioritaire</h3>
-            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:1.5rem;margin:1.5rem 0;"><div style="text-align:center;min-width:140px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_AB6.svg.png" alt="Route prioritaire (losange jaune)" style="width:140px;height:140px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>AB6</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Route prioritaire (losange jaune)</div>
-            </div><div style="text-align:center;min-width:140px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_AB7.svg.png" alt="Fin de route prioritaire" style="width:140px;height:140px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>AB7</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Fin de route prioritaire</div>
-            </div><div style="text-align:center;min-width:140px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_Road_Sign_AB25.svg.png" alt="Carrefour giratoire (rond-point)" style="width:140px;height:140px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>AB25</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Carrefour giratoire (rond-point)</div>
-            </div></div>
+            ${grille(
+                img('France_road_sign_AB6.svg.png', 'Route prioritaire (losange jaune)', 'AB6'),
+                img('France_road_sign_AB7.svg.png', 'Fin de route prioritaire', 'AB7'),
+                img('France_Road_Sign_AB25.svg.png', 'Carrefour giratoire (rond-point)', 'AB25')
+            )}
             <ul>
-                <li><strong>Route prioritaire (AB6)</strong> : Losange jaune — vous avez la priorité sur les routes qui croisent</li>
-                <li><strong>Fin de priorité (AB7)</strong> : Losange jaune barré — vous redevenez comme les autres</li>
+                <li><strong>Route prioritaire (AB6)</strong> : Losange jaune — vous êtes prioritaire sur les routes qui croisent</li>
+                <li><strong>Fin de priorité (AB7)</strong> : Losange barré — vous redevenez comme les autres</li>
                 <li><strong>Carrefour giratoire (AB25)</strong> : Les véhicules déjà dans le rond-point sont prioritaires</li>
             </ul>
 
             <h3>4. Règles du rond-point</h3>
             <div class="info-box">
-                <strong>🔄 Règle au Sénégal :</strong> Dans un rond-point, les véhicules DÉJÀ engagés sont prioritaires.
+                <strong>🔄 Règle au Sénégal :</strong> Dans un rond-point, les véhicules DÉJÀ engagés sont prioritaires. Vous devez céder le passage avant d'entrer.
             </div>
             <ul>
                 <li><strong>Avant d'entrer :</strong> Ralentir, regarder à gauche, céder le passage</li>
@@ -298,143 +208,101 @@ const modules = [
             </div>
 
             <h3>1. Interdictions d'accès</h3>
-            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:1.5rem;margin:1.5rem 0;"><div style="text-align:center;min-width:110px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_B0.svg.png" alt="Circulation interdite (tous véhicules)" style="width:110px;height:110px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>B0</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Circulation interdite (tous véhicules)</div>
-            </div><div style="text-align:center;min-width:110px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_B1.svg.png" alt="Sens interdit" style="width:110px;height:110px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>B1</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Sens interdit</div>
-            </div><div style="text-align:center;min-width:110px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_B1j.svg.png" alt="Sens interdit (zone)" style="width:110px;height:110px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>B1j</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Sens interdit (zone)</div>
-            </div></div>
+            ${grille(
+                img('France_road_sign_B0.svg.png', 'Circulation interdite (tous véhicules)', 'B0'),
+                img('France_road_sign_B1.svg.png', 'Sens interdit', 'B1'),
+                img('France_road_sign_B1j.svg.png', 'Sens interdit (zone)', 'B1j')
+            )}
             <ul>
-                <li><strong>Circulation interdite (B0)</strong> : Accès interdit à TOUS les véhicules</li>
-                <li><strong>Sens interdit (B1)</strong> : Cercle rouge avec barre blanche — entrée interdite</li>
-                <li><strong>Sens interdit zone (B1j)</strong> : Interdit en zone urbaine délimitée</li>
+                <li><strong>B0</strong> : Accès interdit à TOUS les véhicules</li>
+                <li><strong>B1</strong> : Cercle rouge avec barre blanche — entrée absolument interdite</li>
+                <li><strong>B1j</strong> : Interdit en zone urbaine délimitée</li>
             </ul>
 
-            <h3>2. Interdictions de manœuvre</h3>
-            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:1.5rem;margin:1.5rem 0;"><div style="text-align:center;min-width:110px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_B2a.svg.png" alt="Interdit de tourner à gauche" style="width:110px;height:110px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>B2a</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Interdit de tourner à gauche</div>
-            </div><div style="text-align:center;min-width:110px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_B2b.svg.png" alt="Interdit de tourner à droite" style="width:110px;height:110px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>B2b</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Interdit de tourner à droite</div>
-            </div><div style="text-align:center;min-width:110px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_B2c.svg.png" alt="Demi-tour interdit" style="width:110px;height:110px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>B2c</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Demi-tour interdit</div>
-            </div></div>
+            <h3>2. Interdictions par catégorie de véhicules</h3>
+            ${grille(
+                img('France_road_sign_B7a.svg.png', 'Interdit aux piétons', 'B7a'),
+                img('France_road_sign_B7b.svg.png', 'Interdit aux cyclistes', 'B7b'),
+                img('France_road_sign_B8.svg.png', 'Interdit aux motos', 'B8'),
+                img('France_road_sign_B9a.svg.png', 'Interdit aux voitures', 'B9a'),
+                img('France_road_sign_B9b.svg.png', 'Interdit aux bus', 'B9b'),
+                img('France_road_sign_B9d.svg.png', 'Interdit aux véh. dangereux', 'B9d'),
+                img('France_road_sign_B9f.svg.png', 'Interdit aux poids lourds', 'B9f'),
+                img('France_road_sign_B9g.svg.png', 'Interdit aux tracteurs', 'B9g'),
+                img('France_road_sign_B9h.svg.png', 'Interdit aux véh. lents', 'B9h'),
+                img('France_road_sign_B10a.svg.png', 'Interdit aux cavaliers', 'B10a')
+            )}
+
+            <h3>3. Interdictions de manœuvre</h3>
+            ${grille(
+                img('France_road_sign_B2a.svg.png', 'Interdit de tourner à gauche', 'B2a'),
+                img('France_road_sign_B2b.svg.png', 'Interdit de tourner à droite', 'B2b'),
+                img('France_road_sign_B2c.svg.png', 'Demi-tour interdit', 'B2c')
+            )}
             <ul>
-                <li>Ces panneaux interdisent une direction précise à l'intersection suivante</li>
+                <li>Ces panneaux interdisent une direction précise à l'intersection</li>
                 <li>Flèche barrée = direction interdite</li>
             </ul>
 
-            <h3>3. Interdiction de dépasser</h3>
-            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:1.5rem;margin:1.5rem 0;"><div style="text-align:center;min-width:110px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_B3.svg.png" alt="Dépassement interdit" style="width:110px;height:110px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>B3</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Dépassement interdit</div>
-            </div><div style="text-align:center;min-width:110px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_B3a.svg.png" alt="Dépassement interdit aux poids lourds" style="width:110px;height:110px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>B3a</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Dépassement interdit aux poids lourds</div>
-            </div></div>
+            <h3>4. Interdiction de dépasser</h3>
+            ${grille(
+                img('France_road_sign_B3.svg.png', 'Dépassement interdit', 'B3'),
+                img('France_road_sign_B3a.svg.png', 'Dépassement interdit aux PL', 'B3a')
+            )}
             <ul>
                 <li><strong>B3</strong> : Interdit de dépasser tout véhicule à moteur</li>
                 <li><strong>B3a</strong> : Interdit uniquement pour camions et poids lourds</li>
             </ul>
 
-            <h3>4. Contrôles et postes</h3>
-            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:1.5rem;margin:1.5rem 0;"><div style="text-align:center;min-width:110px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_B4.svg.png" alt="Douane — Arrêt obligatoire" style="width:110px;height:110px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>B4</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Douane — Arrêt obligatoire</div>
-            </div><div style="text-align:center;min-width:110px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_B5a.svg.png" alt="Halte Gendarmerie" style="width:110px;height:110px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>B5a</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Halte Gendarmerie</div>
-            </div></div>
+            <h3>5. Contrôles obligatoires</h3>
+            ${grille(
+                img('France_road_sign_B4.svg.png', 'Douane — Arrêt obligatoire', 'B4'),
+                img('France_road_sign_B5a.svg.png', 'Halte Gendarmerie', 'B5a')
+            )}
             <ul>
-                <li><strong>Douane (B4)</strong> : Arrêt obligatoire au poste frontière</li>
-                <li><strong>Halte gendarmerie (B5a)</strong> : Contrôle obligatoire, s'arrêter impérativement</li>
+                <li><strong>B4</strong> : Arrêt obligatoire au poste frontière (Sénégal–Gambie, Sénégal–Mali...)</li>
+                <li><strong>B5a</strong> : Contrôle gendarmerie — s'arrêter impérativement</li>
             </ul>
 
-            <h3>5. Stationnement et arrêt</h3>
-            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:1.5rem;margin:1.5rem 0;"><div style="text-align:center;min-width:110px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_B6a1.svg.png" alt="Stationnement interdit" style="width:110px;height:110px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>B6a1</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Stationnement interdit</div>
-            </div><div style="text-align:center;min-width:110px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_B6a2.svg.png" alt="Stationnement interdit (zone)" style="width:110px;height:110px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>B6a2</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Stationnement interdit (zone)</div>
-            </div><div style="text-align:center;min-width:110px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_B6a3.svg.png" alt="Stationnement interdit (période alternée)" style="width:110px;height:110px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>B6a3</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Stationnement interdit (période alternée)</div>
-            </div><div style="text-align:center;min-width:110px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_B6d.svg.png" alt="Arrêt et stationnement interdits" style="width:110px;height:110px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>B6d</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Arrêt et stationnement interdits</div>
-            </div></div>
+            <h3>6. Stationnement et arrêt</h3>
+            ${grille(
+                img('France_road_sign_B6a1.svg.png', 'Stationnement interdit', 'B6a1'),
+                img('France_road_sign_B6a2.svg.png', 'Stationnement interdit (zone)', 'B6a2'),
+                img('France_road_sign_B6a3.svg.png', 'Stationnement interdit (alterné)', 'B6a3'),
+                img('France_road_sign_B6d.svg.png', 'Arrêt et stationnement interdits', 'B6d')
+            )}
             <ul>
-                <li><strong>Stationnement interdit (B6a1)</strong> : 1 barre = stationnement interdit (arrêt bref OK)</li>
-                <li><strong>Stationnement interdit zone (B6a2)</strong> : Zone entière concernée</li>
-                <li><strong>Période alternée (B6a3)</strong> : Interdit selon les jours (1-15 / 16-31)</li>
-                <li><strong>Arrêt + stationnement interdits (B6d)</strong> : 2 barres en X = TOUT interdit</li>
+                <li><strong>B6a1</strong> : 1 barre = stationnement interdit (arrêt bref OK)</li>
+                <li><strong>B6a2</strong> : Zone entière concernée</li>
+                <li><strong>B6a3</strong> : Interné selon les jours (1–15 ou 16–31 du mois)</li>
+                <li><strong>B6d</strong> : 2 barres en X = arrêt ET stationnement totalement interdits</li>
             </ul>
             <div class="warning-box">
                 <strong>⚠️ À Dakar :</strong> Stationnement interdit = risque de mise en fourrière + amende (Corniche, Plateau, Almadies).
             </div>
 
-            <h3>6. Limitations physiques</h3>
-            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:1.5rem;margin:1.5rem 0;"><div style="text-align:center;min-width:110px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_B11.svg.png" alt="Largeur max 2,5 m" style="width:110px;height:110px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>B11</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Largeur max 2,5 m</div>
-            </div><div style="text-align:center;min-width:110px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_B12.svg.png" alt="Hauteur max 3,5 m" style="width:110px;height:110px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>B12</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Hauteur max 3,5 m</div>
-            </div><div style="text-align:center;min-width:110px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_B13.svg.png" alt="Poids max 5,5 t" style="width:110px;height:110px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>B13</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Poids max 5,5 t</div>
-            </div><div style="text-align:center;min-width:110px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_B13a.svg.png" alt="Charge par essieu max 2 t" style="width:110px;height:110px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>B13a</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Charge par essieu max 2 t</div>
-            </div></div>
+            <h3>7. Limitations physiques</h3>
+            ${grille(
+                img('France_road_sign_B11.svg.png', 'Largeur max 2,5 m', 'B11'),
+                img('France_road_sign_B12.svg.png', 'Hauteur max 3,5 m', 'B12'),
+                img('France_road_sign_B13.svg.png', 'Poids max 5,5 t', 'B13'),
+                img('France_road_sign_B13a.svg.png', 'Charge/essieu max 2 t', 'B13a')
+            )}
             <ul>
-                <li>Ces panneaux protègent les tunnels, ponts et voiries fragiles</li>
+                <li>Ces panneaux protègent tunnels, ponts et voiries fragiles</li>
                 <li>Fréquents sur les ponts de Dakar et en zones urbaines</li>
             </ul>
 
-            <h3>7. Autres interdictions</h3>
-            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:1.5rem;margin:1.5rem 0;"><div style="text-align:center;min-width:110px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_B14_(80).svg.png" alt="Limitation de vitesse 80 km/h" style="width:110px;height:110px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>B14</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Limitation de vitesse 80 km/h</div>
-            </div><div style="text-align:center;min-width:110px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_B15.svg.png" alt="Priorité au sens inverse" style="width:110px;height:110px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>B15</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Priorité au sens inverse</div>
-            </div><div style="text-align:center;min-width:110px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_B16.svg.png" alt="Klaxon interdit" style="width:110px;height:110px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>B16</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Klaxon interdit</div>
-            </div><div style="text-align:center;min-width:110px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_B17.svg.png" alt="Distance minimale 70 m" style="width:110px;height:110px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>B17</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Distance minimale 70 m</div>
-            </div></div>
+            <h3>8. Vitesse et distance</h3>
+            ${grille(
+                img('France_road_sign_B14_(80).svg.png', 'Limitation de vitesse 80 km/h', 'B14'),
+                img('France_road_sign_B15.svg.png', 'Priorité au sens inverse', 'B15'),
+                img('France_road_sign_B16.svg.png', 'Klaxon interdit', 'B16'),
+                img('France_road_sign_B17.svg.png', 'Distance minimale 70 m', 'B17'),
+                img('France_road_sign_B18b.svg.png', 'Fin d\'interdiction de dépasser', 'B18b'),
+                img('France_road_sign_B18c.svg.png', 'Fin de limitation de vitesse', 'B18c'),
+                img('France_road_sign_B19.svg.png', 'Fin de toutes interdictions', 'B19')
+            )}
             <div class="warning-box">
                 <strong>⚠️ Vitesses légales au Sénégal :</strong>
                 <ul style="margin-top:.5rem;">
@@ -443,6 +311,30 @@ const modules = [
                     <li><strong>Autoroute à péage :</strong> 110 km/h</li>
                 </ul>
             </div>
+
+            <h3>9. Zones réglementées</h3>
+            ${grille(
+                img('France_road_sign_B25_(30).svg.png', 'Zone 30', 'B25'),
+                img('France_road_sign_B27a.svg.png', 'Zone de rencontre', 'B27a'),
+                img('France_road_sign_B29.svg.png', 'Zone résidentielle', 'B29'),
+                img('France_road_sign_B31.svg.png', 'Fin de zone 30', 'B31'),
+                img('France_road_sign_B33_(50).svg.png', 'Fin zone 50', 'B33'),
+                img('France_road_sign_B34.svg.png', 'Fin de zone de rencontre', 'B34'),
+                img('France_road_sign_B34a.svg.png', 'Fin zone résidentielle', 'B34a'),
+                img('France_road_sign_B35.svg.png', 'Fin de zone piétonne', 'B35')
+            )}
+
+            <h3>10. Interdictions spéciales</h3>
+            ${grille(
+                img('France_road_sign_B40.svg.png', 'Interdit aux véh. avec matières dangereuses', 'B40'),
+                img('France_road_sign_B41.svg.png', 'Interdit aux véh. avec eau polluante', 'B41'),
+                img('France_road_sign_B42.svg.png', 'Interdit aux véh. avec explosifs', 'B42'),
+                img('France_road_sign_B43_(30).svg.png', 'Vitesse conseillée 30 (sécurité)', 'B43'),
+                img('France_road_sign_B45a.svg.png', 'Fin d\'obligation port casque', 'B45a'),
+                img('France_road_sign_B53.svg.png', 'Interdit aux appareils de détection', 'B53'),
+                img('France_road_sign_B55.svg.png', 'Interdit aux véh. émettant des sons', 'B55'),
+                img('France_road_sign_B57.svg.png', 'Interdit aux véh. de + de X m', 'B57')
+            )}
         `
     },
     {
@@ -459,73 +351,52 @@ const modules = [
             </div>
 
             <h3>1. Directions obligatoires</h3>
-            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:1.5rem;margin:1.5rem 0;"><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_B21_1.svg.png" alt="Aller à droite (obligation)" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>B21-1</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Aller à droite (obligation)</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_B21_2.svg.png" alt="Aller à gauche (obligation)" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>B21-2</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Aller à gauche (obligation)</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_B21b.svg.png" alt="Tout droit obligatoire" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>B21b</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Tout droit obligatoire</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_B21c1.svg.png" alt="Tout droit ou à droite" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>B21c1</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Tout droit ou à droite</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_B21c2.svg.png" alt="Tout droit ou à gauche" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>B21c2</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Tout droit ou à gauche</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_B21d1.svg.png" alt="Tout droit ou à droite (avant carrefour)" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>B21d1</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Tout droit ou à droite (avant carrefour)</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_B21d2.svg.png" alt="Tout droit ou à gauche (avant carrefour)" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>B21d2</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Tout droit ou à gauche (avant carrefour)</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_B21e.svg.png" alt="À droite ou à gauche" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>B21e</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">À droite ou à gauche</div>
-            </div></div>
+            ${grille(
+                img('France_road_sign_B21-1.svg.png', 'Aller à droite obligatoire', 'B21-1'),
+                img('France_road_sign_B21-2.svg.png', 'Aller à gauche obligatoire', 'B21-2'),
+                img('France_road_sign_B21b.svg.png', 'Tout droit obligatoire', 'B21b'),
+                img('France_road_sign_B21c1.svg.png', 'Tout droit ou à droite', 'B21c1'),
+                img('France_road_sign_B21c2.svg.png', 'Tout droit ou à gauche', 'B21c2'),
+                img('France_road_sign_B21d1.svg.png', 'Tout droit ou droite (avant)', 'B21d1'),
+                img('France_road_sign_B21d2.svg.png', 'Tout droit ou gauche (avant)', 'B21d2'),
+                img('France_road_sign_B21e.svg.png', 'À droite ou à gauche', 'B21e')
+            )}
             <div class="warning-box">
                 <strong>⚠️ Attention :</strong> Ces panneaux imposent une direction. Ne pas les respecter = infraction + danger !
             </div>
 
-            <h3>2. Contournement d'obstacle</h3>
-            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:1.5rem;margin:1.5rem 0;"><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_B21a1.svg.png" alt="Contournement obligatoire par la droite" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>B21a1</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Contournement obligatoire par la droite</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_B21a2.svg.png" alt="Contournement obligatoire par la gauche" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>B21a2</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Contournement obligatoire par la gauche</div>
-            </div></div>
+            <h3>2. Contournement obligatoire d'obstacle</h3>
+            ${grille(
+                img('France_road_sign_B21a1.svg.png', 'Contournement par la droite', 'B21a1'),
+                img('France_road_sign_B21a2.svg.png', 'Contournement par la gauche', 'B21a2')
+            )}
             <ul>
-                <li>Ces panneaux sont placés devant un obstacle (îlot, refuge) à contourner obligatoirement</li>
+                <li>Placés devant un îlot ou refuge à contourner obligatoirement</li>
             </ul>
 
             <h3>3. Pistes et voies réservées</h3>
-            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:1.5rem;margin:1.5rem 0;"><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_B22a.svg.png" alt="Piste cyclable obligatoire" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>B22a</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Piste cyclable obligatoire</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_B22b.svg.png" alt="Voie piétonne obligatoire" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>B22b</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Voie piétonne obligatoire</div>
-            </div></div>
+            ${grille(
+                img('France_road_sign_B22a.svg.png', 'Piste cyclable obligatoire', 'B22a'),
+                img('France_road_sign_B22b.svg.png', 'Voie piétonne obligatoire', 'B22b'),
+                img('France_road_sign_B22c.svg.png', 'Voie mixte piétons-cycles', 'B22c')
+            )}
             <ul>
-                <li><strong>Piste cyclable (B22a)</strong> : Réservée aux vélos, accès interdit aux autres</li>
-                <li><strong>Voie piétonne (B22b)</strong> : Réservée aux piétons</li>
+                <li><strong>B22a</strong> : Réservée aux vélos — les autres véhicules interdits</li>
+                <li><strong>B22b</strong> : Réservée aux piétons</li>
+                <li><strong>B22c</strong> : Partagée piétons + cyclistes</li>
             </ul>
+
+            <h3>4. Vitesse minimale et chaînes</h3>
+            ${grille(
+                img('France_road_sign_B51_(30).svg.png', 'Vitesse minimale 30 km/h', 'B51'),
+                img('France_road_sign_B50a.svg.png', 'Chaînes obligatoires (tous véh.)', 'B50a'),
+                img('France_road_sign_B50b.svg.png', 'Chaînes (véh. à moteur)', 'B50b'),
+                img('France_road_sign_B50c.svg.png', 'Chaînes (véh. légères)', 'B50c'),
+                img('France_road_sign_B50d.svg.png', 'Chaînes (poids lourds)', 'B50d'),
+                img('France_road_sign_B50e.svg.png', 'Chaînes (certains véh.)', 'B50e')
+            )}
             <div class="success-box">
-                <strong>✅ Au Sénégal :</strong> Les pistes cyclables sont en développement à Dakar (Corniche, VDN). Respectez ces espaces !
+                <strong>✅ Au Sénégal :</strong> Les pistes cyclables sont en développement à Dakar (Corniche, VDN). Respectez ces espaces réservés !
             </div>
         `
     },
@@ -543,154 +414,65 @@ const modules = [
             </div>
 
             <h3>1. Types de voies</h3>
-            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:1.5rem;margin:1.5rem 0;"><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/Autoroute_F.svg.png" alt="Début d'autoroute" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong></strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Début d'autoroute</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/Autoroute_F_(fin).svg.png" alt="Fin d'autoroute" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong></strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Fin d'autoroute</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/Voie_express_F.svg.png" alt="Début de voie express" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong></strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Début de voie express</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/Voie_express_F_(fin).svg.png" alt="Fin de voie express" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong></strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Fin de voie express</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_C18.svg.png" alt="Circulation alternée" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>C18</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Circulation alternée</div>
-            </div></div>
+            ${grille(
+                img('Autoroute_F.svg.png', 'Début d\'autoroute', ''),
+                img('Autoroute_F_(fin).svg.png', 'Fin d\'autoroute', ''),
+                img('Voie_express_F.svg.png', 'Début de voie express', ''),
+                img('Voie_express_F_(fin).svg.png', 'Fin de voie express', ''),
+                img('C18.svg.png', 'Circulation alternée', 'C18')
+            )}
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin:1rem 0;">
                 <div style="background:#00aa00;color:white;padding:1rem;border-radius:8px;">
-                    <div style="font-size:1.5rem;margin-bottom:0.5rem;">🛣️ VERT</div>
-                    <strong>Autoroutes</strong>
-                    <div style="font-size:0.9rem;margin-top:0.5rem;">Dakar-Diamniadio<br>110 km/h max</div>
+                    <div style="font-size:1.5rem;">🛣️ VERT</div>
+                    <strong>Autoroutes</strong><br>Dakar-Diamniadio — 110 km/h max
                 </div>
                 <div style="background:#0066cc;color:white;padding:1rem;border-radius:8px;">
-                    <div style="font-size:1.5rem;margin-bottom:0.5rem;">🛤️ BLEU</div>
-                    <strong>Routes principales</strong>
-                    <div style="font-size:0.9rem;margin-top:0.5rem;">N1, N2, N3...<br>Routes nationales</div>
+                    <div style="font-size:1.5rem;">🛤️ BLEU</div>
+                    <strong>Routes principales</strong><br>N1, N2, N3... — 90 km/h
                 </div>
                 <div style="background:white;border:2px solid #333;padding:1rem;border-radius:8px;">
-                    <div style="font-size:1.5rem;margin-bottom:0.5rem;">🛣️ BLANC</div>
-                    <strong>Routes secondaires</strong>
-                    <div style="font-size:0.9rem;margin-top:0.5rem;">Routes locales</div>
+                    <div style="font-size:1.5rem;">🛣️ BLANC</div>
+                    <strong>Routes secondaires</strong><br>Routes locales
                 </div>
                 <div style="background:#ffcc00;padding:1rem;border-radius:8px;">
-                    <div style="font-size:1.5rem;margin-bottom:0.5rem;">🚧 JAUNE</div>
-                    <strong>Temporaires</strong>
-                    <div style="font-size:0.9rem;margin-top:0.5rem;">Déviations / Travaux</div>
+                    <div style="font-size:1.5rem;">🚧 JAUNE</div>
+                    <strong>Temporaires</strong><br>Déviations / Travaux
                 </div>
             </div>
 
             <h3>2. Stationnement et services</h3>
-            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:1.5rem;margin:1.5rem 0;"><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_C1a.svg.png" alt="Parking" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>C1a</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Parking</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_C1b.svg.png" alt="Parking horodateur" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>C1b</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Parking horodateur</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_C1c.svg.png" alt="Parking payant" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>C1c</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Parking payant</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_C4a_(50).svg.png" alt="Vitesse conseillée 50 km/h" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>C4a</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Vitesse conseillée 50 km/h</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_C4b_(50).svg.png" alt="Fin vitesse conseillée" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>C4b</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Fin vitesse conseillée</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_C5.svg.png" alt="Station de taxis" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>C5</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Station de taxis</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_C6.svg.png" alt="Arrêt de bus" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>C6</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Arrêt de bus</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_CE1.svg.png" alt="Poste de secours" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>CE1</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Poste de secours</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_C64a.svg.png" alt="Poste de péage" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>C64a</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Poste de péage</div>
-            </div></div>
+            ${grille(
+                img('France_road_sign_C1a.svg.png', 'Parking', 'C1a'),
+                img('France_road_sign_C1b.svg.png', 'Parking horodateur', 'C1b'),
+                img('France_road_sign_C1c.svg.png', 'Parking payant', 'C1c'),
+                img('France_road_sign_C4a_(50).svg.png', 'Vitesse conseillée 50 km/h', 'C4a'),
+                img('France_road_sign_C4b_(50).svg.png', 'Fin vitesse conseillée', 'C4b'),
+                img('France_road_sign_C5.svg.png', 'Station de taxis', 'C5'),
+                img('France_road_sign_C6.svg.png', 'Arrêt de bus', 'C6'),
+                img('France_road_sign_CE1.svg.png', 'Poste de secours', 'CE1'),
+                img('France_road_sign_C64a.svg.png', 'Poste de péage', 'C64a')
+            )}
             <div class="warning-box">
-                <strong>⚠️ À Dakar :</strong>
-                <ul style="margin-top:.5rem;">
-                    <li>Plateau : Stationnement payant obligatoire (parc mètres)</li>
-                    <li>Corniche : Stationnement réglementé</li>
-                    <li>Sanctions : Amende + mise en fourrière</li>
-                </ul>
+                <strong>⚠️ À Dakar :</strong> Stationnement payant obligatoire au Plateau, Corniche. Sanctions : amende + mise en fourrière.
             </div>
 
             <h3>3. Circulation et directions</h3>
-            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:1.5rem;margin:1.5rem 0;"><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_C12.svg.png" alt="Sens unique" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>C12</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Sens unique</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_C8.svg.png" alt="Voie lente (véhicules lents)" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>C8</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Voie lente (véhicules lents)</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_C9.svg.png" alt="Voie de covoiturage" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>C9</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Voie de covoiturage</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_C13a.svg.png" alt="Impasse" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>C13a</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Impasse</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_C13b.svg.png" alt="Impasse — passage à droite" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>C13b</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Impasse — passage à droite</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_C13c.svg.png" alt="Impasse — passage piétons" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>C13c</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Impasse — passage piétons</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_C13d.svg.png" alt="Impasse — passage cyclistes" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>C13d</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Impasse — passage cyclistes</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_C20a.svg.png" alt="Passage piétons (indication)" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>C20a</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Passage piétons (indication)</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_C24a.svg.png" alt="Nombre de voies de circulation" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>C24a</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Nombre de voies de circulation</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_C26a.svg.png" alt="Voie de déviation à droite" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>C26a</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Voie de déviation à droite</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_C26b.svg.png" alt="Voie de déviation à gauche" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>C26b</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Voie de déviation à gauche</div>
-            </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_C27.svg.png" alt="Dos d'âne (indication)" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-                <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>C27</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Dos d'âne (indication)</div>
-            </div></div>
+            ${grille(
+                img('France_road_sign_C12.svg.png', 'Sens unique', 'C12'),
+                img('France_road_sign_C8.svg.png', 'Voie lente (véhicules lents)', 'C8'),
+                img('France_road_sign_C9.svg.png', 'Voie de covoiturage', 'C9'),
+                img('France_road_sign_C13a.svg.png', 'Impasse', 'C13a'),
+                img('France_road_sign_C13b.svg.png', 'Impasse — passage à droite', 'C13b'),
+                img('France_road_sign_C13c.svg.png', 'Impasse — passage piétons', 'C13c'),
+                img('France_road_sign_C13d.svg.png', 'Impasse — passage cyclistes', 'C13d'),
+                img('France_road_sign_C20a.svg.png', 'Passage piétons (indication)', 'C20a'),
+                img('France_road_sign_C24a.svg.png', 'Nombre de voies', 'C24a'),
+                img('France_road_sign_C26a.svg.png', 'Déviation à droite', 'C26a'),
+                img('France_road_sign_C26b.svg.png', 'Déviation à gauche', 'C26b'),
+                img('France_road_sign_C27.svg.png', 'Dos d\'âne (indication)', 'C27')
+            )}
             <div class="success-box">
-                <strong>✅ Péage au Sénégal :</strong>
-                <ul style="margin-top:.5rem;">
-                    <li>Tarifs selon distance et véhicule</li>
-                    <li>Paiement : Espèces ou badge</li>
-                    <li>Postes : Diamniadio, Sindia, Thiès</li>
-                </ul>
+                <strong>✅ Péage au Sénégal :</strong> Tarifs selon la distance et le type de véhicule. Paiement en espèces ou badge. Postes principaux : Diamniadio, Sindia, Thiès.
             </div>
         `
     },
@@ -734,7 +516,7 @@ const modules = [
                         <div style="width:30px;height:4px;background:#000;"></div>
                         <div style="width:30px;height:4px;background:#000;"></div>
                     </div>
-                    <small style="margin-top:0.5rem;display:block;">Ligne discontinue<br><strong>Dépassement AUTORISÉ</strong></small>
+                    <small style="margin-top:0.5rem;display:block;">Ligne discontinue<br><strong>Dépassement AUTORISÉ (si voie libre)</strong></small>
                 </div>
             </div>
 
@@ -747,7 +529,7 @@ const modules = [
                 <div style="flex:1;height:80px;background:#fff;border:2px solid #ccc;"></div>
                 <div style="flex:1;height:80px;background:#333;"></div>
             </div>
-            <p><strong>"Zèbres"</strong> : Bandes blanches et noires alternées — piétons prioritaires</p>
+            <p><strong>"Zèbres"</strong> : Bandes blanches et noires alternées — piétons PRIORITAIRES</p>
             <div class="warning-box">
                 <strong>⚠️ Important :</strong> À Dakar, Thiès, Saint-Louis : les piétons sont prioritaires sur les passages cloutés. Ralentissez et arrêtez-vous systématiquement.
             </div>
@@ -780,7 +562,7 @@ const modules = [
             <h3>1. Les trois couleurs</h3>
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin:1rem 0;">
                 <div style="background:#dc143c;color:white;padding:1.5rem;border-radius:12px;text-align:center;">
-                    <div style="font-size:4rem;margin-bottom:0.5rem;">🔴</div>
+                    <div style="font-size:4rem;">🔴</div>
                     <h4>FEU ROUGE</h4>
                     <strong>ARRÊT OBLIGATOIRE</strong>
                     <ul style="text-align:left;margin-top:1rem;font-size:0.9rem;">
@@ -790,7 +572,7 @@ const modules = [
                     </ul>
                 </div>
                 <div style="background:#e67e00;color:white;padding:1.5rem;border-radius:12px;text-align:center;">
-                    <div style="font-size:4rem;margin-bottom:0.5rem;">🟠</div>
+                    <div style="font-size:4rem;">🟠</div>
                     <h4>FEU ORANGE</h4>
                     <strong>RALENTIR ET S'ARRÊTER</strong>
                     <ul style="text-align:left;margin-top:1rem;font-size:0.9rem;">
@@ -800,7 +582,7 @@ const modules = [
                     </ul>
                 </div>
                 <div style="background:#228b22;color:white;padding:1.5rem;border-radius:12px;text-align:center;">
-                    <div style="font-size:4rem;margin-bottom:0.5rem;">🟢</div>
+                    <div style="font-size:4rem;">🟢</div>
                     <h4>FEU VERT</h4>
                     <strong>PASSAGE AUTORISÉ</strong>
                     <ul style="text-align:left;margin-top:1rem;font-size:0.9rem;">
