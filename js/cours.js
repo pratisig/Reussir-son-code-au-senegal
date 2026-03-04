@@ -161,25 +161,25 @@ const modules = [
                 <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>AB3a</strong></div>
                 <div style="font-size:0.8rem;margin-top:0.25rem;">Stop - Arrêt obligatoire</div>
             </div><div style="text-align:center;min-width:140px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_AB3b.svg.png" alt="Stop avec distance" style="width:140px;height:140px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
+                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_AB3b.svg.png" alt="Cédez le passage" style="width:140px;height:140px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
                 <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>AB3b</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Stop avec distance</div>
+                <div style="font-size:0.8rem;margin-top:0.25rem;">Cédez le passage</div>
             </div><div style="text-align:center;min-width:140px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_AB4.svg.png" alt="Priorité ponctuelle" style="width:140px;height:140px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
+                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_AB4.svg.png" alt="Route prioritaire (losange jaune)" style="width:140px;height:140px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
                 <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>AB4</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Priorité ponctuelle</div>
+                <div style="font-size:0.8rem;margin-top:0.25rem;">Fin de route prioritaire</div>
             </div><div style="text-align:center;min-width:140px;">
                 <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_AB5.svg.png" alt="Intersection avec route prioritaire" style="width:140px;height:140px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
                 <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>AB5</strong></div>
                 <div style="font-size:0.8rem;margin-top:0.25rem;">Intersection avec route prioritaire</div>
             </div><div style="text-align:center;min-width:140px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_AB6.svg.png" alt="Priorité à la circulation venant en sens inverse" style="width:140px;height:140px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
+                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_AB6.svg.png" alt="Céder le passage au sens inverse" style="width:140px;height:140px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
                 <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>AB6</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Priorité à la circulation venant en sens inverse</div>
+                <div style="font-size:0.8rem;margin-top:0.25rem;">Céder le passage au sens inverse</div>
             </div><div style="text-align:center;min-width:140px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_AB7.svg.png" alt="Route prioritaire" style="width:140px;height:140px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
+                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_AB7.svg.png" alt="Fin de route prioritaire" style="width:140px;height:140px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
                 <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>AB7</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Route prioritaire</div>
+                <div style="font-size:0.8rem;margin-top:0.25rem;">Fin de route prioritaire</div>
             </div><div style="text-align:center;min-width:140px;">
                 <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_Road_Sign_AB25.svg.png" alt="Rond-point" style="width:140px;height:140px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
                 <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>AB25</strong></div>
@@ -187,9 +187,9 @@ const modules = [
             </div></div>
             <ul>
                 <li><strong>STOP (AB3a)</strong> : Arrêt TOTAL obligatoire, même si la voie semble libre</li>
-                <li><strong>Cédez le passage (AB3b)</strong> : Triangle inversé - Ralentir et céder</li>
-                <li><strong>Route prioritaire (AB6)</strong> : Losange jaune - Vous êtes prioritaire</li>
-                <li><strong>Fin de priorité (AB7)</strong> : Losange barré</li>
+                <li><strong>Cédez le passage (AB3b)</strong> : Triangle inversé rouge/blanc - Ralentir et céder le passage</li>
+                <li><strong>Route prioritaire (AB4)</strong> : Losange jaune - Vous êtes prioritaire</li>
+                <li><strong>Fin de priorité (AB7)</strong> : Losange jaune barré - Fin de votre priorité</li>
                 <li><strong>Carrefour giratoire (AB25)</strong> : Priorité aux véhicules déjà dans le rond-point</li>
             </ul>
 
@@ -248,13 +248,13 @@ const modules = [
 
             <h3>1. Interdictions de circulation</h3>
             <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:1.5rem;margin:1.5rem 0;"><div style="text-align:center;min-width:110px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_B21a1.svg.png" alt="Contournement obligatoire par la droite" style="width:110px;height:110px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
+                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_B21a1.svg.png" alt="Obligation : contourner par la droite" style="width:110px;height:110px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
                 <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>B21a1</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Contournement obligatoire par la droite</div>
+                <div style="font-size:0.8rem;margin-top:0.25rem;">Contourner obligatoirement à droite</div>
             </div><div style="text-align:center;min-width:110px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_B21a2.svg.png" alt="Contournement obligatoire par la gauche" style="width:110px;height:110px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
+                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_B21a2.svg.png" alt="Obligation : contourner par la gauche" style="width:110px;height:110px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
                 <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>B21a2</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Contournement obligatoire par la gauche</div>
+                <div style="font-size:0.8rem;margin-top:0.25rem;">Contourner obligatoirement à gauche</div>
             </div><div style="text-align:center;min-width:110px;">
                 <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_B21b.svg.png" alt="Contournement possible des deux côtés" style="width:110px;height:110px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
                 <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>B21b</strong></div>
@@ -324,28 +324,28 @@ const modules = [
 
             <h3>1. Directions obligatoires</h3>
             <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:1.5rem;margin:1.5rem 0;"><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_C12.svg.png" alt="Vitesse minimale obligatoire" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
+                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_C12.svg.png" alt="Obligation d'aller tout droit" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
                 <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>C12</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Vitesse minimale obligatoire</div>
+                <div style="font-size:0.8rem;margin-top:0.25rem;">Obligation d'aller tout droit</div>
             </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_C13a.svg.png" alt="Chaînes à neige obligatoires" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
+                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_C13a.svg.png" alt="Obligation de tourner à gauche" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
                 <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>C13a</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Chaînes à neige obligatoires</div>
+                <div style="font-size:0.8rem;margin-top:0.25rem;">Tourner à gauche obligatoire</div>
             </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_C13b.svg.png" alt="Pneus neige obligatoires" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
+                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_C13b.svg.png" alt="Obligation de tourner à droite" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
                 <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>C13b</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Pneus neige obligatoires</div>
+                <div style="font-size:0.8rem;margin-top:0.25rem;">Tourner à droite obligatoire</div>
             </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_C13c.svg.png" alt="Fin d'obligation des chaînes" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
+                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_C13c.svg.png" alt="Fin d'obligation de direction" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
                 <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>C13c</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Fin d'obligation des chaînes</div>
+                <div style="font-size:0.8rem;margin-top:0.25rem;">Fin d'obligation de direction</div>
             </div><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_C13d.svg.png" alt="Équipements spéciaux obligatoires" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
+                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_C13d.svg.png" alt="Équipements obligatoires (4x4, véhicule spécial)" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
                 <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>C13d</strong></div>
                 <div style="font-size:0.8rem;margin-top:0.25rem;">Équipements spéciaux obligatoires</div>
             </div></div>
             <div class="warning-box">
-                <strong>⚠️ Attention :</strong> Ces panneaux sont placés AVANT l'intersection. Ne pas les respecter = infraction + danger !
+                <strong>⚠️ Attention :</strong> Ces panneaux d'obligation (fond bleu) imposent une direction ou une action. Ne pas les respecter = infraction + danger !
             </div>
 
             <h3>2. Contournement d'obstacle</h3>
@@ -353,9 +353,9 @@ const modules = [
 
             <h3>3. Pistes et voies réservées</h3>
             <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:1.5rem;margin:1.5rem 0;"><div style="text-align:center;min-width:120px;">
-                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_C113.svg.png" alt="Parking réservé aux autocars" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
+                <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_C113.svg.png" alt="Arrêt de bus obligatoire" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
                 <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>C113</strong></div>
-                <div style="font-size:0.8rem;margin-top:0.25rem;">Parking réservé aux autocars</div>
+                <div style="font-size:0.8rem;margin-top:0.25rem;">Arrêt de bus</div>
             </div><div style="text-align:center;min-width:120px;">
                 <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_C114.svg.png" alt="Parking réservé aux véhicules équipés pour handicapés" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
                 <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>C114</strong></div>
@@ -421,7 +421,7 @@ const modules = [
                 </div>
             </div>
 
-            <h3>2. Stationnement</h3>
+            <h3>2. Directions obligatoires (signalisation avancée)</h3>
 <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:1.5rem;margin:1.5rem 0;"><div style="text-align:center;min-width:120px;">
                 <img src="https://raw.githubusercontent.com/pratisig/Reussir-son-code-au-senegal/main/Panneaux/France_road_sign_C1a.svg.png" alt="Obligation de tourner à gauche" style="width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
                 <div style="font-size:0.75rem;color:#94a3b8;margin-top:0.5rem;"><strong>C1a</strong></div>
