@@ -1,27 +1,74 @@
 {
   "name": "Code de la Route - Sénégal",
   "short_name": "Code SN",
-  "description": "Préparation à l'examen du permis de conduire au Sénégal",
-  "start_url": "/",
+  "description": "Préparez votre examen du permis de conduire au Sénégal. 300 questions, 12 séries B1 à B12, correction détaillée.",
+  "start_url": "/index.html?utm_source=pwa",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#0f172a",
   "theme_color": "#00853F",
   "orientation": "portrait-primary",
+  "lang": "fr-SN",
+  "dir": "ltr",
+  "categories": ["education", "productivity"],
+  "iarc_rating_id": "",
+  "prefer_related_applications": false,
   "icons": [
     {
       "src": "/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
     },
     {
       "src": "/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ],
-  "categories": ["education", "productivity"],
-  "lang": "fr-SN",
-  "dir": "ltr"
+  "screenshots": [
+    {
+      "src": "/images/screenshot1.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Écran d'accueil - Séries disponibles"
+    },
+    {
+      "src": "/images/screenshot2.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Quiz - Question avec image"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Commencer une série",
+      "short_name": "Séries",
+      "description": "Accéder directement aux séries de questions",
+      "url": "/index.html#series",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Examen Blanc",
+      "short_name": "Examen",
+      "description": "Démarrer un examen blanc",
+      "url": "/index.html#exam",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
 }
