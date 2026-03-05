@@ -1,8 +1,8 @@
 {
-  "name": "Code de la Route - Sénégal",
-  "short_name": "Code SN",
-  "description": "Préparez votre examen du permis de conduire au Sénégal. 300 questions, 12 séries B1 à B12, correction détaillée.",
-  "start_url": "/index.html?utm_source=pwa",
+  "name": "Réussir son Code au Sénégal",
+  "short_name": "Code Sénégal",
+  "description": "Préparez votre examen du permis de conduire au Sénégal. 300 questions, 12 séries B1 à B12, correction détaillée, mode révision et test de connaissance.",
+  "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "background_color": "#0f172a",
@@ -10,33 +10,20 @@
   "orientation": "portrait-primary",
   "lang": "fr-SN",
   "dir": "ltr",
-  "categories": ["education", "productivity"],
-  "iarc_rating_id": "",
+  "categories": ["education", "productivity", "reference"],
   "prefer_related_applications": false,
   "icons": [
     {
       "src": "/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "maskable"
+      "purpose": "any maskable"
     },
     {
       "src": "/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
+      "purpose": "any maskable"
     }
   ],
   "screenshots": [
@@ -57,18 +44,25 @@
   ],
   "shortcuts": [
     {
-      "name": "Commencer une série",
+      "name": "Examen Blanc",
       "short_name": "Séries",
-      "description": "Accéder directement aux séries de questions",
-      "url": "/index.html#series",
-      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+      "description": "Accéder directement aux séries B1-B12",
+      "url": "/#series",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" }]
     },
     {
-      "name": "Examen Blanc",
-      "short_name": "Examen",
-      "description": "Démarrer un examen blanc",
-      "url": "/index.html#exam",
-      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+      "name": "Test de Connaissance",
+      "short_name": "Test",
+      "description": "25 questions aléatoires",
+      "url": "/#exam",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" }]
+    },
+    {
+      "name": "Mode Révision",
+      "short_name": "Révision",
+      "description": "Revoir vos erreurs",
+      "url": "/#revision",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" }]
     }
   ]
 }
