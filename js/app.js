@@ -28,7 +28,7 @@ let state = {
     progress: JSON.parse(localStorage.getItem('quizProgress') || '{}'),
     history: [],
     mode: 'normal',
-    forceLogoutUnsubscribe: null  // ← listener de déconnexion forcée
+    forceLogoutUnsubscribe: null
 };
 
 // ========== INIT ==========
@@ -74,12 +74,9 @@ async function loadUserData(uid) {
             if (result.expired) {
                 alert('⚠️ Votre abonnement Premium a expiré. Vous avez accès à B1 et B2 uniquement.');
             }
-            // Démarrer l'écoute de déconnexion forcée
             if (state.forceLogoutUnsubscribe) state.forceLogoutUnsubscribe();
             state.forceLogoutUnsubscribe = watchForceLogout(uid);
         } else {
-            // Ne devrait plus arriver (on évince le plus ancien),
-            // mais on garde en fallback pour les comptes non-premium
             state.isPremium = false;
         }
 
@@ -113,7 +110,6 @@ function handleLogout() {
         state.forceLogoutUnsubscribe = null;
     }
     if (typeof auth !== 'undefined') {
-        // Retirer cet appareil de la liste au moment de la déconnexion volontaire
         const uid = auth.currentUser ? auth.currentUser.uid : null;
         const deviceId = getDeviceId();
         const cleanup = uid
@@ -263,7 +259,7 @@ function startRevisionMode(series) {
     renderQuestion();
 }
 
-// ========== EXAMEN BLANC ==========
+// ========== TEST DE CONNAISSANCE ==========
 function startExamBlanc() {
     const allQuestions = [];
     Object.keys(quizData).forEach(s => {
@@ -290,7 +286,7 @@ function startExamBlanc() {
     state.locked = shuffled.map(() => false);
     state.startTime = Date.now();
 
-    document.getElementById('quizSerieName').textContent = '🎯 Examen Blanc';
+    document.getElementById('quizSerieName').textContent = '🎯 Test de Connaissance';
     document.getElementById('qTotal').textContent = 25;
 
     clearInterval(state.timerInterval);
@@ -441,7 +437,13 @@ function validateAndNext() {
         return;
     }
     state.locked[i] = true;
-    renderQuestion();
+    
+    // Si c'est la dernière question, terminer automatiquement
+    if (i === state.questions.length - 1) {
+        finishQuiz();
+    } else {
+        renderQuestion();
+    }
 }
 
 function goNext() {
@@ -479,7 +481,7 @@ function finishQuiz() {
     }
 
     const historyEntry = {
-        series: state.mode === 'exam' ? 'Examen Blanc' : state.series,
+        series: state.mode === 'exam' ? 'Test de Connaissance' : state.series,
         score: correct,
         errors,
         admis,
@@ -493,7 +495,7 @@ function finishQuiz() {
     document.getElementById('resultBadge').textContent = admis ? '🎉' : '📋';
     document.getElementById('resultVerdict').textContent = admis ? 'ADMIS !' : 'AJOURNÉ';
     document.getElementById('resultVerdict').className = 'result-verdict ' + (admis ? 'admis' : 'ajourn');
-    document.getElementById('resultSerie').textContent = (state.mode === 'exam' ? 'Examen Blanc' : `Série ${state.series}`) + ` : ${correct}/${state.questions.length} (${errors} erreurs)`;
+    document.getElementById('resultSerie').textContent = (state.mode === 'exam' ? 'Test de Connaissance' : `Série ${state.series}`) + ` : ${correct}/${state.questions.length} (${errors} erreurs)`;
     document.getElementById('statCorrect').textContent = correct;
     document.getElementById('statWrong').textContent = errors;
     document.getElementById('statTime').textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
