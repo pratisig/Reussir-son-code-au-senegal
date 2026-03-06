@@ -441,9 +441,10 @@ function validateAndNext() {
     // Si c'est la dernière question, terminer automatiquement
     if (i === state.questions.length - 1) {
         finishQuiz();
-    } else {
-        renderQuestion();
+        return; // CORRECTION: Empêche l'appel à renderQuestion() après finishQuiz()
     }
+    
+    renderQuestion();
 }
 
 function goNext() {
