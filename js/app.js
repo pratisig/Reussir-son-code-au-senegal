@@ -256,10 +256,10 @@ function renderQuestion() {
         hintEl.style.display = 'block';
         const hasTop = currentSel.some(x => x <= 1);
         const hasBot = currentSel.some(x => x >= 2);
-        if (currentSel.length === 0)           hintEl.textContent = 'ℹ️ Choisissez 1 réponse en haut (A/B) ET 1 en bas (C/D)';
-        else if (currentSel.length === 1 && hasTop) hintEl.textContent = '👇 Choisissez maintenant une réponse en bas (C ou D)';
-        else if (currentSel.length === 1 && hasBot) hintEl.textContent = '👆 Choisissez maintenant une réponse en haut (A ou B)';
-        else hintEl.textContent = '✅ 2 réponses sélectionnées — cliquez Valider';
+        if (currentSel.length === 0)                hintEl.textContent = 'ℹ️ Choisissez 1 réponse en haut (A/B) ET 1 en bas (C/D)';
+        else if (currentSel.length === 1 && hasTop)  hintEl.textContent = '👇 Choisissez maintenant une réponse en bas (C ou D)';
+        else if (currentSel.length === 1 && hasBot)  hintEl.textContent = '👆 Choisissez maintenant une réponse en haut (A ou B)';
+        else                                         hintEl.textContent = '✅ 2 réponses sélectionnées — cliquez Valider';
     } else {
         hintEl.style.display = 'none';
     }
@@ -298,15 +298,17 @@ function renderQuestion() {
         container.appendChild(div);
     }
 
-    // ===== BOUTON PRINCIPAL =====
-    // Logique simplifiee : pas de re-render intermediaire sur la derniere question
-    // Valider sur derniere question -> verrouille ET lance finishQuiz directement
+    // ===== BOUTON PRINCIPAL — réassigné à chaque render =====
     const btn = document.getElementById('nextBtn');
+
     if (isLast) {
+        // Dernière question
         if (locked) {
+            // Déjà validée (ex: retour arrière puis retour) → accès direct aux résultats
             btn.textContent = '🏁 Voir les résultats';
-            btn.onclick = finishQuiz;
+            btn.onclick = function() { finishQuiz(); };
         } else {
+            // Pas encore validée → Valider & Terminer
             btn.textContent = 'Valider & Terminer';
             btn.onclick = function() {
                 if (state.answers[state.qIndex].length === 0) {
@@ -314,13 +316,14 @@ function renderQuestion() {
                     return;
                 }
                 state.locked[state.qIndex] = true;
-                finishQuiz(); // on va directement aux resultats, pas de re-render
+                finishQuiz(); // direct, sans re-render intermédiaire
             };
         }
     } else {
+        // Questions intermédiaires
         if (locked) {
             btn.textContent = 'Suivant →';
-            btn.onclick = goNext;
+            btn.onclick = function() { goNext(); };
         } else {
             btn.textContent = 'Valider';
             btn.onclick = function() {
@@ -329,7 +332,7 @@ function renderQuestion() {
                     return;
                 }
                 state.locked[state.qIndex] = true;
-                renderQuestion();
+                renderQuestion(); // re-render pour afficher la correction
             };
         }
     }
@@ -363,6 +366,7 @@ function goNext() {
     }
 }
 
+// prevQuestion reappelle renderQuestion → texte + comportement du bouton toujours à jour
 function prevQuestion() {
     if (state.qIndex > 0) {
         state.qIndex--;
