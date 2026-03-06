@@ -98,7 +98,6 @@ function initApp() {
     renderSeriesGrid();
     showScreen('screen-welcome');
     
-    // Attacher l'événement du bouton principal UNE SEULE FOIS
     const nextBtn = document.getElementById('nextBtn');
     if (nextBtn) {
         nextBtn.onclick = handleNextBtnClick;
@@ -258,7 +257,6 @@ function renderQuestion() {
     document.getElementById('qNum').textContent = i + 1;
     document.getElementById('alertAnswer').classList.remove('show');
 
-    // Hint multi-choix
     const hintEl = document.getElementById('hintMulti');
     if (isMulti && !locked) {
         hintEl.style.display = 'block';
@@ -272,13 +270,11 @@ function renderQuestion() {
         hintEl.style.display = 'none';
     }
 
-    // Image
     const imgEl = document.getElementById('questionImg');
     imgEl.src = `images/${qObj.series}_Q${qObj.qNum}.jpg`;
     imgEl.style.display = 'block';
     document.getElementById('imgPlaceholder').style.display = 'none';
 
-    // Options
     const container = document.getElementById('optionsContainer');
     container.innerHTML = '';
     const labels = ['A', 'B', 'C', 'D'];
@@ -306,7 +302,6 @@ function renderQuestion() {
         container.appendChild(div);
     }
 
-    // ===== BOUTON PRINCIPAL — on ne fait que mettre à jour son texte =====
     const btn = document.getElementById('nextBtn');
     if (isLast) {
         btn.textContent = locked ? '🏁 Voir les résultats' : 'Valider & Terminer';
@@ -315,7 +310,6 @@ function renderQuestion() {
     }
 }
 
-// ===== GESTIONNAIRE GLOBAL DU CLIC "SUIVANT" =====
 function handleNextBtnClick() {
     if (!state.questions || state.questions.length === 0) return;
     
@@ -404,9 +398,6 @@ function finishQuiz() {
             saveProgress();
         }
 
-        // L'ERREUR ÉTAIT ICI : Firebase Firestore plante souvent silencieusement 
-        // quand on essaie de sauvegarder un objet Date() natif dans un tableau imbriqué.
-        // Utiliser Date.now() (un timestamp entier) résout ce problème.
         state.history.push({
             series: state.mode === 'exam' ? 'Test de Connaissance' : state.series,
             score: correct, errors, admis, time: total,
@@ -415,45 +406,53 @@ function finishQuiz() {
         });
         saveHistory();
 
-        const badgeEl = document.getElementById('resultBadge');
-        if (badgeEl) badgeEl.textContent = admis ? '🎉' : '📋';
-        
-        const verdictEl = document.getElementById('resultVerdict');
-        if (verdictEl) {
-            verdictEl.textContent = admis ? 'ADMIS !' : 'AJOURNÉ';
-            verdictEl.className = 'result-verdict ' + (admis ? 'admis' : 'ajourn');
-        }
-        
-        const serieEl = document.getElementById('resultSerie');
-        if (serieEl) {
-            serieEl.textContent = (state.mode === 'exam' ? 'Test de Connaissance' : `Série ${state.series}`) + ` : ${correct}/${state.questions.length} (${errors} erreurs)`;
-        }
-
-        const sc = document.getElementById('statCorrect'); if(sc) sc.textContent = correct;
-        const sw = document.getElementById('statWrong'); if(sw) sw.textContent = errors;
-        const st = document.getElementById('statTime'); if(st) st.textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
-
-        const grid = document.getElementById('questionsGrid');
-        if (grid) {
-            grid.innerHTML = '';
-            state.questions.forEach((qObj, j) => {
-                const ua = state.answers[j] ? state.answers[j].slice().sort((a, b) => a - b) : [];
-                const ca = (qObj.data && qObj.data.a) ? qObj.data.a.slice().sort((a, b) => a - b) : [];
-                const ok = JSON.stringify(ua) === JSON.stringify(ca);
-                const cell = document.createElement('div');
-                cell.className = 'q-cell ' + (ok ? 'ok' : 'ko');
-                cell.textContent = j + 1;
-                cell.onclick = () => openModal(j);
-                grid.appendChild(cell);
-            });
-        }
-
+        // ===== AFFICHER L'ÉCRAN D'ABORD, PUIS REMPLIR =====
         renderSeriesGrid();
         showScreen('screen-results');
+
+        // MAINTENANT les éléments existent dans le DOM, on peut les remplir
+        setTimeout(() => {
+            const badgeEl = document.getElementById('resultBadge');
+            if (badgeEl) badgeEl.textContent = admis ? '🎉' : '📋';
+            
+            const verdictEl = document.getElementById('resultVerdict');
+            if (verdictEl) {
+                verdictEl.textContent = admis ? 'ADMIS !' : 'AJOURNÉ';
+                verdictEl.className = 'result-verdict ' + (admis ? 'admis' : 'ajourn');
+            }
+            
+            const serieEl = document.getElementById('resultSerie');
+            if (serieEl) {
+                serieEl.textContent = (state.mode === 'exam' ? 'Test de Connaissance' : `Série ${state.series}`) + ` : ${correct}/${state.questions.length} (${errors} erreurs)`;
+            }
+
+            const sc = document.getElementById('statCorrect');
+            if (sc) sc.textContent = correct;
+            
+            const sw = document.getElementById('statWrong');
+            if (sw) sw.textContent = errors;
+            
+            const st = document.getElementById('statTime');
+            if (st) st.textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+
+            const grid = document.getElementById('questionsGrid');
+            if (grid) {
+                grid.innerHTML = '';
+                state.questions.forEach((qObj, j) => {
+                    const ua = state.answers[j] ? state.answers[j].slice().sort((a, b) => a - b) : [];
+                    const ca = (qObj.data && qObj.data.a) ? qObj.data.a.slice().sort((a, b) => a - b) : [];
+                    const ok = JSON.stringify(ua) === JSON.stringify(ca);
+                    const cell = document.createElement('div');
+                    cell.className = 'q-cell ' + (ok ? 'ok' : 'ko');
+                    cell.textContent = j + 1;
+                    cell.onclick = () => openModal(j);
+                    grid.appendChild(cell);
+                });
+            }
+        }, 100);
         
     } catch (error) {
         console.error("Erreur critique dans finishQuiz:", error);
-        // Force l'affichage de l'écran des résultats même en cas de bug de sauvegarde Firebase
         showScreen('screen-results');
     }
 }
