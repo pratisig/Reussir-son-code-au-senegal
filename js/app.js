@@ -4,7 +4,7 @@ const quizData = {
     "B2": [{"n":4,"a":[0,3]},{"n":4,"a":[1,3]},{"n":4,"a":[1,3]},{"n":2,"a":[1]},{"n":4,"a":[0,3]},{"n":2,"a":[0]},{"n":4,"a":[0,3]},{"n":2,"a":[1]},{"n":4,"a":[1,3]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":4,"a":[1,3]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":4,"a":[1,2]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[0]},{"n":4,"a":[0,2]},{"n":4,"a":[1,3]},{"n":4,"a":[1,2]}],
     "B3": [{"n":4,"a":[1,3]},{"n":4,"a":[0,2]},{"n":2,"a":[1]},{"n":4,"a":[1,3]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":4,"a":[1,2]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":4,"a":[1,2]},{"n":2,"a":[0]},{"n":4,"a":[1,3]},{"n":2,"a":[1]},{"n":4,"a":[1,2]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":4,"a":[1,2]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":3,"a":[0]},{"n":4,"a":[0,2]},{"n":4,"a":[0,3]},{"n":2,"a":[1]}],
     "B4": [{"n":4,"a":[1,3]},{"n":4,"a":[0,3]},{"n":2,"a":[1]},{"n":4,"a":[0,2]},{"n":4,"a":[0,2]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":4,"a":[1,2]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":4,"a":[1,2]},{"n":4,"a":[0,3]},{"n":3,"a":[2]},{"n":2,"a":[0]},{"n":4,"a":[1,2]},{"n":4,"a":[1,3]},{"n":4,"a":[1,2]}],
-    "B5": [{"n":4,"a":[0,3]},{"n":4,"a":[1,3]},{"n":4,"a":[1,3]},{"n":4,"a":[1,2]},{"n":4,"a":[0,3]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":4,"a":[2]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[0]},{"n":4,"a":[1,3]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[0]},{"n":4,"a":[1,2]},{"n":4,"a":[0,3]},{"n":4,"a":[0,3]}],
+    "B5": [{"n":4,"a":[0,3]},{"n":4,"a":[1,3]},{"n":4,"a":[1,3]},{"n":4,"a":[1,2]},{"n":4,"a":[0,3]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":3,"a":[2]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[0]},{"n":4,"a":[1,3]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[0]},{"n":4,"a":[1,2]},{"n":4,"a":[0,3]},{"n":4,"a":[0,3]}],
     "B6": [{"n":4,"a":[0,3]},{"n":4,"a":[1,3]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":4,"a":[0,3]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[0]},{"n":4,"a":[1,3]},{"n":4,"a":[0,2]},{"n":4,"a":[1,2]},{"n":4,"a":[0,3]},{"n":4,"a":[0,2]},{"n":2,"a":[0]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":4,"a":[0,3]}],
     "B7": [{"n":4,"a":[0,3]},{"n":4,"a":[1,3]},{"n":4,"a":[1,3]},{"n":2,"a":[0]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":4,"a":[1,3]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":4,"a":[1,2]},{"n":2,"a":[0]},{"n":2,"a":[0]},{"n":4,"a":[1,2]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":4,"a":[0,3]},{"n":4,"a":[0,2]}],
     "B8": [{"n":4,"a":[1,3]},{"n":2,"a":[0]},{"n":4,"a":[1,2]},{"n":4,"a":[1,2]},{"n":4,"a":[0,3]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":4,"a":[0,3]},{"n":2,"a":[0]},{"n":4,"a":[1,2]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":4,"a":[1,2]},{"n":2,"a":[0]},{"n":4,"a":[1,3]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[1]}],
@@ -112,17 +112,13 @@ function renderSeriesGrid() {
     grid.innerHTML = '';
     const bannerContainer = document.getElementById('expBannerContainer');
     bannerContainer.innerHTML = '';
-
     if (state.isPremium && state.premiumExpiry) {
         const expDate = state.premiumExpiry.toDate ? state.premiumExpiry.toDate() : new Date(state.premiumExpiry);
         const daysLeft = Math.ceil((expDate - new Date()) / (1000 * 60 * 60 * 24));
-        if (daysLeft <= 30) {
-            bannerContainer.innerHTML = `<div class="exp-banner">⏳ Abonnement Premium expire dans <strong>${daysLeft} jours</strong> (${expDate.toLocaleDateString('fr-SN')})</div>`;
-        } else {
-            bannerContainer.innerHTML = `<div class="exp-banner">⭐ Premium actif jusqu'au ${expDate.toLocaleDateString('fr-SN')}</div>`;
-        }
+        bannerContainer.innerHTML = daysLeft <= 30
+            ? `<div class="exp-banner">⏳ Abonnement Premium expire dans <strong>${daysLeft} jours</strong> (${expDate.toLocaleDateString('fr-SN')})</div>`
+            : `<div class="exp-banner">⭐ Premium actif jusqu'au ${expDate.toLocaleDateString('fr-SN')}</div>`;
     }
-
     Object.keys(quizData).forEach(s => {
         const isFree = FREE_SERIES.includes(s);
         const isLocked = !isFree && !state.isPremium;
@@ -165,13 +161,10 @@ function renderRevision() {
     mistakes.forEach(m => { if (!grouped[m.series]) grouped[m.series] = []; grouped[m.series].push(m.qNum); });
     let html = `<div class="info-box">📊 Total : <strong>${mistakes.length} erreurs</strong> à revoir</div>`;
     Object.keys(grouped).sort().forEach(s => {
-        const isFree = FREE_SERIES.includes(s);
-        const isLocked = !isFree && !state.isPremium;
-        if (isLocked) {
-            html += `<div class="stat-card" style="opacity:0.6;cursor:not-allowed;"><div style="font-weight:700;font-size:1.1rem;margin-bottom:.5rem;">${s} 🔒</div><div style="color:var(--text-muted);font-size:.85rem;">${grouped[s].length} erreurs (Premium requis)</div></div>`;
-        } else {
-            html += `<div class="stat-card" style="cursor:pointer;" onclick="startRevisionMode('${s}')"><div style="font-weight:700;font-size:1.1rem;margin-bottom:.5rem;">${s}</div><div style="color:var(--error);font-size:.85rem;">${grouped[s].length} erreurs à revoir</div></div>`;
-        }
+        const isLocked = !FREE_SERIES.includes(s) && !state.isPremium;
+        html += isLocked
+            ? `<div class="stat-card" style="opacity:0.6;cursor:not-allowed;"><div style="font-weight:700;font-size:1.1rem;margin-bottom:.5rem;">${s} 🔒</div><div style="color:var(--text-muted);font-size:.85rem;">${grouped[s].length} erreurs (Premium requis)</div></div>`
+            : `<div class="stat-card" style="cursor:pointer;" onclick="startRevisionMode('${s}')"><div style="font-weight:700;font-size:1.1rem;margin-bottom:.5rem;">${s}</div><div style="color:var(--error);font-size:.85rem;">${grouped[s].length} erreurs à revoir</div></div>`;
     });
     container.innerHTML = html;
 }
@@ -185,67 +178,46 @@ function startRevisionMode(series) {
                 if (!seriesData[idx]) return;
                 const correct = seriesData[idx].a.slice().sort().toString();
                 const user = ua.slice().sort().toString();
-                if (correct !== user && !mistakes.find(m => m.qNum === idx + 1)) {
+                if (correct !== user && !mistakes.find(m => m.qNum === idx + 1))
                     mistakes.push({ series, qNum: idx + 1, data: seriesData[idx] });
-                }
             });
         }
     });
-    if (mistakes.length === 0) { alert('Aucune erreur à revoir pour cette série !'); return; }
-    state.mode = 'revision';
-    state.series = series;
-    state.questions = mistakes;
-    state.qIndex = 0;
-    state.answers = mistakes.map(() => []);
-    state.locked = mistakes.map(() => false);
-    state.startTime = Date.now();
-    document.getElementById('quizSerieName').textContent = `📔 Révision ${series}`;
-    document.getElementById('qTotal').textContent = mistakes.length;
-    clearInterval(state.timerInterval);
-    state.timerInterval = setInterval(updateTimer, 1000);
-    showScreen('screen-quiz');
-    renderQuestion();
+    if (mistakes.length === 0) { alert('Aucune erreur à revoir !'); return; }
+    _startQuizSession('revision', series, mistakes);
 }
 
 // ========== TEST DE CONNAISSANCE ==========
 function startExamBlanc() {
     const allQuestions = [];
     Object.keys(quizData).forEach(s => {
-        const isFree = FREE_SERIES.includes(s);
-        if (isFree || state.isPremium) {
+        if (FREE_SERIES.includes(s) || state.isPremium)
             quizData[s].forEach((q, idx) => allQuestions.push({ series: s, qNum: idx + 1, data: q }));
-        }
     });
     if (allQuestions.length < 25) { alert('⚠️ Pas assez de questions. Abonnez-vous Premium.'); return; }
     const shuffled = allQuestions.sort(() => Math.random() - 0.5).slice(0, 25);
-    state.mode = 'exam';
-    state.series = 'EXAM';
-    state.questions = shuffled;
-    state.qIndex = 0;
-    state.answers = shuffled.map(() => []);
-    state.locked = shuffled.map(() => false);
-    state.startTime = Date.now();
-    document.getElementById('quizSerieName').textContent = '🎯 Test de Connaissance';
-    document.getElementById('qTotal').textContent = 25;
-    clearInterval(state.timerInterval);
-    state.timerInterval = setInterval(updateTimer, 1000);
-    showScreen('screen-quiz');
-    renderQuestion();
+    _startQuizSession('exam', 'EXAM', shuffled);
 }
 
 // ========== QUIZ NORMAL ==========
 function startQuiz(series) {
     if (!canAccessSeries(series, state.isPremium)) { showPremiumModal(series); return; }
     const questions = quizData[series].map((q, idx) => ({ series, qNum: idx + 1, data: q }));
-    state.mode = 'normal';
+    _startQuizSession('normal', series, questions);
+}
+
+// ========== SESSION COMMUNE ==========
+function _startQuizSession(mode, series, questions) {
+    state.mode = mode;
     state.series = series;
     state.questions = questions;
     state.qIndex = 0;
     state.answers = questions.map(() => []);
     state.locked = questions.map(() => false);
     state.startTime = Date.now();
-    document.getElementById('quizSerieName').textContent = `Série ${series}`;
-    document.getElementById('qTotal').textContent = 25;
+    const labels = { revision: `📔 Révision ${series}`, exam: '🎯 Test de Connaissance', normal: `Série ${series}` };
+    document.getElementById('quizSerieName').textContent = labels[mode];
+    document.getElementById('qTotal').textContent = questions.length;
     clearInterval(state.timerInterval);
     state.timerInterval = setInterval(updateTimer, 1000);
     showScreen('screen-quiz');
@@ -272,9 +244,11 @@ function renderQuestion() {
     const locked = state.locked[i];
     const isMulti = q.a.length > 1;
     const currentSel = state.answers[i];
+    const isLast = (i === state.questions.length - 1);
 
     document.getElementById('progressBar').style.width = ((i + 1) / state.questions.length * 100) + '%';
     document.getElementById('qNum').textContent = i + 1;
+    document.getElementById('alertAnswer').classList.remove('show');
 
     // Hint multi-choix
     const hintEl = document.getElementById('hintMulti');
@@ -282,7 +256,7 @@ function renderQuestion() {
         hintEl.style.display = 'block';
         const hasTop = currentSel.some(x => x <= 1);
         const hasBot = currentSel.some(x => x >= 2);
-        if (currentSel.length === 0) hintEl.textContent = 'ℹ️ Choisissez 1 réponse en haut (A/B) ET 1 en bas (C/D)';
+        if (currentSel.length === 0)           hintEl.textContent = 'ℹ️ Choisissez 1 réponse en haut (A/B) ET 1 en bas (C/D)';
         else if (currentSel.length === 1 && hasTop) hintEl.textContent = '👇 Choisissez maintenant une réponse en bas (C ou D)';
         else if (currentSel.length === 1 && hasBot) hintEl.textContent = '👆 Choisissez maintenant une réponse en haut (A ou B)';
         else hintEl.textContent = '✅ 2 réponses sélectionnées — cliquez Valider';
@@ -295,7 +269,6 @@ function renderQuestion() {
     imgEl.src = `images/${qObj.series}_Q${qObj.qNum}.jpg`;
     imgEl.style.display = 'block';
     document.getElementById('imgPlaceholder').style.display = 'none';
-    document.getElementById('alertAnswer').classList.remove('show');
 
     // Options
     const container = document.getElementById('optionsContainer');
@@ -325,42 +298,40 @@ function renderQuestion() {
         container.appendChild(div);
     }
 
-    // ===== BOUTON SUIVANT / VALIDER =====
-    // On utilise onclick direct (pas cloneNode) pour eviter les bugs mobile
+    // ===== BOUTON PRINCIPAL =====
+    // Logique simplifiee : pas de re-render intermediaire sur la derniere question
+    // Valider sur derniere question -> verrouille ET lance finishQuiz directement
     const btn = document.getElementById('nextBtn');
-    const isLast = (i === state.questions.length - 1);
-
     if (isLast) {
-        btn.textContent = locked ? '🏁 Voir les résultats' : 'Valider & Terminer';
-        btn.onclick = function() {
-            if (locked) {
-                finishQuiz();
-            } else {
-                const cur = state.qIndex;
-                if (state.answers[cur].length === 0) {
+        if (locked) {
+            btn.textContent = '🏁 Voir les résultats';
+            btn.onclick = finishQuiz;
+        } else {
+            btn.textContent = 'Valider & Terminer';
+            btn.onclick = function() {
+                if (state.answers[state.qIndex].length === 0) {
                     document.getElementById('alertAnswer').classList.add('show');
                     return;
                 }
-                state.locked[cur] = true;
-                renderQuestion(); // re-render pour afficher correction
-                // Apres re-render le bouton dit maintenant "Voir les resultats"
-            }
-        };
+                state.locked[state.qIndex] = true;
+                finishQuiz(); // on va directement aux resultats, pas de re-render
+            };
+        }
     } else {
-        btn.textContent = locked ? 'Suivant →' : 'Valider';
-        btn.onclick = function() {
-            if (locked) {
-                goNext();
-            } else {
-                const cur = state.qIndex;
-                if (state.answers[cur].length === 0) {
+        if (locked) {
+            btn.textContent = 'Suivant →';
+            btn.onclick = goNext;
+        } else {
+            btn.textContent = 'Valider';
+            btn.onclick = function() {
+                if (state.answers[state.qIndex].length === 0) {
                     document.getElementById('alertAnswer').classList.add('show');
                     return;
                 }
-                state.locked[cur] = true;
+                state.locked[state.qIndex] = true;
                 renderQuestion();
-            }
-        };
+            };
+        }
     }
 }
 
@@ -420,13 +391,12 @@ function finishQuiz() {
         saveProgress();
     }
 
-    const historyEntry = {
+    state.history.push({
         series: state.mode === 'exam' ? 'Test de Connaissance' : state.series,
         score: correct, errors, admis, time: total,
         date: new Date(),
         userAnswers: state.answers
-    };
-    state.history.push(historyEntry);
+    });
     saveHistory();
 
     document.getElementById('resultBadge').textContent = admis ? '🎉' : '📋';
