@@ -78,7 +78,9 @@ function saveProgress() {
 
 function saveHistory() {
     if (typeof auth !== 'undefined' && auth.currentUser) {
-        db.collection('users').doc(auth.currentUser.uid).set({ history: state.history }, { merge: true }).catch(e => console.warn('save history error:', e));
+        db.collection('users').doc(auth.currentUser.uid)
+            .set({ history: state.history }, { merge: true })
+            .catch(e => console.warn('save history error:', e));
     }
 }
 
@@ -95,6 +97,12 @@ function handleLogout() {
 function initApp() {
     renderSeriesGrid();
     showScreen('screen-welcome');
+    
+    // Attacher l'événement du bouton principal UNE SEULE FOIS
+    const nextBtn = document.getElementById('nextBtn');
+    if (nextBtn) {
+        nextBtn.onclick = handleNextBtnClick;
+    }
 }
 
 function showScreen(id) {
@@ -298,42 +306,43 @@ function renderQuestion() {
         container.appendChild(div);
     }
 
-    // ===== BOUTON PRINCIPAL — réassigné à chaque render =====
+    // ===== BOUTON PRINCIPAL — on ne fait que mettre à jour son texte =====
     const btn = document.getElementById('nextBtn');
+    if (isLast) {
+        btn.textContent = locked ? '🏁 Voir les résultats' : 'Valider & Terminer';
+    } else {
+        btn.textContent = locked ? 'Suivant →' : 'Valider';
+    }
+}
+
+// ===== GESTIONNAIRE GLOBAL DU CLIC "SUIVANT" =====
+function handleNextBtnClick() {
+    if (!state.questions || state.questions.length === 0) return;
+    
+    const isLast = (state.qIndex === state.questions.length - 1);
+    const locked = state.locked[state.qIndex];
 
     if (isLast) {
-        // Dernière question
         if (locked) {
-            // Déjà validée (ex: retour arrière puis retour) → accès direct aux résultats
-            btn.textContent = '🏁 Voir les résultats';
-            btn.onclick = function() { finishQuiz(); };
+            finishQuiz();
         } else {
-            // Pas encore validée → Valider & Terminer
-            btn.textContent = 'Valider & Terminer';
-            btn.onclick = function() {
-                if (state.answers[state.qIndex].length === 0) {
-                    document.getElementById('alertAnswer').classList.add('show');
-                    return;
-                }
-                state.locked[state.qIndex] = true;
-                finishQuiz(); // direct, sans re-render intermédiaire
-            };
+            if (!state.answers[state.qIndex] || state.answers[state.qIndex].length === 0) {
+                document.getElementById('alertAnswer').classList.add('show');
+                return;
+            }
+            state.locked[state.qIndex] = true;
+            finishQuiz();
         }
     } else {
-        // Questions intermédiaires
         if (locked) {
-            btn.textContent = 'Suivant →';
-            btn.onclick = function() { goNext(); };
+            goNext();
         } else {
-            btn.textContent = 'Valider';
-            btn.onclick = function() {
-                if (state.answers[state.qIndex].length === 0) {
-                    document.getElementById('alertAnswer').classList.add('show');
-                    return;
-                }
-                state.locked[state.qIndex] = true;
-                renderQuestion(); // re-render pour afficher la correction
-            };
+            if (!state.answers[state.qIndex] || state.answers[state.qIndex].length === 0) {
+                document.getElementById('alertAnswer').classList.add('show');
+                return;
+            }
+            state.locked[state.qIndex] = true;
+            renderQuestion();
         }
     }
 }
@@ -366,7 +375,6 @@ function goNext() {
     }
 }
 
-// prevQuestion reappelle renderQuestion → texte + comportement du bouton toujours à jour
 function prevQuestion() {
     if (state.qIndex > 0) {
         state.qIndex--;
@@ -376,56 +384,78 @@ function prevQuestion() {
 
 // ========== FINISH ==========
 function finishQuiz() {
-    clearInterval(state.timerInterval);
-    const total = Math.floor((Date.now() - state.startTime) / 1000);
-    const m = Math.floor(total / 60), s = total % 60;
+    try {
+        clearInterval(state.timerInterval);
+        const total = Math.floor((Date.now() - state.startTime) / 1000);
+        const m = Math.floor(total / 60), s = total % 60;
 
-    let correct = 0;
-    state.questions.forEach((qObj, i) => {
-        const ua = state.answers[i].slice().sort((a, b) => a - b);
-        const ca = qObj.data.a.slice().sort((a, b) => a - b);
-        if (JSON.stringify(ua) === JSON.stringify(ca)) correct++;
-    });
+        let correct = 0;
+        state.questions.forEach((qObj, i) => {
+            const ua = state.answers[i] ? state.answers[i].slice().sort((a, b) => a - b) : [];
+            const ca = (qObj.data && qObj.data.a) ? qObj.data.a.slice().sort((a, b) => a - b) : [];
+            if (JSON.stringify(ua) === JSON.stringify(ca)) correct++;
+        });
 
-    const errors = state.questions.length - correct;
-    const admis = errors <= 6;
+        const errors = state.questions.length - correct;
+        const admis = errors <= 6;
 
-    if (state.mode === 'normal') {
-        state.progress[state.series] = { score: correct, admis };
-        saveProgress();
+        if (state.mode === 'normal') {
+            state.progress[state.series] = { score: correct, admis };
+            saveProgress();
+        }
+
+        // L'ERREUR ÉTAIT ICI : Firebase Firestore plante souvent silencieusement 
+        // quand on essaie de sauvegarder un objet Date() natif dans un tableau imbriqué.
+        // Utiliser Date.now() (un timestamp entier) résout ce problème.
+        state.history.push({
+            series: state.mode === 'exam' ? 'Test de Connaissance' : state.series,
+            score: correct, errors, admis, time: total,
+            date: Date.now(),
+            userAnswers: state.answers
+        });
+        saveHistory();
+
+        const badgeEl = document.getElementById('resultBadge');
+        if (badgeEl) badgeEl.textContent = admis ? '🎉' : '📋';
+        
+        const verdictEl = document.getElementById('resultVerdict');
+        if (verdictEl) {
+            verdictEl.textContent = admis ? 'ADMIS !' : 'AJOURNÉ';
+            verdictEl.className = 'result-verdict ' + (admis ? 'admis' : 'ajourn');
+        }
+        
+        const serieEl = document.getElementById('resultSerie');
+        if (serieEl) {
+            serieEl.textContent = (state.mode === 'exam' ? 'Test de Connaissance' : `Série ${state.series}`) + ` : ${correct}/${state.questions.length} (${errors} erreurs)`;
+        }
+
+        const sc = document.getElementById('statCorrect'); if(sc) sc.textContent = correct;
+        const sw = document.getElementById('statWrong'); if(sw) sw.textContent = errors;
+        const st = document.getElementById('statTime'); if(st) st.textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+
+        const grid = document.getElementById('questionsGrid');
+        if (grid) {
+            grid.innerHTML = '';
+            state.questions.forEach((qObj, j) => {
+                const ua = state.answers[j] ? state.answers[j].slice().sort((a, b) => a - b) : [];
+                const ca = (qObj.data && qObj.data.a) ? qObj.data.a.slice().sort((a, b) => a - b) : [];
+                const ok = JSON.stringify(ua) === JSON.stringify(ca);
+                const cell = document.createElement('div');
+                cell.className = 'q-cell ' + (ok ? 'ok' : 'ko');
+                cell.textContent = j + 1;
+                cell.onclick = () => openModal(j);
+                grid.appendChild(cell);
+            });
+        }
+
+        renderSeriesGrid();
+        showScreen('screen-results');
+        
+    } catch (error) {
+        console.error("Erreur critique dans finishQuiz:", error);
+        // Force l'affichage de l'écran des résultats même en cas de bug de sauvegarde Firebase
+        showScreen('screen-results');
     }
-
-    state.history.push({
-        series: state.mode === 'exam' ? 'Test de Connaissance' : state.series,
-        score: correct, errors, admis, time: total,
-        date: new Date(),
-        userAnswers: state.answers
-    });
-    saveHistory();
-
-    document.getElementById('resultBadge').textContent = admis ? '🎉' : '📋';
-    document.getElementById('resultVerdict').textContent = admis ? 'ADMIS !' : 'AJOURNÉ';
-    document.getElementById('resultVerdict').className = 'result-verdict ' + (admis ? 'admis' : 'ajourn');
-    document.getElementById('resultSerie').textContent = (state.mode === 'exam' ? 'Test de Connaissance' : `Série ${state.series}`) + ` : ${correct}/${state.questions.length} (${errors} erreurs)`;
-    document.getElementById('statCorrect').textContent = correct;
-    document.getElementById('statWrong').textContent = errors;
-    document.getElementById('statTime').textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
-
-    const grid = document.getElementById('questionsGrid');
-    grid.innerHTML = '';
-    state.questions.forEach((qObj, j) => {
-        const ua = state.answers[j].slice().sort((a, b) => a - b);
-        const ca = qObj.data.a.slice().sort((a, b) => a - b);
-        const ok = JSON.stringify(ua) === JSON.stringify(ca);
-        const cell = document.createElement('div');
-        cell.className = 'q-cell ' + (ok ? 'ok' : 'ko');
-        cell.textContent = j + 1;
-        cell.onclick = () => openModal(j);
-        grid.appendChild(cell);
-    });
-
-    renderSeriesGrid();
-    showScreen('screen-results');
 }
 
 function openModal(qIndex) {
