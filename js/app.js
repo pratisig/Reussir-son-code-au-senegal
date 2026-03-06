@@ -1,6 +1,6 @@
 // ========== QUIZ DATA ==========
 const quizData = {
-    "B1": [{"n":4,"a":[1,3]},{"n":4,"a":[0,3]},{"n":2,"a":[0]},{"n":4,"a":[1,2]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":4,"a":[0,3]},{"n":2,"a":[1]},{"n":4,"a":[2]},{"n":4,"a":[1,2]},{"n":4,"a":[0,3]},{"n":4,"a":[0,2]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[1]}],
+    "B1": [{"n":4,"a":[1,3]},{"n":4,"a":[0,3]},{"n":2,"a":[0]},{"n":4,"a":[1,2]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":4,"a":[0,3]},{"n":2,"a":[1]},{"n":3,"a":[2]},{"n":4,"a":[1,2]},{"n":4,"a":[0,3]},{"n":4,"a":[0,2]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[1]}],
     "B2": [{"n":4,"a":[0,3]},{"n":4,"a":[1,3]},{"n":4,"a":[1,3]},{"n":2,"a":[1]},{"n":4,"a":[0,3]},{"n":2,"a":[0]},{"n":4,"a":[0,3]},{"n":2,"a":[1]},{"n":4,"a":[1,3]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":4,"a":[1,3]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":4,"a":[1,2]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[0]},{"n":4,"a":[0,2]},{"n":4,"a":[1,3]},{"n":4,"a":[1,2]}],
     "B3": [{"n":4,"a":[1,3]},{"n":4,"a":[0,2]},{"n":2,"a":[1]},{"n":4,"a":[1,3]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":4,"a":[1,2]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":4,"a":[1,2]},{"n":2,"a":[0]},{"n":4,"a":[1,3]},{"n":2,"a":[1]},{"n":4,"a":[1,2]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":4,"a":[1,2]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":3,"a":[0]},{"n":4,"a":[0,2]},{"n":4,"a":[0,3]},{"n":2,"a":[1]}],
     "B4": [{"n":4,"a":[1,3]},{"n":4,"a":[0,3]},{"n":2,"a":[1]},{"n":4,"a":[0,2]},{"n":4,"a":[0,2]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":4,"a":[1,2]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":2,"a":[1]},{"n":2,"a":[1]},{"n":2,"a":[0]},{"n":4,"a":[1,2]},{"n":4,"a":[0,3]},{"n":4,"a":[2]},{"n":2,"a":[0]},{"n":4,"a":[1,2]},{"n":4,"a":[1,3]},{"n":4,"a":[1,2]}],
@@ -398,17 +398,36 @@ function renderQuestion() {
         container.appendChild(div);
     }
 
+    // ===== GESTION BOUTON NEXT =====
     const nextBtn = document.getElementById('nextBtn');
+    // Supprimer tous les anciens listeners en clonant le bouton
+    const newBtn = nextBtn.cloneNode(true);
+    nextBtn.parentNode.replaceChild(newBtn, nextBtn);
+
     const isLastQuestion = i === state.questions.length - 1;
-    
+
     if (isLastQuestion) {
-        // Dernière question : un seul bouton qui fait tout
-        nextBtn.textContent = 'Valider & Terminer';
-        nextBtn.onclick = validateAndFinish;
+        newBtn.textContent = locked ? '🏁 Voir les résultats' : 'Valider & Terminer';
+        if (locked) {
+            newBtn.addEventListener('click', finishQuiz);
+        } else {
+            newBtn.addEventListener('click', function() {
+                const idx = state.qIndex;
+                if (state.answers[idx].length === 0) {
+                    document.getElementById('alertAnswer').classList.add('show');
+                    return;
+                }
+                state.locked[idx] = true;
+                finishQuiz();
+            });
+        }
     } else {
-        // Questions intermédiaires : deux comportements
-        nextBtn.textContent = locked ? 'Suivant →' : 'Valider';
-        nextBtn.onclick = locked ? goNext : validateAndNext;
+        newBtn.textContent = locked ? 'Suivant →' : 'Valider';
+        if (locked) {
+            newBtn.addEventListener('click', goNext);
+        } else {
+            newBtn.addEventListener('click', validateAndNext);
+        }
     }
 }
 
@@ -442,17 +461,6 @@ function validateAndNext() {
     }
     state.locked[i] = true;
     renderQuestion();
-}
-
-function validateAndFinish() {
-    const i = state.qIndex;
-    if (state.answers[i].length === 0) {
-        document.getElementById('alertAnswer').classList.add('show');
-        return;
-    }
-    // Verrouiller la dernière question et terminer directement
-    state.locked[i] = true;
-    finishQuiz();
 }
 
 function goNext() {
