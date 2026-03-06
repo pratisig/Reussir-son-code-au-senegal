@@ -399,10 +399,14 @@ function renderQuestion() {
     }
 
     const nextBtn = document.getElementById('nextBtn');
-    if (i === state.questions.length - 1) {
-        nextBtn.textContent = locked ? 'Voir les résultats' : 'Valider & Terminer';
-        nextBtn.onclick = locked ? finishQuiz : validateAndNext;
+    const isLastQuestion = i === state.questions.length - 1;
+    
+    if (isLastQuestion) {
+        // Dernière question : un seul bouton qui fait tout
+        nextBtn.textContent = 'Valider & Terminer';
+        nextBtn.onclick = validateAndFinish;
     } else {
+        // Questions intermédiaires : deux comportements
         nextBtn.textContent = locked ? 'Suivant →' : 'Valider';
         nextBtn.onclick = locked ? goNext : validateAndNext;
     }
@@ -437,14 +441,18 @@ function validateAndNext() {
         return;
     }
     state.locked[i] = true;
-    
-    // Si c'est la dernière question, terminer automatiquement
-    if (i === state.questions.length - 1) {
-        finishQuiz();
-        return; // CORRECTION: Empêche l'appel à renderQuestion() après finishQuiz()
-    }
-    
     renderQuestion();
+}
+
+function validateAndFinish() {
+    const i = state.qIndex;
+    if (state.answers[i].length === 0) {
+        document.getElementById('alertAnswer').classList.add('show');
+        return;
+    }
+    // Verrouiller la dernière question et terminer directement
+    state.locked[i] = true;
+    finishQuiz();
 }
 
 function goNext() {
