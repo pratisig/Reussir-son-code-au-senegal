@@ -44,7 +44,6 @@ window.addEventListener('load', function() {
             if (!_appReady) {
                 await loadUserData(user.uid);
             } else {
-                // Re-auth silencieux : juste raffraichir le statut premium
                 try {
                     var r = await checkAndRegisterDevice(user.uid);
                     if (r.ok) { state.isPremium = r.premium === true; }
@@ -249,7 +248,6 @@ function renderQuestion() {
     var currentSel = state.answers[i] || [];
     var isLast = (i === state.questions.length - 1);
 
-    // Barre de progression
     var pb = document.getElementById('progressBar');
     if (pb) pb.style.width = ((i+1)/state.questions.length*100) + '%';
     var qn = document.getElementById('qNum');
@@ -257,7 +255,6 @@ function renderQuestion() {
     var al = document.getElementById('alertAnswer');
     if (al) al.classList.remove('show');
 
-    // Indice multi-reponse
     var hintEl = document.getElementById('hintMulti');
     if (hintEl) {
         if (isMulti && !locked) {
@@ -273,13 +270,11 @@ function renderQuestion() {
         }
     }
 
-    // Image
     var imgEl = document.getElementById('questionImg');
     if (imgEl) { imgEl.src = 'images/'+qObj.series+'_Q'+qObj.qNum+'.jpg'; imgEl.style.display='block'; }
     var ph = document.getElementById('imgPlaceholder');
     if (ph) ph.style.display = 'none';
 
-    // Options
     var container = document.getElementById('optionsContainer');
     if (container) {
         container.innerHTML = '';
@@ -313,7 +308,6 @@ function renderQuestion() {
         }
     }
 
-    // Bouton principal - REASSIGNE a chaque render
     var btn = document.getElementById('nextBtn');
     if (btn) {
         btn.onclick = handleNextBtnClick;
@@ -325,38 +319,40 @@ function renderQuestion() {
     }
 }
 
-// ========== LOGIQUE BOUTON ==========
-// Flux : 1er clic = valider+feedback, 2eme clic = avancer/resultats
+// ========== BOUTON PRINCIPAL ==========
 function handleNextBtnClick() {
     if (!state.questions || !state.questions.length) return;
     var i = state.qIndex;
     var isLast = (i === state.questions.length - 1);
-    var locked = state.locked[i];
+    var wasLocked = state.locked[i];
 
-    if (!locked) {
-        // === ETAPE 1 : valider la reponse et afficher le feedback ===
+    // Etape 1 : si pas encore valide, valider d'abord
+    if (!wasLocked) {
         var ans = state.answers[i];
         if (!ans || ans.length === 0) {
             var al = document.getElementById('alertAnswer');
             if (al) al.classList.add('show');
             return;
         }
-        state.locked[i] = true;  // verrouillee
-        renderQuestion();         // affiche correct/incorrect en vert/rouge
-        // Le bouton devient maintenant "Voir les resultats" ou "Suivant"
+        state.locked[i] = true;
+    }
+
+    // Etape 2 : naviguer
+    if (isLast) {
+        // DERNIERE QUESTION : toujours aller aux resultats (1 ou 2 clics)
+        finishQuiz();
+    } else if (wasLocked) {
+        // Question intermediaire deja validee : question suivante
+        goNext();
     } else {
-        // === ETAPE 2 : avancer ou afficher les resultats ===
-        if (isLast) {
-            finishQuiz();
-        } else {
-            goNext();
-        }
+        // Question intermediaire qu'on vient de valider : afficher le feedback
+        renderQuestion();
     }
 }
 
 function toggleOption(idx) {
     var i = state.qIndex;
-    if (state.locked[i]) return; // securite : ignorer si deja verrouille
+    if (state.locked[i]) return;
     var q = state.questions[i].data;
     var arr = state.answers[i];
     var pos = arr.indexOf(idx);
@@ -392,69 +388,70 @@ function prevQuestion() {
 
 // ========== FIN DE SERIE ==========
 function finishQuiz() {
+    // Stopper le timer en premier
     clearInterval(state.timerInterval);
 
-    // 1. Calcul du temps
+    // ---- Calculs ----
     var total = Math.floor((Date.now() - state.startTime) / 1000);
     var mm = String(Math.floor(total / 60)).padStart(2, '0');
     var ss = String(total % 60).padStart(2, '0');
-
-    // 2. Calcul du score
-    var correct = 0;
     var N = state.questions.length;
+    var correct = 0;
     for (var i = 0; i < N; i++) {
         var ua = (state.answers[i] || []).slice().sort(function(a,b){return a-b;});
-        var ca = (state.questions[i].data.a || []).slice().sort(function(a,b){return a-b;});
+        var ca = ((state.questions[i].data || {}).a || []).slice().sort(function(a,b){return a-b;});
         if (JSON.stringify(ua) === JSON.stringify(ca)) correct++;
     }
     var errors = N - correct;
     var admis = errors <= 6;
 
-    // 3. Sauvegarde
-    if (state.mode === 'normal') {
-        state.progress[state.series] = { score: correct, admis: admis };
-        saveProgress();
-    }
-    state.history.push({
-        series: state.mode === 'exam' ? 'Test de Connaissance' : state.series,
-        score: correct, errors: errors, admis: admis, time: total,
-        date: Date.now(), userAnswers: state.answers.map(function(a){ return a.slice(); })
-    });
-    saveHistory();
-    renderSeriesGrid();
+    // ---- Sauvegarde (non-bloquante) ----
+    try {
+        if (state.mode === 'normal') {
+            state.progress[state.series] = { score: correct, admis: admis };
+            saveProgress();
+        }
+        var snap = state.answers.map(function(a){ return (a||[]).slice(); });
+        state.history.push({
+            series: state.mode === 'exam' ? 'Test de Connaissance' : state.series,
+            score: correct, errors: errors, admis: admis, time: total,
+            date: Date.now(), userAnswers: snap
+        });
+        saveHistory();
+    } catch(saveErr) { console.warn('Erreur sauvegarde:', saveErr); }
 
-    // 4. Afficher l'ecran des resultats
+    // ---- Affichage resultats (priorite absolue) ----
     showScreen('screen-results');
 
-    // 5. Remplir les statistiques  (les elements sont toujours dans le DOM)
-    var badge = document.getElementById('resultBadge');
-    if (badge) badge.textContent = admis ? '\uD83C\uDF89' : '\uD83D\uDCCB';
+    // Score
+    var sc = document.getElementById('statCorrect');
+    var sw = document.getElementById('statWrong');
+    var st = document.getElementById('statTime');
+    if (sc) sc.textContent = correct;
+    if (sw) sw.textContent = errors;
+    if (st) st.textContent = mm + ':' + ss;
 
+    // Verdict
     var verdict = document.getElementById('resultVerdict');
     if (verdict) {
         verdict.textContent = admis ? 'ADMIS !' : 'AJOURNE';
         verdict.className = 'result-verdict ' + (admis ? 'admis' : 'ajourn');
     }
-
-    var serie = document.getElementById('resultSerie');
-    if (serie) {
-        serie.textContent = (state.mode==='exam' ? 'Test de Connaissance' : 'Serie '+state.series)
+    var serieEl = document.getElementById('resultSerie');
+    if (serieEl) {
+        serieEl.textContent = (state.mode==='exam' ? 'Test de Connaissance' : 'Serie '+state.series)
             + ' : ' + correct + '/' + N + ' (' + errors + ' erreur' + (errors>1?'s':'') + ')';
     }
 
-    var sc = document.getElementById('statCorrect'); if (sc) sc.textContent = correct;
-    var sw = document.getElementById('statWrong');   if (sw) sw.textContent = errors;
-    var st = document.getElementById('statTime');    if (st) st.textContent = mm + ':' + ss;
-
-    // 6. Grille des questions
+    // Grille des questions
     var grid = document.getElementById('questionsGrid');
     if (grid) {
         grid.innerHTML = '';
         for (var j = 0; j < N; j++) {
             (function(j){
-                var ua = (state.answers[j]||[]).slice().sort(function(a,b){return a-b;});
-                var ca = (state.questions[j].data.a||[]).slice().sort(function(a,b){return a-b;});
-                var ok = JSON.stringify(ua) === JSON.stringify(ca);
+                var ua2 = (state.answers[j]||[]).slice().sort(function(a,b){return a-b;});
+                var ca2 = ((state.questions[j].data||{}).a||[]).slice().sort(function(a,b){return a-b;});
+                var ok = JSON.stringify(ua2) === JSON.stringify(ca2);
                 var cell = document.createElement('div');
                 cell.className = 'q-cell ' + (ok ? 'ok' : 'ko');
                 cell.textContent = j + 1;
@@ -463,9 +460,12 @@ function finishQuiz() {
             })(j);
         }
     }
+
+    // Mise a jour grille series (non-critique, en dernier)
+    try { renderSeriesGrid(); } catch(e) { console.warn('renderSeriesGrid:', e); }
 }
 
-// ========== MODAL CORRECTION ==========
+// ========== MODAL ==========
 function openModal(qIndex) {
     var qObj = state.questions[qIndex]; if (!qObj) return;
     var q = qObj.data;
